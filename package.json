@@ -1,0 +1,70 @@
+{
+  "name": "alpha-auth",
+  "version": "1.0.0",
+  "description": "",
+  "author": "aSh <ash.uncover@gmail.com>",
+  "license": "ISC",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "standard --verbose | snazzy",
+    "test": "jest",
+    "test-coverage": "jest --collectCoverage",
+    "test-update": "jest --updateSnapshot",
+    "start": "webpack serve --config webpack.config.js",
+    "watch": "webpack serve --config webpack.config.js --progress --mode development"
+  },
+  "dependencies": {
+    "@uncover/js-utils": "latest",
+    "@uncover/js-utils-logger": "latest",
+    "@uncover/react-commons": "latest",
+    "i18next": "latest",
+    "i18next-browser-languagedetector": "latest",
+    "i18next-http-backend": "latest",
+    "immer": "latest",
+    "node-sass": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "react-i18next": "latest",
+    "react-redux": "latest",
+    "react-router-dom": "latest",
+    "redux": "latest"
+  },
+  "devDependencies": {
+    "@babel/core": "latest",
+    "@babel/preset-env": "latest",
+    "@babel/preset-react": "latest",
+    "babel-eslint": "latest",
+    "babel-jest": "latest",
+    "babel-loader": "latest",
+    "css-loader": "latest",
+    "file-loader": "latest",
+    "jest": "latest",
+    "react-test-renderer": "latest",
+    "sass-loader": "latest",
+    "snazzy": "latest",
+    "standard": "latest",
+    "style-loader": "latest",
+    "webpack": "latest",
+    "webpack-cli": "latest",
+    "webpack-dev-server": "latest"
+  },
+  "standard": {
+    "parser": "babel-eslint",
+    "env": [
+      "jest"
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app",
+    "env": {
+      "node": true,
+      "jest": true
+    }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}

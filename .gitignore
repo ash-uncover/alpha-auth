@@ -1,8 +1,5 @@
-# dependencies
 **/node_modules
-
-# testing
 __coverage__
-
-# production
 /build
+.deployment
+.vscode

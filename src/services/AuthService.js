@@ -1,6 +1,7 @@
 /* globals fetch, Headers */
 
 import { actions as AuthActions } from 'store/auth'
+import CONFIG from 'configuration'
 
 export const authGet = async (dispatch, { username, password }) => {
   dispatch(AuthActions.authLogonFetch(username, password))
@@ -10,7 +11,7 @@ export const authGet = async (dispatch, { username, password }) => {
   headers.append('Authorization', token)
 
   return fetch(
-    'http://localhost:8090/auth',
+    `${CONFIG.ALPHA_AUTH_REST_URL}/auth`,
     {
       method: 'GET',
       headers

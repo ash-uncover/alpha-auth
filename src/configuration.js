@@ -13,13 +13,18 @@ try {
     CONFIG[key] = CONFIG_LOCAL[key] || CONFIG[key]
   })
 } catch (error) {
-  LOGGER.warn('Failed to load config.json')
+  LOGGER.warn('Failed to load from config.json')
 }
 
 // Load config from env
-Object.keys(CONFIG).forEach((key) => {
-  CONFIG[key] = process.env[key] || CONFIG[key]
-})
+try {
+  Object.keys(CONFIG).forEach((key) => {
+    CONFIG[key] = process.env[key] || CONFIG[key]
+  })
+} catch (error) {
+  LOGGER.warn('Failed to load from process.env')
+}
+
 
 console.log('== -----------------------------')
 Object.keys(CONFIG).forEach((key) => console.log(`== ${key}: ${CONFIG[key]}`))

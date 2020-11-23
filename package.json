@@ -39,7 +39,6 @@
     "css-loader": "latest",
     "file-loader": "latest",
     "jest": "latest",
-    "process": "^0.11.10",
     "react-test-renderer": "latest",
     "sass-loader": "latest",
     "snazzy": "latest",

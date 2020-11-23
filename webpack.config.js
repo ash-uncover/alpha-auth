@@ -1,5 +1,4 @@
 /* eslint-disable */
-const webpack = require('webpack')
 const path = require('path')
 const node_modules = path.resolve(__dirname, 'node_modules')
 const pathToReact = path.resolve(node_modules, 'react/dist/react.min.js')
@@ -31,14 +30,7 @@ module.exports = {
     }
   },
 
-  plugins: [
-    new webpack.ProvidePlugin({
-      process: 'process/browser',
-    }),
-    new webpack.EnvironmentPlugin({
-      ALPHA_AUTH_REST_URL: 'http://localhost:8090'
-    })
-  ],
+  plugins: [],
 
   module: {
     rules: [

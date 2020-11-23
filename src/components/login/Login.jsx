@@ -95,7 +95,7 @@ const Login = (props) => {
             state: { from: Routes.LOGIN }
           }}
         >
-          {t('login.recover.link')}
+          {t('login.recover.title')}
         </Link>
 
         <Link
@@ -105,7 +105,7 @@ const Login = (props) => {
             state: { from: Routes.LOGIN }
           }}
         >
-          {t('login.register.link')}
+          {t('login.register.title')}
         </Link>
 
       </form>

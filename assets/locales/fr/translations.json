@@ -1,6 +1,23 @@
 {
   "title": "REACT AUTH",
-  "auth": {},
+  "login": {
+    "title": "Connexion",
+    "username": {
+      "placeholder": "Nom d'utilisateur"
+    },
+    "password": {
+      "placeholder": "Mot de passe"
+    },
+    "submit": {
+      "title": "Se Connecter"
+    },
+    "recover": {
+      "title": "Mot de passe oublié"
+    },
+    "register": {
+      "title": "S'inscrire"
+    }
+  },
   "register": {},
   "recover": {}
 }

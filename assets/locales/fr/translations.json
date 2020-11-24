@@ -1,13 +1,14 @@
 {
-  "title": "REACT AUTH",
-  "login": {
-    "title": "Connexion",
+  "auth": {
     "username": {
       "placeholder": "Nom d'utilisateur"
     },
     "password": {
       "placeholder": "Mot de passe"
-    },
+    }
+  },
+  "login": {
+    "title": "Connexion",
     "submit": {
       "title": "Se Connecter"
     },

@@ -64,17 +64,17 @@ const Login = (props) => {
 
         <Input
           className='form-control'
-          placeholder={t('login.username.placeholder')}
+          placeholder={t('auth.username.placeholder')}
           required
-          name='ap-username'
+          name='alpha-username'
           value={username}
           onChange={onUsernameChanged}
         />
 
         <Input
           className='form-control'
-          placeholder={t('login.password.placeholder')}
-          name='ap-password'
+          placeholder={t('auth.password.placeholder')}
+          name='alpha-password'
           type='password'
           value={password}
           onChange={onPasswordChanged}

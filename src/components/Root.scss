@@ -1,4 +1,4 @@
-.ap-react-auth {
+.alpha-auth {
   position: absolute;
   top: 0;
   left: 0;
@@ -9,31 +9,10 @@
   align-items: center;
   justify-content: center;
 
-  background: rgb(2,0,36);
-  background: linear-gradient(#333333, #111111);
-
   .auth-box {
     width: 25rem;
-
-    .auth-box-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: grey;
-      height: 3rem;
-      width: 100%;
-    }
-
-    .auth-box-content {
-      background: white;
-      height: 35rem;
-      width: 100%;
-
-      .carousel {
-        height: 100%;
-        width: 100%;
-      }
-    }
+    height: 30rem;
+    background: rgba(235,235,235,0.9);
   }
 }
 

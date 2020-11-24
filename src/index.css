@@ -15,4 +15,8 @@ html, body {
   overflow: hidden;
 
   user-select: none;
+
+  background-image: url('./background.jpg');
+  background-size: cover;
+  background-position: top;
 }

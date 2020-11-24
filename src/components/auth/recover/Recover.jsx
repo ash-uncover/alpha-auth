@@ -18,9 +18,9 @@ import {
   useState
 } from 'lib/hooks'
 
-import './Register.scss'
+import './Recover.scss'
 
-const Register = () => {
+const Recover = () => {
   // Hooks
 
   const { t } = useTranslation()
@@ -33,25 +33,25 @@ const Register = () => {
     setUsername(event.target.value)
   }
 
-  const onRegister = (event) => {
+  const onRecover = (event) => {
     event.preventDefault()
   }
 
   // Rendering
 
   return (
-    <div className='ap-register'>
+    <div className='ap-recover'>
       <form className='form'>
 
         <h2 className='form-title'>
-          {t('register.title')}
+          {t('recover.title')}
         </h2>
 
         <Input
           className='form-control'
-          placeholder={t('register.username.placeholder')}
+          placeholder={t('auth.username.placeholder')}
           required
-          name='ap-username'
+          name='alpha-username'
           value={username}
           onChange={onUsernameChanged}
         />
@@ -59,19 +59,19 @@ const Register = () => {
         <Button
           className='form-control'
           type='submit'
-          onClick={onRegister}
+          onClick={onRecover}
         >
-          {t('register.submit.title')}
+          {t('recover.submit.title')}
         </Button>
 
         <Link
           className='form-link'
           to={{
             pathname: Routes.LOGIN,
-            state: { from: Routes.REGISTER }
+            state: { from: Routes.RECOVER }
           }}
         >
-          {t('register.login.link')}
+          {t('recover.login.link')}
         </Link>
 
       </form>
@@ -79,4 +79,4 @@ const Register = () => {
   )
 }
 
-export default Register
+export default Recover

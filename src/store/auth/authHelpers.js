@@ -16,3 +16,14 @@ export const doLogin = (dispatch, user, pass) => {
       dispatch(AuthActions.authLogonFailure(error))
     })
 }
+
+export const doLogout = (dispatch, token) => {
+  dispatch(AuthActions.authLogoutFetch())
+  return AuthService.api.logon.delete(token)
+    .then(() => {
+      dispatch(AuthActions.authLogoutSuccess())
+    })
+    .catch((error) => {
+      dispatch(AuthActions.authLogoutFailure(error))
+    })
+}

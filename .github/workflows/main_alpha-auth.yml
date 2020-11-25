@@ -32,12 +32,6 @@ jobs:
             ${{ runner.os }}-build-
             ${{ runner.os }}-
 
-      - name: Install
-        run: npm install
-
-      - name: Build
-        run: npm run build
-
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v2
         with:

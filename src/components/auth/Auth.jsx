@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 
 import {
   Switch,
@@ -176,6 +176,8 @@ const Recover = () => {
         onClick={onRecover}
       />
 
+      <p className='form-control label' />
+
       <LinkLogin
         from={Routes.RECOVER}
       />
@@ -222,6 +224,8 @@ const Register = () => {
         tooltip={submitTooltip}
         onClick={onRegister}
       />
+
+      <p className='form-control label' />
 
       <LinkLogin
         from={Routes.REGISTER}

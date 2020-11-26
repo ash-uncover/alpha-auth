@@ -1,11 +1,13 @@
 import { combineReducers } from 'redux'
 
-import { reducer as AppReducer } from './app'
-import { reducer as AuthReducer } from './auth'
+import { reducer as app } from './app'
+import { reducer as auth } from './auth'
+import { reducer as rest } from './rest'
 
 const reducer = combineReducers({
-  app: AppReducer,
-  auth: AuthReducer
+  app,
+  auth,
+  rest
 })
 
 export default reducer

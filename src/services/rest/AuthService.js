@@ -6,8 +6,11 @@ import CONFIG from 'configuration'
 export const authGet = async (dispatch, { username, password }) => {
   dispatch(AuthActions.authLogonFetch(username, password))
 
-  const headers = new Headers()
   const token = `Basic ${window.btoa(unescape(encodeURIComponent(`${username}:${password}`)))}`
+
+  const headers = new Headers()
+  headers.append('Accept', 'application/json')
+  headers.append('Content-Type', 'application/json')
   headers.append('Authorization', token)
 
   return fetch(
@@ -19,12 +22,12 @@ export const authGet = async (dispatch, { username, password }) => {
   )
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
-        dispatch(AuthActions.authLogonSuccess(token))
-      } else {
-        dispatch(AuthActions.authLogonFailure({
-          message: 'connectionFailed'
-        }))
+        return response.json()
       }
+      throw new Error('connectionFailed')
+    })
+    .then((result) => {
+      dispatch(AuthActions.authLogonSuccess(token, result))
     })
     .catch((error) => {
       dispatch(AuthActions.authLogonFailure(error))
@@ -58,13 +61,9 @@ export const authDelete = async (dispatch, { token }) => {
     })
 }
 
-const AuthService = {}
-
-AuthService.api = {
-  auth: {
-    get: authGet,
-    delete: authDelete
-  }
+const AuthService = {
+  get: authGet,
+  delete: authDelete
 }
 
 export default AuthService

@@ -58,13 +58,9 @@ export const authDelete = async (dispatch, { token }) => {
     })
 }
 
-const AuthService = {}
-
-AuthService.api = {
-  auth: {
-    get: authGet,
-    delete: authDelete
-  }
+const AuthService = {
+  get: authGet,
+  delete: authDelete
 }
 
 export default AuthService

@@ -22,6 +22,14 @@ export const authLogonFailure = (error) => {
   }
 }
 
+export const AUTH_LOGON_RESET = '@@AUTH/LOGON_RESET'
+export const authLogonReset = () => {
+  return {
+    type: AUTH_LOGON_RESET,
+    payload: {}
+  }
+}
+
 export const AUTH_LOGOUT_FETCH = '@@AUTH/LOGOUT_FETCH'
 export const authLogoutFetch = () => {
   return {

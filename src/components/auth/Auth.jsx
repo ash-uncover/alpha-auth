@@ -28,7 +28,7 @@ import {
 } from 'store/auth'
 
 import {
-  AuthService
+  RestService
 } from 'services'
 
 import './Auth.scss'
@@ -88,7 +88,7 @@ export const Login = (props) => {
 
   const onLogin = (event) => {
     event.preventDefault()
-    AuthService.api.auth.get(dispatch, {
+    RestService.api.auth.get(dispatch, {
       username,
       password
     })

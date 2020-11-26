@@ -15,7 +15,7 @@ import {
 } from '@uncover/react-commons'
 
 import {
-  AuthService
+  RestService
 } from 'services'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -31,7 +31,7 @@ const AppNavbar = () => {
   const logonData = useSelector(AuthSelectors.authLogonDataSelector)
 
   const onLogout = () => {
-    AuthService.api.auth.delete(dispatch, logonData)
+    RestService.api.auth.delete(dispatch, logonData)
   }
 
   return (

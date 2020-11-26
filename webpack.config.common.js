@@ -10,6 +10,7 @@ const pathToReact = path.resolve(node_modules, 'react/dist/react.min.js')
 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
 
@@ -23,6 +24,11 @@ module.exports = {
     }),
     new webpack.EnvironmentPlugin({
       ALPHA_AUTH_REST_URL: 'http://localhost:8090'
+    }),
+    new CopyPlugin({
+      patterns: [
+        { from: path.resolve(__dirname, '_redirects'), },
+      ],
     }),
   ],
 
@@ -60,6 +66,10 @@ module.exports = {
         generator: {
           filename: 'images/[name][ext][query]'
         },
+      },
+      {
+        test: /\.(_redirects)$/i,
+        type: 'asset/resource',
       },
     ],
     noParse: [pathToReact],

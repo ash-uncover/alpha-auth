@@ -7,10 +7,12 @@ export const userGet = async (dispatch, token, id) => {
   dispatch(UsersActions.userGetFetch(id))
 
   const headers = new Headers()
+  headers.append('Accept', 'application/json')
+  headers.append('Content-Type', 'application/json')
   headers.append('Authorization', token)
 
   return fetch(
-    `${CONFIG.ALPHA_AUTH_REST_URL}/users/${id}`,
+    `${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}`,
     {
       method: 'GET',
       headers
@@ -18,15 +20,15 @@ export const userGet = async (dispatch, token, id) => {
   )
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
-        dispatch(UsersActions.userGetSuccess(response))
-      } else {
-        dispatch(UsersActions.userGetFailure({
-          message: 'connectionFailed'
-        }))
+        return response.json()
       }
+      throw new Error(response)
+    })
+    .then((result) => {
+      dispatch(UsersActions.userGetSuccess(id, result))
     })
     .catch((error) => {
-      dispatch(UsersActions.userGetFailure(error))
+      dispatch(UsersActions.userGetFailure(id, error))
     })
 }
 

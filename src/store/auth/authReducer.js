@@ -24,10 +24,10 @@ export const reduceAuthLogonFetch = (baseState, payload) => {
   return newState
 }
 export const reduceAuthLogonSuccess = (baseState, payload) => {
-  const { token } = payload
+  const { token, userId } = payload
   const newState = produce(baseState, (state) => {
     state.logonState = DataStates.SUCCESS
-    state.logonData = { token }
+    state.logonData = { token, userId }
     state.logonError = null
   })
   return newState

@@ -5,20 +5,45 @@
     },
     "password": {
       "placeholder": "Mot de passe"
-    }
-  },
-  "login": {
-    "title": "Connexion",
-    "submit": {
-      "title": "Se Connecter"
     },
-    "recover": {
-      "title": "Mot de passe oublié"
+    "login": {
+      "title": "Connexion",
+      "submit": {
+        "title": "Se Connecter",
+        "tooltip": "Se Connecter"
+      },
+      "link": {
+        "title":"Connexion",
+        "tooltip":"Connexion"
+      },
+      "error": {
+        "message": "Vos identifiants sont incorrects."
+      }
     },
     "register": {
-      "title": "S'inscrire"
+      "title": "Inscription",
+      "submit": {
+        "title": "S'enregistrer",
+        "tooltip": "Se Connecter"
+      },
+      "link": {
+        "title":"S'inscrire",
+        "tooltip":"Connxion"
+      }
+    },
+    "recover": {
+      "title": "Récupération de compte",
+      "submit": {
+        "title": "Envoyer demande",
+        "tooltip": ""
+      },
+      "link": {
+        "title":"Mot de passe oublié",
+        "tooltip":""
+      }
     }
   },
-  "register": {},
-  "recover": {}
+  "app": {
+    "title": "Alpha Accounts"
+  }
 }

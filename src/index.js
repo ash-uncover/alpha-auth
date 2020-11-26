@@ -17,7 +17,7 @@ import reducer from 'store/reducer'
 
 import Root from 'components/Root'
 
-import './i18n'
+import 'services/i18n'
 import './index.css'
 
 const store = createStore(

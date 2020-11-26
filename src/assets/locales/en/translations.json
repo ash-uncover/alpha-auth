@@ -1,21 +1,2 @@
 {
-  "title": "REACT APP EN",
-  "login": {
-    "title": "Sign In",
-    "username": {
-      "placeholder": "Username"
-    },
-    "password": {
-      "placeholder": "Password"
-    },
-    "submit": {
-      "title": "Log In"
-    },
-    "recover": {
-      "title": "Forgot password ?"
-    },
-    "register": {
-      "title": "Sign Up"
-    }
-  }
 }

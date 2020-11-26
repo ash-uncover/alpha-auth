@@ -26,7 +26,7 @@
     "@reduxjs/toolkit": "latest",
     "@uncover/js-utils": "latest",
     "@uncover/js-utils-logger": "latest",
-    "@uncover/react-commons": "../react-commons",
+    "@uncover/react-commons": "latest",
     "babel-eslint": "latest",
     "babel-jest": "latest",
     "babel-loader": "latest",

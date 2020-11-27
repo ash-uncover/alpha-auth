@@ -1,6 +1,11 @@
 /* globals fetch, Headers */
 
 import { actions as AuthActions } from 'store/auth'
+
+import LocalStorage, {
+  ALPHA_AUTH_LOGON_DATA
+} from 'lib/LocalStorage'
+
 import CONFIG from 'configuration'
 
 export const authGet = async (dispatch, { username, password }) => {
@@ -27,6 +32,7 @@ export const authGet = async (dispatch, { username, password }) => {
       throw new Error('connectionFailed')
     })
     .then((result) => {
+      LocalStorage.set(ALPHA_AUTH_LOGON_DATA, { token, userId: result.userId })
       dispatch(AuthActions.authLogonSuccess(token, result))
     })
     .catch((error) => {
@@ -49,6 +55,7 @@ export const authDelete = async (dispatch, { token }) => {
   )
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
+        LocalStorage.remove(ALPHA_AUTH_LOGON_DATA)
         dispatch(AuthActions.authLogoutSuccess(token))
       } else {
         dispatch(AuthActions.authLogoutFailure({

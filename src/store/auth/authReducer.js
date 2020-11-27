@@ -1,7 +1,12 @@
 /* eslint-disable default-param-last */
 
-import * as AuthActions from './authActions'
 import { produce } from 'immer'
+
+import * as AuthActions from './authActions'
+
+import LocalStorage, {
+  ALPHA_AUTH_LOGON_DATA
+} from 'lib/LocalStorage'
 
 import {
   DataStates
@@ -14,6 +19,16 @@ export const initialState = () => ({
   logoutState: DataStates.NEVER,
   logoutError: null
 })
+
+// INITIALIZATION //
+
+export const reduceInit = (baseState, payload) => {
+  const initialData = LocalStorage.get(ALPHA_AUTH_LOGON_DATA, null)
+  const newState = produce(baseState, (state) => {
+    state.logonData = initialData
+  })
+  return newState
+}
 
 // AUTH LOGON REDUCER //
 
@@ -72,6 +87,9 @@ export const reduceAuthLogoutFailure = (baseState, payload) => {
 
 const reducer = (baseState = initialState(), action) => {
   switch (action.type) {
+    case '@@INIT': {
+      return reduceInit(baseState, action.payload)
+    }
     // Logon
 
     case AuthActions.AUTH_LOGON_FETCH: {

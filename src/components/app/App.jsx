@@ -3,13 +3,11 @@ import React from 'react'
 import {
   Switch,
   Redirect,
-  Route,
-  Link
+  Route
 } from 'react-router-dom'
 
 import {
   useDispatch,
-  useState,
   useSelector,
   useTranslation
 } from 'lib/hooks'

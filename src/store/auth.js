@@ -10,10 +10,6 @@ import {
   DataStates
 } from 'lib/constants'
 
-import {
-  actions as appActions
-} from 'store/app'
-
 export const initialState = () => ({
   logonState: DataStates.NEVER,
   logonData: null,

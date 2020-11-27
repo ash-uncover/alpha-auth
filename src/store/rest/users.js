@@ -71,7 +71,7 @@ const usersSlice = createSlice({
   reducers: {
     userGetFetch: reduceUserGetFetch,
     userGetSuccess: reduceUserGetSuccess,
-    userGetFailure: reduceUserGetFailure,
+    userGetFailure: reduceUserGetFailure
   },
 
   extraReducers: {

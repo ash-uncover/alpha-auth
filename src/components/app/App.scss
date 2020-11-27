@@ -56,6 +56,21 @@ $menu-width: 12rem;
     width: $menu-width;
 
     background: lightgoldenrodyellow;
+    .app-menu-item {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      box-sizing: border-box;
+      text-decoration: unset;
+      height: 2.5rem;
+      color: $alpha-main-color;
+      &.active {
+        font-weight: bold;
+      }
+      .svg-inline--fa {
+        padding: 0.5rem;
+      }
+    }
   }
   .app-content {
     position: absolute;
@@ -63,7 +78,8 @@ $menu-width: 12rem;
     left: $menu-width;
     right: 0;
     bottom: 0;
-
+    box-sizing: border-box;
+    background: $alpha-main-background-alpha;
     display: flex;
     >* {
       height: 100%;

@@ -3,7 +3,8 @@ import React from 'react'
 import {
   Switch,
   Redirect,
-  Route
+  Route,
+  NavLink
 } from 'react-router-dom'
 
 import {
@@ -29,7 +30,14 @@ import {
 } from '@uncover/react-commons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
+import {
+  faPowerOff,
+  faHome,
+  faUsers
+} from '@fortawesome/free-solid-svg-icons'
+
+import Home from 'components/app/home/Home'
+import Social from 'components/app/social/Social'
 
 import './App.scss'
 
@@ -61,7 +69,19 @@ const App = () => {
         <div className='alpha-auth app'>
           <AppNavbar />
           <AppMenu />
-          <AppContent />
+          <div className='app-content'>
+            <Switch>
+              <Route path={Routes.HOME}>
+                <Home />
+              </Route>
+              <Route path={Routes.SOCIAL}>
+                <Social />
+              </Route>
+              <Route path='*'>
+                <Redirect to={Routes.HOME} />
+              </Route>
+            </Switch>
+          </div>
         </div>
       </Route>
     </Switch>
@@ -103,25 +123,34 @@ const AppNavbar = () => {
 }
 
 const AppMenu = () => {
+  const { t } = useTranslation()
+  const menuHome = t('app.home.link.title')
+  const menuSocial = t('app.social.link.title')
+
   return (
     <div className='app-menu'>
-      Menu
-    </div>
-  )
-}
-
-const AppContent = () => {
-  return (
-    <div className='app-content'>
-      <AppPanel>
-        Panel left
-      </AppPanel>
-      <AppArea>
-        content
-      </AppArea>
-      <AppPanel>
-        Panel right
-      </AppPanel>
+      <NavLink
+        className='app-menu-item'
+        to='/home'
+        activeClassName='active'
+      >
+        <FontAwesomeIcon
+          icon={faHome}
+          size='xs'
+        />
+        {menuHome}
+      </NavLink>
+      <NavLink
+        className='app-menu-item'
+        to='/social'
+        activeClassName='active'
+      >
+        <FontAwesomeIcon
+          icon={faUsers}
+          size='xs'
+        />
+        {menuSocial}
+      </NavLink>
     </div>
   )
 }

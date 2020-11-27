@@ -1,6 +1,6 @@
 /* globals fetch, Headers */
 
-import { actions as AuthActions } from 'store/auth'
+import { actions } from 'store/auth'
 
 import LocalStorage, {
   ALPHA_AUTH_LOGON_DATA
@@ -9,7 +9,7 @@ import LocalStorage, {
 import CONFIG from 'configuration'
 
 export const authGet = async (dispatch, { username, password }) => {
-  dispatch(AuthActions.authLogonFetch(username, password))
+  dispatch(actions.authLogonFetch({ username, password }))
 
   const token = `Basic ${window.btoa(unescape(encodeURIComponent(`${username}:${password}`)))}`
 
@@ -31,17 +31,18 @@ export const authGet = async (dispatch, { username, password }) => {
       }
       throw new Error('connectionFailed')
     })
-    .then((result) => {
-      LocalStorage.set(ALPHA_AUTH_LOGON_DATA, { token, userId: result.userId })
-      dispatch(AuthActions.authLogonSuccess(token, result))
+    .then(({ userId }) => {
+      const result = { token, userId }
+      LocalStorage.set(ALPHA_AUTH_LOGON_DATA, result)
+      dispatch(actions.authLogonSuccess(result))
     })
     .catch((error) => {
-      dispatch(AuthActions.authLogonFailure(error))
+      dispatch(actions.authLogonFailure({ error }))
     })
 }
 
 export const authDelete = async (dispatch, { token }) => {
-  dispatch(AuthActions.authLogoutFetch(token))
+  dispatch(actions.authLogoutFetch({ token }))
 
   const headers = new Headers()
   headers.append('Authorization', token)
@@ -56,15 +57,15 @@ export const authDelete = async (dispatch, { token }) => {
     .then((response) => {
       if (response.status >= 200 && response.status < 300) {
         LocalStorage.remove(ALPHA_AUTH_LOGON_DATA)
-        dispatch(AuthActions.authLogoutSuccess(token))
+        dispatch(actions.authLogoutSuccess({ token }))
       } else {
-        dispatch(AuthActions.authLogoutFailure({
+        dispatch(actions.authLogoutFailure({
           message: 'logoutFailed'
         }))
       }
     })
     .catch((error) => {
-      dispatch(AuthActions.authLogoutFailure(error))
+      dispatch(actions.authLogoutFailure({ error }))
     })
 }
 

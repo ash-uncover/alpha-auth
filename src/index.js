@@ -6,24 +6,14 @@ import {
 } from 'react-router-dom'
 
 import {
-  createStore
-} from 'redux'
-
-import {
   Provider
 } from 'react-redux'
 
-import reducer from 'store/reducer'
+import store from 'store'
 
 import Root from 'components/Root'
 
-import 'services/i18n'
 import './index.css'
-
-const store = createStore(
-  reducer,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
 
 ReactDOM.render(
   <Provider store={store}>

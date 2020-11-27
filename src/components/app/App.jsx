@@ -35,13 +35,18 @@ import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
 
 import './App.scss'
 
+let isFirst = true
+
 const App = () => {
   // Hooks
   const dispatch = useDispatch()
 
   const logonData = useSelector(AuthSelectors.authLogonDataSelector)
 
-  RestService.api.users.get(dispatch, logonData.token, logonData.userId)
+  if (isFirst) {
+    isFirst = false
+    RestService.api.users.get(dispatch, logonData.token, logonData.userId)
+  }
 
   return (
     <Switch>
@@ -57,12 +62,8 @@ const App = () => {
       <Route path='/'>
         <div className='alpha-auth app'>
           <AppNavbar />
-          <div className='app-area'>
-            <AppMenu />
-            <AppSubMenu />
-            <AppContent />
-            <AppPanel />
-          </div>
+          <AppMenu />
+          <AppContent />
         </div>
       </Route>
     </Switch>
@@ -111,26 +112,34 @@ const AppMenu = () => {
   )
 }
 
-const AppSubMenu = () => {
-  return (
-    <div className='app-sub-menu'>
-      SubMenu
-    </div>
-  )
-}
-
 const AppContent = () => {
   return (
     <div className='app-content'>
-      content
+      <AppPanel>
+        Panel left
+      </AppPanel>
+      <AppArea>
+        content
+      </AppArea>
+      <AppPanel>
+        Panel right
+      </AppPanel>
     </div>
   )
 }
 
-const AppPanel = () => {
+export const AppArea = ({ children }) => {
+  return (
+    <div className='app-area'>
+      {children}
+    </div>
+  )
+}
+
+export const AppPanel = ({ children }) => {
   return (
     <div className='app-panel'>
-      Panel
+      {children}
     </div>
   )
 }

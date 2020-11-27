@@ -1,11 +1,22 @@
 import React from 'react'
 
 import {
+  Switch,
+  Redirect,
+  Route,
+  Link
+} from 'react-router-dom'
+
+import {
   useDispatch,
   useState,
   useSelector,
   useTranslation
 } from 'lib/hooks'
+
+import {
+  Routes
+} from 'lib/constants'
 
 import {
   RestService
@@ -33,15 +44,28 @@ const App = () => {
   RestService.api.users.get(dispatch, logonData.token, logonData.userId)
 
   return (
-    <div className='alpha-auth app'>
-      <AppNavbar />
-      <div className='app-area'>
-        <AppMenu />
-        <AppSubMenu />
-        <AppContent />
-        <AppPanel />
-      </div>
-    </div>
+    <Switch>
+      <Route path={Routes.LOGIN}>
+        <Redirect to='/' />
+      </Route>
+      <Route path={Routes.RECOVER}>
+        <Redirect to='/' />
+      </Route>
+      <Route path={Routes.REGISTER}>
+        <Redirect to='/' />
+      </Route>
+      <Route path='/'>
+        <div className='alpha-auth app'>
+          <AppNavbar />
+          <div className='app-area'>
+            <AppMenu />
+            <AppSubMenu />
+            <AppContent />
+            <AppPanel />
+          </div>
+        </div>
+      </Route>
+    </Switch>
   )
 }
 

@@ -36,6 +36,9 @@
         +.form-link {
           margin-top: 1rem;
         }
+        +.form-submit {
+          margin-top: 1.5rem;
+        }
 
         &.btn,
         &.input,
@@ -44,15 +47,24 @@
         }
 
         &.input {
+          .input-control {
+            border-color: $alpha-main-inactive;
+            .input-show {
+              color: $alpha-main-color;
+            }
+          }
           .input-mask {
-            background: lightgrey;
+            background: $alpha-main-inactive;
             button {
-              border: 2px solid lightgrey;
+              border: 2px solid $alpha-main-inactive;
               background: none;
             }
           }
-          input {
-            height: 2rem;
+
+          &.active.focus {
+            .input-control {
+              border-color: $alpha-main-color;
+            }
           }
         }
       }

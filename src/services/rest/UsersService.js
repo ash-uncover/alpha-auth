@@ -1,10 +1,13 @@
 /* globals fetch, Headers */
 
-import { actions as UsersActions } from 'store/rest/users'
+import {
+  actions
+} from 'store/rest/users'
+
 import CONFIG from 'configuration'
 
 export const userGet = async (dispatch, token, id) => {
-  dispatch(UsersActions.userGetFetch(id))
+  dispatch(actions.userGetFetch({ id }))
 
   const headers = new Headers()
   headers.append('Accept', 'application/json')
@@ -24,11 +27,11 @@ export const userGet = async (dispatch, token, id) => {
       }
       throw new Error(response)
     })
-    .then((result) => {
-      dispatch(UsersActions.userGetSuccess(id, result))
+    .then((user) => {
+      dispatch(actions.userGetSuccess({ id, user }))
     })
     .catch((error) => {
-      dispatch(UsersActions.userGetFailure(id, error))
+      dispatch(actions.userGetFailure({ id, error }))
     })
 }
 

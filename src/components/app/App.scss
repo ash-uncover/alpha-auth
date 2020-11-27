@@ -48,10 +48,19 @@ $menu-width: 12rem;
       }
     }
   }
-  .app-area {
+  .app-menu {
     position: absolute;
     top: $navbar-height;
+    bottom: 0;
     left: 0;
+    width: $menu-width;
+
+    background: lightgoldenrodyellow;
+  }
+  .app-content {
+    position: absolute;
+    top: $navbar-height;
+    left: $menu-width;
     right: 0;
     bottom: 0;
 
@@ -61,18 +70,7 @@ $menu-width: 12rem;
       overflow-y: auto;
       overflow-x: hidden;
     }
-    .app-menu {
-      flex-grow: 0;
-      width: $menu-width;
-
-      background: lightgoldenrodyellow;
-    }
-    .app-sub-menu {
-      flex-grow: 0;
-      width: $menu-width;
-      background: lightyellow;
-    }
-    .app-content {
+    .app-area {
       flex-grow: 1;
       background: white;
     }

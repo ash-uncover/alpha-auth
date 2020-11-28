@@ -55,6 +55,26 @@ export const reduceUserGetFailure = (state, { payload }) => {
   userState.status = DataStates.FAILURE
 }
 
+export const reduceUserPatchFetch = (state, { payload }) => {
+  const { id } = payload
+  const userState = getUserState(state, id)
+  userState.status = DataStates.FETCHING
+}
+export const reduceUserPatchSuccess = (state, { payload }) => {
+  const { id, user } = payload
+  const userState = getUserState(state, id)
+  userState.data = user
+  userState.error = null
+  userState.status = DataStates.SUCCESS
+}
+export const reduceUserPatchFailure = (state, { payload }) => {
+  const { id, error } = payload
+  const userState = getUserState(state, id)
+  userState.data = null
+  userState.error = error
+  userState.status = DataStates.FAILURE
+}
+
 export const reduceAuthLogoutSuccess = (state) => {
   state.data = {}
   state.status = DataStates.NEVER
@@ -71,7 +91,11 @@ const usersSlice = createSlice({
   reducers: {
     userGetFetch: reduceUserGetFetch,
     userGetSuccess: reduceUserGetSuccess,
-    userGetFailure: reduceUserGetFailure
+    userGetFailure: reduceUserGetFailure,
+
+    userPatchFetch: reduceUserPatchFetch,
+    userPatchSuccess: reduceUserPatchSuccess,
+    userPatchFailure: reduceUserPatchFailure
   },
 
   extraReducers: {
@@ -86,7 +110,7 @@ usersSlice.selectors = {
   restUsersStatusSelector: (state) => usersSlice.selectors.restUsersSelector(state).status,
   restUsersErrorSelector: (state) => usersSlice.selectors.restUsersSelector(state).error,
 
-  restUserSelector: (id) => (state) => usersSlice.selectors.restUsersDataSelector(state)[id],
+  restUserSelector: (id) => (state) => usersSlice.selectors.restUsersDataSelector(state)[id] || initialUserState(),
 
   restUserDataSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).data,
   restUserStatusSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).status,

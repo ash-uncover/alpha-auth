@@ -5,7 +5,8 @@ const Routes = {
   RECOVER: '/recover',
 
   HOME: '/home',
-  SOCIAL: '/social'
+  SOCIAL: '/social',
+  SUPPORT: '/support'
 }
 
 export default Routes

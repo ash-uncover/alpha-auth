@@ -1,0 +1,45 @@
+{
+  "loading": "Chargement..",
+  "title": "Alpha Accounts",
+  "home": {
+    "title": "Accueil",
+    "link": {
+      "title": "Accueil",
+      "tooltip": ""
+    },
+    "info": {
+      "title": "Mes Informations",
+      "name": {
+        "title": "Nom d'utilisateur",
+        "tooltip": "Le nom sous lequel vous apparaissez",
+        "placeholder": "Entrez un nom d'utilisateur"
+      },
+      "description": {
+        "title": "Présentation",
+        "tooltip": "Présentez vous en quelques lignes.",
+        "placeholder": "Entrez une présentation"
+      },
+      "submit": {
+        "title": "Enregistrer",
+        "tooltip": "Sauvegarder les modifications"
+      }
+    },
+    "danger": {
+      "title": "Gestion du Compte"
+    }
+  },
+  "social": {
+    "title": "Social",
+    "link": {
+      "title": "Social",
+      "tooltip": ""
+    }
+  },
+  "support": {
+    "title": "Support",
+    "link": {
+      "title": "Support",
+      "tooltip": ""
+    }
+  }
+}

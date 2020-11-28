@@ -3,15 +3,19 @@ import { initReactI18next } from 'react-i18next'
 
 import LanguageDetector from 'i18next-browser-languagedetector'
 
-import enFile from 'assets/locales/en/translations.json'
-import frFile from 'assets/locales/fr/translations.json'
+import trEnAuth from 'assets/locales/en/translations_auth.json'
+import trEnApp from 'assets/locales/en/translations_app.json'
+import trFrAuth from 'assets/locales/fr/translations_auth.json'
+import trFrApp from 'assets/locales/fr/translations_app.json'
 
 const resources = {
   en: {
-    translation: enFile
+    app: trEnApp,
+    auth: trEnAuth
   },
   fr: {
-    translation: frFile
+    app: trFrApp,
+    auth: trFrAuth
   }
 }
 

@@ -20,6 +20,10 @@ button {
   cursor: pointer;
 }
 
+textarea {
+  font-family: 'Roboto', sans-serif;
+}
+
 #react-root {
   position: absolute;
   top: 0;

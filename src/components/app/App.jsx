@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import {
   Switch,
@@ -27,6 +27,10 @@ import {
 } from 'store/auth'
 
 import {
+  selectors as UsersSelectors
+} from 'store/rest/users'
+
+import {
   Button
 } from '@uncover/react-commons'
 
@@ -45,18 +49,31 @@ import Social from 'components/app/social/Social'
 import Support from 'components/app/support/Support'
 
 import './App.scss'
-
-let isFirst = true
+import DataStates from '../../lib/constants/DataStates'
 
 const App = () => {
   // Hooks
   const dispatch = useDispatch()
 
-  const logonData = useSelector(AuthSelectors.authLogonDataSelector)
+  const {
+    token,
+    userId
+  } = useSelector(AuthSelectors.authLogonDataSelector)
 
-  if (isFirst) {
-    isFirst = false
-    RestService.api.users.get(dispatch, logonData.token, logonData.userId)
+  const userStatus = useSelector(UsersSelectors.restUserStatusSelector(userId))
+  const loaded = userStatus && userStatus === DataStates.SUCCESS
+  const canLoad = userStatus !== DataStates.FETCHING && userStatus !== DataStates.FAILURE
+
+  useEffect(() => {
+    if (!loaded && canLoad) {
+      RestService.api.users.get(dispatch, token, userId)
+    }
+  })
+
+  if (!loaded) {
+    return (
+      <AppLoading />
+    )
   }
 
   return (
@@ -93,6 +110,19 @@ const App = () => {
         </div>
       </Route>
     </Switch>
+  )
+}
+
+const AppLoading = () => {
+  const { t } = useTranslation()
+  const loading = t('app:loading')
+
+  return (
+    <div className='app-loading'>
+      <div className='box'>
+        {loading}
+      </div>
+    </div>
   )
 }
 
@@ -197,9 +227,12 @@ const AppMenuLink = ({
   )
 }
 
-export const AppArea = ({ children }) => {
+export const AppArea = ({
+  className = '',
+  children
+}) => {
   return (
-    <div className='app-area'>
+    <div className={`app-area ${className}`}>
       {children}
     </div>
   )

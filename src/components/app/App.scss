@@ -18,6 +18,7 @@ $menu-width-collapse: 3rem;
     display: flex;
     align-items: center;
     padding: 0 1rem;
+    box-sizing: border-box;
 
     background: $alpha-main-background;
     border-bottom: 1px solid $alpha-main-effect;
@@ -60,44 +61,52 @@ $menu-width-collapse: 3rem;
 
     &.expanded {
       width: $menu-width;
-      .app-menu-item.action {
-        text-align: right;
-        padding-right: 1rem;
+      .app-menu-item {
+        &.action {
+          text-align: right;
+          padding-right: 1rem;
+        }
+        &.link .text {
+          display: inline;
+        }
       }
     }
 
-    .app-menu-item{
+    .app-menu-item {
       &:hover {
         background: white;
       }
-    }
-
-    .app-menu-item.action {
-      width: 100%;
-      border: 0;
-      background: none;
-      outline: none;
-      height: 1.5rem;
-      &:hover {
-        background: white;
+      &.action {
+        width: 100%;
+        border: 0;
+        background: none;
+        outline: none;
+        height: 1.5rem;
+        &:hover {
+          background: white;
+        }
       }
-    }
-    .app-menu-item.link {
-      display: flex;
-      align-items: center;
-      padding: 0.5rem;
-      box-sizing: border-box;
-      text-decoration: unset;
-      height: 2.5rem;
-      color: $alpha-main-color;
-      &.active {
-        font-weight: bold;
-      }
-      .svg-inline--fa {
+      &.link {
+        display: flex;
+        align-items: center;
         padding: 0.5rem;
+        box-sizing: border-box;
+        text-decoration: unset;
+        height: 2.5rem;
+        color: $alpha-main-color;
+        .text {
+          display: none;
+        }
+        &.active {
+          font-weight: bold;
+        }
+        .svg-inline--fa {
+          padding: 0.5rem;
+        }
       }
     }
   }
+
   .app-menu.expanded + .app-content {
     left: $menu-width;
   }
@@ -108,7 +117,7 @@ $menu-width-collapse: 3rem;
     right: 0;
     bottom: 0;
     box-sizing: border-box;
-    background: $alpha-main-background-alpha;
+    background: $alpha-main-background;
     display: flex;
     >* {
       height: 100%;
@@ -118,6 +127,19 @@ $menu-width-collapse: 3rem;
     .app-area {
       flex-grow: 1;
       background: white;
+      padding: 0 2rem;
+      .app-area-section {
+        .title {
+          color: $alpha-main-color;
+          border-bottom: 1px solid $alpha-main-inactive;
+        }
+        .content {
+          padding: 0 1rem;
+        }
+        +.app-area-section  {
+          margin-top: 2rem;
+        }
+      }
     }
     .app-panel {
       flex-grow: 0;

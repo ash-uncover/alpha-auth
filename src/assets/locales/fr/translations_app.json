@@ -1,0 +1,30 @@
+{
+  "title": "Alpha Accounts",
+  "home": {
+    "title": "Accueil",
+    "link": {
+      "title": "Accueil",
+      "tooltip": ""
+    },
+    "info": {
+      "title": "Mes Informations"
+    },
+    "danger": {
+      "title": "Gestion du Compte"
+    }
+  },
+  "social": {
+    "title": "Social",
+    "link": {
+      "title": "Social",
+      "tooltip": ""
+    }
+  },
+  "support": {
+    "title": "Support",
+    "link": {
+      "title": "Support",
+      "tooltip": ""
+    }
+  }
+}

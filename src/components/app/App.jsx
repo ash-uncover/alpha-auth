@@ -36,11 +36,13 @@ import {
   faHome,
   faUsers,
   faAngleDoubleLeft,
-  faAngleDoubleRight
+  faAngleDoubleRight,
+  faQuestionCircle
 } from '@fortawesome/free-solid-svg-icons'
 
 import Home from 'components/app/home/Home'
 import Social from 'components/app/social/Social'
+import Support from 'components/app/support/Support'
 
 import './App.scss'
 
@@ -80,6 +82,9 @@ const App = () => {
               <Route path={Routes.SOCIAL}>
                 <Social />
               </Route>
+              <Route path={Routes.SUPPORT}>
+                <Support />
+              </Route>
               <Route path='*'>
                 <Redirect to={Routes.HOME} />
               </Route>
@@ -95,8 +100,8 @@ const AppNavbar = () => {
   const dispatch = useDispatch()
 
   const { t } = useTranslation()
-  const appTitle = t('app.title')
-  const logoutTooltip = t('app.actions.logout.title')
+  const appTitle = t('app:title')
+  const logoutTooltip = t('app:actions.logout.title')
 
   const logonData = useSelector(AuthSelectors.authLogonDataSelector)
 
@@ -129,8 +134,9 @@ const AppMenu = () => {
   const [expanded, setExpanded] = useState(true)
 
   const { t } = useTranslation()
-  const menuHome = t('app.home.link.title')
-  const menuSocial = t('app.social.link.title')
+  const menuHome = t('app:home.link.title')
+  const menuSocial = t('app:social.link.title')
+  const menuSupport = t('app:support.link.title')
 
   const onToggleExpanded = () => {
     setExpanded(!expanded)
@@ -146,29 +152,48 @@ const AppMenu = () => {
           icon={expanded ? faAngleDoubleLeft : faAngleDoubleRight}
         />
       </Button>
-      <NavLink
-        className='app-menu-item link'
-        to='/home'
-        activeClassName='active'
-      >
-        <FontAwesomeIcon
-          icon={faHome}
-          size='xs'
-        />
-        {expanded ? menuHome : null}
-      </NavLink>
-      <NavLink
-        className='app-menu-item link'
-        to='/social'
-        activeClassName='active'
-      >
-        <FontAwesomeIcon
-          icon={faUsers}
-          size='xs'
-        />
-        {expanded ? menuSocial : null}
-      </NavLink>
+
+      <AppMenuLink
+        to={Routes.HOME}
+        icon={faHome}
+        text={menuHome}
+      />
+
+      <AppMenuLink
+        to={Routes.SOCIAL}
+        icon={faUsers}
+        text={menuSocial}
+      />
+
+      <AppMenuLink
+        to={Routes.SUPPORT}
+        icon={faQuestionCircle}
+        text={menuSupport}
+      />
+
     </div>
+  )
+}
+
+const AppMenuLink = ({
+  to,
+  icon,
+  text
+}) => {
+  return (
+    <NavLink
+      className='app-menu-item link'
+      to={to}
+      activeClassName='active'
+    >
+      <FontAwesomeIcon
+        icon={icon}
+        size='xs'
+      />
+      <span className='text'>
+        {text}
+      </span>
+    </NavLink>
   )
 }
 
@@ -180,7 +205,23 @@ export const AppArea = ({ children }) => {
   )
 }
 
-export const AppPanel = ({ children }) => {
+export const AppSection = ({
+  title,
+  children
+}) => {
+  return (
+    <section className='app-area-section'>
+      <h2 className='title'>{title}</h2>
+      <div className='content'>
+        {children}
+      </div>
+    </section>
+  )
+}
+
+export const AppPanel = ({
+  children
+}) => {
   return (
     <div className='app-panel'>
       {children}

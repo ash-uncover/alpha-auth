@@ -71,10 +71,10 @@ export const Login = (props) => {
   const logonError = useSelector(AuthSelectors.authLogonErrorSelector)
 
   const { t } = useTranslation()
-  const title = t('auth.login.title')
-  const errorMessage = t('auth.login.error.message')
-  const submitTitle = t('auth.login.submit.title')
-  const submitTooltip = t('auth.login.submit.tooltip')
+  const title = t('auth:login.title')
+  const errorMessage = t('auth:login.error.message')
+  const submitTitle = t('auth:login.submit.title')
+  const submitTooltip = t('auth:login.submit.tooltip')
 
   // Callbacks
 
@@ -140,9 +140,9 @@ const Recover = () => {
   // Hooks
 
   const { t } = useTranslation()
-  const recoverTitle = t('auth.recover.title')
-  const submitTitle = t('auth.recover.submit.title')
-  const submitTooltip = t('auth.recover.submit.tooltip')
+  const recoverTitle = t('auth:recover.title')
+  const submitTitle = t('auth:recover.submit.title')
+  const submitTooltip = t('auth:recover.submit.tooltip')
 
   const [username, setUsername] = useState('')
 
@@ -190,9 +190,9 @@ const Register = () => {
   // Hooks
 
   const { t } = useTranslation()
-  const registerTitle = t('auth.register.title')
-  const submitTitle = t('auth.register.submit.title')
-  const submitTooltip = t('auth.register.submit.tooltip')
+  const registerTitle = t('auth:register.title')
+  const submitTitle = t('auth:register.submit.title')
+  const submitTooltip = t('auth:register.submit.tooltip')
 
   const [username, setUsername] = useState('')
 
@@ -240,7 +240,7 @@ const InputUsername = ({
   onChange
 }) => {
   const { t } = useTranslation()
-  const usernamePlaceholder = t('auth.username.placeholder')
+  const usernamePlaceholder = t('auth:username.placeholder')
 
   return (
     <Input
@@ -259,7 +259,7 @@ const InputPassword = ({
   onChange
 }) => {
   const { t } = useTranslation()
-  const passwordPlaceholder = t('auth.password.placeholder')
+  const passwordPlaceholder = t('auth:password.placeholder')
 
   return (
     <Input
@@ -294,7 +294,7 @@ const LinkLogin = ({
   from
 }) => {
   const { t } = useTranslation()
-  const title = t('auth.login.link.title')
+  const title = t('auth:login.link.title')
 
   return (
     <Link
@@ -313,7 +313,7 @@ const LinkRecover = ({
   from
 }) => {
   const { t } = useTranslation()
-  const title = t('auth.recover.link.title')
+  const title = t('auth:recover.link.title')
 
   return (
     <Link
@@ -332,7 +332,7 @@ const LinkRegister = ({
   from
 }) => {
   const { t } = useTranslation()
-  const title = t('auth.register.link.title')
+  const title = t('auth:register.link.title')
 
   return (
     <Link

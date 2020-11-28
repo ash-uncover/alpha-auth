@@ -40,6 +40,7 @@ const Home = () => {
 
   const { t } = useTranslation()
   const title = t('app:home.title')
+
   const infoTitle = t('app:home.info.title')
   const infoNameTitle = t('app:home.info.name.title')
   const infoNameTooltip = t('app:home.info.name.tooltip')
@@ -49,7 +50,8 @@ const Home = () => {
   const infoDescPlaceholder = t('app:home.info.description.placeholder')
   const infoSubmitTitle = t('app:home.info.submit.title')
   const infoSubmitTooltip = t('app:home.info.submit.tooltip')
-  const dangerTitle = t('app:home.danger.title')
+
+  const accountTitle = t('app:home.account.title')
 
   const {
     token,
@@ -130,7 +132,7 @@ const Home = () => {
         </form>
       </AppSection>
 
-      <AppSection title={dangerTitle}>
+      <AppSection title={accountTitle}>
         content
       </AppSection>
     </AppArea>

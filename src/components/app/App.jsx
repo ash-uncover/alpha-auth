@@ -61,8 +61,8 @@ const App = () => {
   } = useSelector(AuthSelectors.authLogonDataSelector)
 
   const userStatus = useSelector(UsersSelectors.restUserStatusSelector(userId))
-  const loaded = userStatus && userStatus === DataStates.SUCCESS
-  const canLoad = userStatus !== DataStates.FETCHING && userStatus !== DataStates.FAILURE
+  const loaded = userStatus && userStatus !== DataStates.NEVER && userStatus !== DataStates.FETCHING_FIRST
+  const canLoad = userStatus !== DataStates.FETCHING && userStatus !== DataStates.FAILURE && userStatus !== DataStates.FETCHING_FIRST
 
   useEffect(() => {
     if (!loaded && canLoad) {

@@ -38,7 +38,7 @@ export const reduceUserGetFetch = (state, { payload }) => {
   const { id } = payload
   const userState = getUserState(state, id)
   userState.error = null
-  userState.status = DataStates.FETCHING
+  userState.status = userState.status === DataStates.NEVER ? DataStates.FETCHING_FIRST : DataStates.FETCHING
 }
 export const reduceUserGetSuccess = (state, { payload }) => {
   const { id, user } = payload

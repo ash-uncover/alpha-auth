@@ -3,11 +3,13 @@ import React from 'react'
 import {
   Switch,
   Redirect,
-  Route
+  Route,
+  NavLink
 } from 'react-router-dom'
 
 import {
   useDispatch,
+  useState,
   useSelector,
   useTranslation
 } from 'lib/hooks'
@@ -29,7 +31,16 @@ import {
 } from '@uncover/react-commons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPowerOff } from '@fortawesome/free-solid-svg-icons'
+import {
+  faPowerOff,
+  faHome,
+  faUsers,
+  faAngleDoubleLeft,
+  faAngleDoubleRight
+} from '@fortawesome/free-solid-svg-icons'
+
+import Home from 'components/app/home/Home'
+import Social from 'components/app/social/Social'
 
 import './App.scss'
 
@@ -61,7 +72,19 @@ const App = () => {
         <div className='alpha-auth app'>
           <AppNavbar />
           <AppMenu />
-          <AppContent />
+          <div className='app-content'>
+            <Switch>
+              <Route path={Routes.HOME}>
+                <Home />
+              </Route>
+              <Route path={Routes.SOCIAL}>
+                <Social />
+              </Route>
+              <Route path='*'>
+                <Redirect to={Routes.HOME} />
+              </Route>
+            </Switch>
+          </div>
         </div>
       </Route>
     </Switch>
@@ -103,25 +126,48 @@ const AppNavbar = () => {
 }
 
 const AppMenu = () => {
-  return (
-    <div className='app-menu'>
-      Menu
-    </div>
-  )
-}
+  const [expanded, setExpanded] = useState(true)
 
-const AppContent = () => {
+  const { t } = useTranslation()
+  const menuHome = t('app.home.link.title')
+  const menuSocial = t('app.social.link.title')
+
+  const onToggleExpanded = () => {
+    setExpanded(!expanded)
+  }
+
   return (
-    <div className='app-content'>
-      <AppPanel>
-        Panel left
-      </AppPanel>
-      <AppArea>
-        content
-      </AppArea>
-      <AppPanel>
-        Panel right
-      </AppPanel>
+    <div className={`app-menu ${expanded ? 'expanded' : ''}`}>
+      <Button
+        className='app-menu-item action'
+        onClick={onToggleExpanded}
+      >
+        <FontAwesomeIcon
+          icon={expanded ? faAngleDoubleLeft : faAngleDoubleRight}
+        />
+      </Button>
+      <NavLink
+        className='app-menu-item link'
+        to='/home'
+        activeClassName='active'
+      >
+        <FontAwesomeIcon
+          icon={faHome}
+          size='xs'
+        />
+        {expanded ? menuHome : null}
+      </NavLink>
+      <NavLink
+        className='app-menu-item link'
+        to='/social'
+        activeClassName='active'
+      >
+        <FontAwesomeIcon
+          icon={faUsers}
+          size='xs'
+        />
+        {expanded ? menuSocial : null}
+      </NavLink>
     </div>
   )
 }

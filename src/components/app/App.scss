@@ -2,6 +2,7 @@
 
 $navbar-height: 3rem;
 $menu-width: 12rem;
+$menu-width-collapse: 3rem;
 
 .alpha-auth.app {
   position: absolute;
@@ -53,17 +54,61 @@ $menu-width: 12rem;
     top: $navbar-height;
     bottom: 0;
     left: 0;
-    width: $menu-width;
+    width: $menu-width-collapse;
 
     background: lightgoldenrodyellow;
+
+    &.expanded {
+      width: $menu-width;
+      .app-menu-item.action {
+        text-align: right;
+        padding-right: 1rem;
+      }
+    }
+
+    .app-menu-item{
+      &:hover {
+        background: white;
+      }
+    }
+
+    .app-menu-item.action {
+      width: 100%;
+      border: 0;
+      background: none;
+      outline: none;
+      height: 1.5rem;
+      &:hover {
+        background: white;
+      }
+    }
+    .app-menu-item.link {
+      display: flex;
+      align-items: center;
+      padding: 0.5rem;
+      box-sizing: border-box;
+      text-decoration: unset;
+      height: 2.5rem;
+      color: $alpha-main-color;
+      &.active {
+        font-weight: bold;
+      }
+      .svg-inline--fa {
+        padding: 0.5rem;
+      }
+    }
+  }
+  .app-menu.expanded + .app-content {
+    left: $menu-width;
   }
   .app-content {
     position: absolute;
     top: $navbar-height;
-    left: $menu-width;
+    left: $menu-width-collapse;
     right: 0;
     bottom: 0;
-
+    box-sizing: border-box;
+    background: $alpha-main-background-alpha;
     display: flex;
     >* {
       height: 100%;

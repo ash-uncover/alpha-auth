@@ -27,8 +27,8 @@
           margin-left: 0.3rem;
         }
       }
-      input,
-      textarea {
+
+      .form-control {
         width: 100%;
         border-radius: 0;
         border: 1px solid $alpha-main-inactive;
@@ -38,6 +38,9 @@
         &:focus {
           border-color: $alpha-main-color;
         }
+      }
+      textarea.form-control {
+        line-height: 1.5rem;
       }
 
       .form-submit {

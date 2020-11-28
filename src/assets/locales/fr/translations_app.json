@@ -24,7 +24,7 @@
         "tooltip": "Sauvegarder les modifications"
       }
     },
-    "danger": {
+    "account": {
       "title": "Gestion du Compte"
     }
   },
@@ -33,13 +33,28 @@
     "link": {
       "title": "Social",
       "tooltip": ""
+    },
+    "pending": {
+      "title": "Demandes en attente"
+    },
+    "active": {
+      "title": "Amis"
+    },
+    "waiting": {
+      "title": "Demandes envoyées"
+    },
+    "ignore": {
+      "title": "Utilisateurs bloqués"
     }
   },
   "support": {
     "title": "Support",
     "link": {
-      "title": "Support",
+      "title": "Aide et Support",
       "tooltip": ""
+    },
+    "contact": {
+      "title": "Nous contacter"
     }
   }
 }

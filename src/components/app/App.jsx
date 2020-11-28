@@ -9,6 +9,7 @@ import {
 
 import {
   useDispatch,
+  useState,
   useSelector,
   useTranslation
 } from 'lib/hooks'
@@ -33,7 +34,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPowerOff,
   faHome,
-  faUsers
+  faUsers,
+  faAngleDoubleLeft,
+  faAngleDoubleRight
 } from '@fortawesome/free-solid-svg-icons'
 
 import Home from 'components/app/home/Home'
@@ -123,14 +126,28 @@ const AppNavbar = () => {
 }
 
 const AppMenu = () => {
+  const [expanded, setExpanded] = useState(true)
+
   const { t } = useTranslation()
   const menuHome = t('app.home.link.title')
   const menuSocial = t('app.social.link.title')
 
+  const onToggleExpanded = () => {
+    setExpanded(!expanded)
+  }
+
   return (
-    <div className='app-menu'>
+    <div className={`app-menu ${expanded ? 'expanded' : ''}`}>
+      <Button
+        className='app-menu-item action'
+        onClick={onToggleExpanded}
+      >
+        <FontAwesomeIcon
+          icon={expanded ? faAngleDoubleLeft : faAngleDoubleRight}
+        />
+      </Button>
       <NavLink
-        className='app-menu-item'
+        className='app-menu-item link'
         to='/home'
         activeClassName='active'
       >
@@ -138,10 +155,10 @@ const AppMenu = () => {
           icon={faHome}
           size='xs'
         />
-        {menuHome}
+        {expanded ? menuHome : null}
       </NavLink>
       <NavLink
-        className='app-menu-item'
+        className='app-menu-item link'
         to='/social'
         activeClassName='active'
       >
@@ -149,7 +166,7 @@ const AppMenu = () => {
           icon={faUsers}
           size='xs'
         />
-        {menuSocial}
+        {expanded ? menuSocial : null}
       </NavLink>
     </div>
   )

@@ -22,7 +22,10 @@ export const initialUserState = () => ({
   error: null,
   relationsData: null,
   relationsStatus: DataStates.NEVER,
-  relationsError: null
+  relationsError: null,
+  threadsData: null,
+  threadsStatus: DataStates.NEVER,
+  threadsError: null
 })
 
 export const getUserState = (state, id) => {
@@ -95,13 +98,28 @@ export const reduceUserRelationsGetFailure = (state, { payload }) => {
   userState.relationsStatus = DataStates.FAILURE
 }
 
+export const reduceUserThreadsGetFetch = (state, { payload }) => {
+  const { id } = payload
+  const userState = getUserState(state, id)
+  userState.threadsStatus = userState.threadsStatus === DataStates.NEVER ? DataStates.FETCHING_FIRST : DataStates.FETCHING
+}
+export const reduceUserThreadsGetSuccess = (state, { payload }) => {
+  const { id, threads } = payload
+  const userState = getUserState(state, id)
+  userState.threadsData = threads.map((thread) => thread.id)
+  userState.threadsError = null
+  userState.threadsStatus = DataStates.SUCCESS
+}
+export const reduceUserThreadsGetFailure = (state, { payload }) => {
+  const { id, error } = payload
+  const userState = getUserState(state, id)
+  userState.threadsData = null
+  userState.threadsError = error
+  userState.threadsStatus = DataStates.FAILURE
+}
+
 export const reduceAuthLogoutSuccess = (state) => {
-  state.data = {}
-  state.status = DataStates.NEVER
-  state.error = null
-  state.relationsData = {}
-  state.relationsStatus = DataStates.NEVER
-  state.relationsError = null
+  Object.assign(state, initialState())
 }
 
 // MAIN REDUCER //
@@ -122,7 +140,11 @@ const usersSlice = createSlice({
 
     userRelationsGetFetch: reduceUserRelationsGetFetch,
     userRelationsGetSuccess: reduceUserRelationsGetSuccess,
-    userRelationsGetFailure: reduceUserRelationsGetFailure
+    userRelationsGetFailure: reduceUserRelationsGetFailure,
+
+    userThreadsGetFetch: reduceUserThreadsGetFetch,
+    userThreadsGetSuccess: reduceUserThreadsGetSuccess,
+    userThreadsGetFailure: reduceUserThreadsGetFailure
   },
 
   extraReducers: {
@@ -145,7 +167,11 @@ usersSlice.selectors = {
 
   restUserRelationsDataSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationsData,
   restUserRelationsStatusSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationsStatus,
-  restUserRelationsErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationError
+  restUserRelationsErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationError,
+
+  restUserThreadsDataSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).threadsData,
+  restUserThreadsStatusSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).threadsStatus,
+  restUserThreadsErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).threadError
 }
 
 export const {

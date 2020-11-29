@@ -8,6 +8,7 @@ import {
 } from 'lib/hooks'
 
 import {
+  AppContent,
   AppArea,
   AppSection
 } from 'components/app/App'
@@ -21,12 +22,14 @@ const Support = () => {
   const contactTitle = t('app:support.contact.title')
 
   return (
-    <AppArea className='support'>
-      <h1>{title}</h1>
-      <AppSection title={contactTitle}>
-        ...
-      </AppSection>
-    </AppArea>
+    <AppContent className='support'>
+      <AppArea>
+        <h1>{title}</h1>
+        <AppSection title={contactTitle}>
+          ...
+        </AppSection>
+      </AppArea>
+    </AppContent>
   )
 }
 

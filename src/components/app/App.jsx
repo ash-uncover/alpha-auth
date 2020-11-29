@@ -71,12 +71,19 @@ const App = () => {
   const loadedRelations = userRelationsStatus && userRelationsStatus !== DataStates.NEVER && userRelationsStatus !== DataStates.FETCHING_FIRST
   const canLoadRelations = userRelationsStatus !== DataStates.FETCHING && userRelationsStatus !== DataStates.FAILURE && userRelationsStatus !== DataStates.FETCHING_FIRST
 
+  const userThreadsStatus = useSelector(UsersSelectors.restUserThreadsStatusSelector(userId))
+  const loadedThreads = userThreadsStatus && userThreadsStatus !== DataStates.NEVER && userThreadsStatus !== DataStates.FETCHING_FIRST
+  const canLoadThreads = userThreadsStatus !== DataStates.FETCHING && userThreadsStatus !== DataStates.FAILURE && userThreadsStatus !== DataStates.FETCHING_FIRST
+
   useEffect(() => {
     if (!loaded && canLoad) {
       RestService.api.users.get(dispatch, token, userId)
     }
     if (!loadedRelations && canLoadRelations) {
       RestService.api.users.getRelations(dispatch, token, userId)
+    }
+    if (!loadedThreads && canLoadThreads) {
+      RestService.api.users.getThreads(dispatch, token, userId)
     }
   })
 
@@ -101,25 +108,23 @@ const App = () => {
         <div className='alpha-auth app'>
           <AppNavbar />
           <AppMenu />
-          <div className='app-content'>
-            <Switch>
-              <Route path={Routes.HOME}>
-                <Home />
-              </Route>
-              <Route path={Routes.SOCIAL}>
-                <Social />
-              </Route>
-              <Route path={Routes.MESSAGES}>
-                <Messages />
-              </Route>
-              <Route path={Routes.SUPPORT}>
-                <Support />
-              </Route>
-              <Route path='*'>
-                <Redirect to={Routes.HOME} />
-              </Route>
-            </Switch>
-          </div>
+          <Switch>
+            <Route path={Routes.HOME}>
+              <Home />
+            </Route>
+            <Route path={Routes.SOCIAL}>
+              <Social />
+            </Route>
+            <Route path={Routes.MESSAGES}>
+              <Messages />
+            </Route>
+            <Route path={Routes.SUPPORT}>
+              <Support />
+            </Route>
+            <Route path='*'>
+              <Redirect to={Routes.HOME} />
+            </Route>
+          </Switch>
         </div>
       </Route>
     </Switch>
@@ -244,6 +249,17 @@ const AppMenuLink = ({
         {text}
       </span>
     </NavLink>
+  )
+}
+
+export const AppContent = ({
+  className = '',
+  children
+}) => {
+  return (
+    <div className={`app-content ${className}`}>
+      {children}
+    </div>
   )
 }
 

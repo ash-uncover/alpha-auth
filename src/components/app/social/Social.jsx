@@ -41,6 +41,7 @@ import {
 } from 'store/rest/users'
 
 import {
+  AppContent,
   AppArea,
   AppSection
 } from 'components/app/App'
@@ -70,48 +71,50 @@ const Social = () => {
   }, { relations: [], pending: 0, active: 0, waiting: 0, blocked: 0 })
 
   return (
-    <AppArea className='social'>
-      <h1>{title}</h1>
+    <AppContent className='social'>
+      <AppArea>
+        <h1>{title}</h1>
 
-      {data.pending > 0 && (
-        <AppSection title={`${pendingTitle} (${data.pending})`}>
+        {data.pending > 0 && (
+          <AppSection title={`${pendingTitle} (${data.pending})`}>
+            {
+              data.relations
+                .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
+                .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} relationId={relationId} />)
+            }
+          </AppSection>
+        )}
+
+        <AppSection title={`${activeTitle} (${data.active})`}>
           {
             data.relations
-              .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
-              .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} relationId={relationId} />)
+              .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
+              .map(({ id, relationId }) => <SocialRelationActive key={id} id={id} relationId={relationId} />)
           }
+          {data.active === 0 && 'No friends lol'}
         </AppSection>
-      )}
 
-      <AppSection title={`${activeTitle} (${data.active})`}>
-        {
-          data.relations
-            .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
-            .map(({ id, relationId }) => <SocialRelationActive key={id} id={id} relationId={relationId} />)
-        }
-        {data.active === 0 && 'No friends lol'}
-      </AppSection>
+        {data.waiting > 0 && (
+          <AppSection title={`${waitingTitle} (${data.waiting})`}>
+            {
+              data.relations
+                .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
+                .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} relationId={relationId} />)
+            }
+          </AppSection>
+        )}
 
-      {data.waiting > 0 && (
-        <AppSection title={`${waitingTitle} (${data.waiting})`}>
-          {
-            data.relations
-              .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
-              .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} relationId={relationId} />)
-          }
-        </AppSection>
-      )}
-
-      {data.blocked > 0 && (
-        <AppSection title={`${blockedTitle} (${data.blocked})`}>
-          {
-            data.relations
-              .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
-              .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationId={relationId} />)
-          }
-        </AppSection>
-      )}
-    </AppArea>
+        {data.blocked > 0 && (
+          <AppSection title={`${blockedTitle} (${data.blocked})`}>
+            {
+              data.relations
+                .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
+                .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationId={relationId} />)
+            }
+          </AppSection>
+        )}
+      </AppArea>
+    </AppContent>
   )
 }
 

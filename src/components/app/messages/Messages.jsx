@@ -8,8 +8,9 @@ import {
 } from 'lib/hooks'
 
 import {
+  AppContent,
   AppArea,
-  AppSection
+  AppPanel
 } from 'components/app/App'
 
 import './Messages.scss'
@@ -18,15 +19,17 @@ const Messages = () => {
   const { t } = useTranslation()
   const title = t('app:messages.title')
 
-  const contactTitle = t('app:messages.contact.title')
-
   return (
-    <AppArea className='messages'>
-      <h1>{title}</h1>
-      <AppSection title={contactTitle}>
+    <AppContent className='messages'>
+      <AppPanel>
+        <h1>{title}</h1>
         ...
-      </AppSection>
-    </AppArea>
+      </AppPanel>
+      <AppArea>
+        <h1>{title}</h1>
+        ...
+      </AppArea>
+    </AppContent>
   )
 }
 

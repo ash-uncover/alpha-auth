@@ -29,6 +29,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons'
 
 import {
+  AppContent,
   AppArea,
   AppSection
 } from 'components/app/App'
@@ -79,63 +80,65 @@ const Home = () => {
   }
 
   return (
-    <AppArea className='home'>
-      <h1>{title}</h1>
+    <AppContent className='home'>
+      <AppArea>
+        <h1>{title}</h1>
 
-      <AppSection title={infoTitle}>
-        <form>
-          <div className='form-group'>
-            <label className='form-label'>
-              {infoNameTitle}
-              <FontAwesomeIcon
-                icon={faInfoCircle}
-                size='sm'
-                title={infoNameTooltip}
+        <AppSection title={infoTitle}>
+          <form>
+            <div className='form-group'>
+              <label className='form-label'>
+                {infoNameTitle}
+                <FontAwesomeIcon
+                  icon={faInfoCircle}
+                  size='sm'
+                  title={infoNameTooltip}
+                />
+              </label>
+              <input
+                className='form-control'
+                placeholder={infoNamePlaceholder}
+                value={name}
+                onChange={onNameChange}
               />
-            </label>
-            <input
-              className='form-control'
-              placeholder={infoNamePlaceholder}
-              value={name}
-              onChange={onNameChange}
-            />
-          </div>
-          <div className='form-group'>
-            <label className='form-label'>
-              {infoDescTitle}
-              <FontAwesomeIcon
-                icon={faInfoCircle}
-                size='sm'
-                title={infoDescTooltip}
+            </div>
+            <div className='form-group'>
+              <label className='form-label'>
+                {infoDescTitle}
+                <FontAwesomeIcon
+                  icon={faInfoCircle}
+                  size='sm'
+                  title={infoDescTooltip}
+                />
+              </label>
+              <textarea
+                className='form-control'
+                style={{ resize: 'none' }}
+                rows='5'
+                placeholder={infoDescPlaceholder}
+                value={description}
+                onChange={onDescriptionChange}
               />
-            </label>
-            <textarea
-              className='form-control'
-              style={{ resize: 'none' }}
-              rows='5'
-              placeholder={infoDescPlaceholder}
-              value={description}
-              onChange={onDescriptionChange}
-            />
-          </div>
-          <div className='form-group actions'>
-            <Button
-              className='form-submit'
-              type='submit'
-              disabled={name === userData.name && description === userData.description}
-              title={infoSubmitTooltip}
-              onClick={onUpdateInfo}
-            >
-              {infoSubmitTitle}
-            </Button>
-          </div>
-        </form>
-      </AppSection>
+            </div>
+            <div className='form-group actions'>
+              <Button
+                className='form-submit'
+                type='submit'
+                disabled={name === userData.name && description === userData.description}
+                title={infoSubmitTooltip}
+                onClick={onUpdateInfo}
+              >
+                {infoSubmitTitle}
+              </Button>
+            </div>
+          </form>
+        </AppSection>
 
-      <AppSection title={accountTitle}>
-        ...
-      </AppSection>
-    </AppArea>
+        <AppSection title={accountTitle}>
+          ...
+        </AppSection>
+      </AppArea>
+    </AppContent>
   )
 }
 

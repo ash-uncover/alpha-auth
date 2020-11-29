@@ -20,9 +20,9 @@ export const initialUserState = () => ({
   data: null,
   status: DataStates.NEVER,
   error: null,
-  relationshipsData: null,
-  relationshipsStatus: DataStates.NEVER,
-  relationshipsError: null
+  relationsData: null,
+  relationsStatus: DataStates.NEVER,
+  relationsError: null
 })
 
 export const getUserState = (state, id) => {
@@ -75,10 +75,33 @@ export const reduceUserPatchFailure = (state, { payload }) => {
   userState.status = DataStates.FAILURE
 }
 
+export const reduceUserRelationsGetFetch = (state, { payload }) => {
+  const { id } = payload
+  const userState = getUserState(state, id)
+  userState.relationsStatus = userState.relationsStatus === DataStates.NEVER ? DataStates.FETCHING_FIRST : DataStates.FETCHING
+}
+export const reduceUserRelationsGetSuccess = (state, { payload }) => {
+  const { id, relations } = payload
+  const userState = getUserState(state, id)
+  userState.relationsData = relations.map((relation) => relation.id)
+  userState.relationsError = null
+  userState.relationsStatus = DataStates.SUCCESS
+}
+export const reduceUserRelationsGetFailure = (state, { payload }) => {
+  const { id, error } = payload
+  const userState = getUserState(state, id)
+  userState.relationsData = null
+  userState.relationsError = error
+  userState.relationsStatus = DataStates.FAILURE
+}
+
 export const reduceAuthLogoutSuccess = (state) => {
   state.data = {}
   state.status = DataStates.NEVER
   state.error = null
+  state.relationsData = {}
+  state.relationsStatus = DataStates.NEVER
+  state.relationsError = null
 }
 
 // MAIN REDUCER //
@@ -95,7 +118,11 @@ const usersSlice = createSlice({
 
     userPatchFetch: reduceUserPatchFetch,
     userPatchSuccess: reduceUserPatchSuccess,
-    userPatchFailure: reduceUserPatchFailure
+    userPatchFailure: reduceUserPatchFailure,
+
+    userRelationsGetFetch: reduceUserRelationsGetFetch,
+    userRelationsGetSuccess: reduceUserRelationsGetSuccess,
+    userRelationsGetFailure: reduceUserRelationsGetFailure
   },
 
   extraReducers: {
@@ -114,7 +141,11 @@ usersSlice.selectors = {
 
   restUserDataSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).data,
   restUserStatusSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).status,
-  restUserErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).error
+  restUserErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).error,
+
+  restUserRelationsDataSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationsData,
+  restUserRelationsStatusSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationsStatus,
+  restUserRelationsErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationError
 }
 
 export const {

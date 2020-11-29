@@ -2,14 +2,39 @@ import React from 'react'
 
 import {
   useDispatch,
-  useState,
+  useEffect,
   useSelector,
   useTranslation
 } from 'lib/hooks'
 
 import {
+  Button
+} from '@uncover/react-commons'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  faCheckCircle,
+  faComment,
+  faCommentDots,
+  faCommentSlash,
+  faTimesCircle,
+  faUserSlash
+} from '@fortawesome/free-solid-svg-icons'
+
+import DataStates from 'lib/constants/DataStates'
+import RelationsStatus from 'lib/constants/RelationsStatus'
+
+import {
+  RestService
+} from 'services'
+
+import {
   selectors as AuthSelectors
 } from 'store/auth'
+
+import {
+  selectors as RelationsSelectors
+} from 'store/rest/relations'
 
 import {
   selectors as UsersSelectors
@@ -28,7 +53,7 @@ const Social = () => {
 
   const pendingTitle = t('app:social.pending.title')
 
-  const friendsTitle = t('app:social.active.title')
+  const activeTitle = t('app:social.active.title')
 
   const waitingTitle = t('app:social.waiting.title')
 
@@ -38,28 +63,198 @@ const Social = () => {
     token,
     userId
   } = useSelector(AuthSelectors.authLogonDataSelector)
-  const userData = useSelector(UsersSelectors.restUserDataSelector(userId))
+  const userRelationsData = useSelector(UsersSelectors.restUserRelationsDataSelector(userId))
+
+  const relationsData = userRelationsData.map((id) => useSelector(RelationsSelectors.restRelationDataSelector(id)))
 
   return (
     <AppArea className='social'>
       <h1>{title}</h1>
 
       <AppSection title={pendingTitle}>
-        ...
+        {
+          relationsData
+            .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
+            .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} relationId={relationId} />)
+        }
       </AppSection>
 
-      <AppSection title={friendsTitle}>
-        ...
+      <AppSection title={activeTitle}>
+        {
+          relationsData
+            .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
+            .map(({ id, relationId }) => <SocialRelationActive key={id} id={id} relationId={relationId} />)
+        }
       </AppSection>
 
       <AppSection title={waitingTitle}>
-        ...
+        {
+          relationsData
+            .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
+            .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} relationId={relationId} />)
+        }
       </AppSection>
 
       <AppSection title={ignoreTitle}>
-        ...
+        {
+          relationsData
+            .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
+            .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationId={relationId} />)
+        }
       </AppSection>
     </AppArea>
+  )
+}
+
+const SocialRelationPending = ({
+  id,
+  relationId
+}) => {
+  const dispatch = useDispatch()
+  const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
+
+  const onAccept = () => {
+    RestService.api.relations.patch(dispatch, token, id, RelationsStatus.ACTIVE)
+  }
+  const onReject = () => {
+    RestService.api.relations.delete(dispatch, token, id)
+  }
+
+  return (
+    <SocialRelation id={relationId}>
+      <SocialRelationAction
+        icon={faCheckCircle}
+        onClick={onAccept}
+      />
+      <SocialRelationAction
+        icon={faTimesCircle}
+        onClick={onReject}
+      />
+    </SocialRelation>
+  )
+}
+
+const SocialRelationActive = ({
+  id,
+  relationId
+}) => {
+  const onBlock = () => {
+
+  }
+  const onDelete = () => {
+
+  }
+  const onMessage = () => {
+
+  }
+  return (
+    <SocialRelation id={relationId}>
+      <SocialRelationAction
+        icon={faCommentSlash}
+        onClick={onBlock}
+      />
+      <SocialRelationAction
+        icon={faUserSlash}
+        onClick={onDelete}
+      />
+      <SocialRelationAction
+        icon={faCommentDots}
+        onClick={onMessage}
+      />
+    </SocialRelation>
+  )
+}
+
+const SocialRelationWaiting = ({
+  id,
+  relationId
+}) => {
+  return (
+    <SocialRelation id={relationId} />
+  )
+}
+
+const SocialRelationIgnore = ({
+  id,
+  relationId
+}) => {
+  const onUnblock = () => {
+
+  }
+  const onDelete = () => {
+
+  }
+  return (
+    <SocialRelation id={relationId}>
+      <SocialRelationAction
+        icon={faComment}
+        onClick={onUnblock}
+      />
+      <SocialRelationAction
+        icon={faUserSlash}
+        onClick={onDelete}
+      />
+    </SocialRelation>
+  )
+}
+
+const SocialRelation = ({
+  id,
+  children
+}) => {
+  const dispatch = useDispatch()
+
+  const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
+
+  const userData = useSelector(UsersSelectors.restUserDataSelector(id))
+  const userStatus = useSelector(UsersSelectors.restUserStatusSelector(id))
+
+  useEffect(() => {
+    if (userStatus === DataStates.NEVER || userStatus === DataStates.OUTDATED) {
+      RestService.api.users.get(dispatch, token, id)
+    }
+  })
+
+  switch (userStatus) {
+    case DataStates.NEVER: return (
+      <div className='social-relation'>
+        Not Loaded
+      </div>
+    )
+    case DataStates.FETCHING:
+    case DataStates.FETCHING_FIRST: return (
+      <div className='social-relation'>
+        Loading...
+      </div>
+    )
+    case DataStates.FAILURE: return (
+      <div className='social-relation'>
+        Error
+      </div>
+    )
+    default: return (
+      <div className='social-relation'>
+        {userData.name}
+        {userData.description}
+        {children}
+      </div>
+    )
+  }
+}
+
+const SocialRelationAction = ({
+  icon,
+  tooltip,
+  onClick
+}) => {
+  return (
+    <Button
+      className='social-relation-action'
+      title={tooltip}
+      onClick={onClick}
+    >
+      <FontAwesomeIcon icon={icon} />
+    </Button>
   )
 }
 

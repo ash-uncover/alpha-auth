@@ -57,7 +57,7 @@ const Social = () => {
 
   const waitingTitle = t('app:social.waiting.title')
 
-  const ignoreTitle = t('app:social.ignore.title')
+  const blockedTitle = t('app:social.ignore.title')
 
   const {
     token,
@@ -65,43 +65,55 @@ const Social = () => {
   } = useSelector(AuthSelectors.authLogonDataSelector)
   const userRelationsData = useSelector(UsersSelectors.restUserRelationsDataSelector(userId))
 
-  const relationsData = userRelationsData.map((id) => useSelector(RelationsSelectors.restRelationDataSelector(id)))
+  const data = userRelationsData.reduce((acc, relationId) => {
+    const relation = useSelector(RelationsSelectors.restRelationDataSelector(relationId))
+    acc.relations.push(relation)
+    acc[relation.status.toLowerCase()]++
+    return acc
+  }, { relations: [], pending: 0, active: 0, waiting: 0, blocked: 0 })
 
   return (
     <AppArea className='social'>
       <h1>{title}</h1>
 
-      <AppSection title={pendingTitle}>
-        {
-          relationsData
-            .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
-            .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} relationId={relationId} />)
-        }
-      </AppSection>
+      {data.pending > 0 && (
+        <AppSection title={`${pendingTitle} (${data.pending})`}>
+          {
+            data.relations
+              .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
+              .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} relationId={relationId} />)
+          }
+        </AppSection>
+      )}
 
-      <AppSection title={activeTitle}>
+      <AppSection title={`${activeTitle} (${data.active})`}>
         {
-          relationsData
+          data.relations
             .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
             .map(({ id, relationId }) => <SocialRelationActive key={id} id={id} relationId={relationId} />)
         }
+        {data.active === 0 && 'No friends lol'}
       </AppSection>
 
-      <AppSection title={waitingTitle}>
-        {
-          relationsData
-            .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
-            .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} relationId={relationId} />)
-        }
-      </AppSection>
+      {data.waiting > 0 && (
+        <AppSection title={`${waitingTitle} (${data.waiting})`}>
+          {
+            data.relations
+              .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
+              .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} relationId={relationId} />)
+          }
+        </AppSection>
+      )}
 
-      <AppSection title={ignoreTitle}>
-        {
-          relationsData
-            .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
-            .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationId={relationId} />)
-        }
-      </AppSection>
+      {data.blocked > 0 && (
+        <AppSection title={`${blockedTitle} (${data.blocked})`}>
+          {
+            data.relations
+              .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
+              .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationId={relationId} />)
+          }
+        </AppSection>
+      )}
     </AppArea>
   )
 }
@@ -114,7 +126,7 @@ const SocialRelationPending = ({
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
   const onAccept = () => {
-    RestService.api.relations.patch(dispatch, token, id, RelationsStatus.ACTIVE)
+    RestService.api.relations.patch(dispatch, token, id, 'accept')
   }
   const onReject = () => {
     RestService.api.relations.delete(dispatch, token, id)
@@ -138,11 +150,14 @@ const SocialRelationActive = ({
   id,
   relationId
 }) => {
-  const onBlock = () => {
+  const dispatch = useDispatch()
+  const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
+  const onBlock = () => {
+    RestService.api.relations.patch(dispatch, token, id, 'block')
   }
   const onDelete = () => {
-
+    RestService.api.relations.delete(dispatch, token, id)
   }
   const onMessage = () => {
 
@@ -178,11 +193,14 @@ const SocialRelationIgnore = ({
   id,
   relationId
 }) => {
-  const onUnblock = () => {
+  const dispatch = useDispatch()
+  const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
+  const onUnblock = () => {
+    RestService.api.relations.patch(dispatch, token, id, 'unblock')
   }
   const onDelete = () => {
-
+    RestService.api.relations.delete(dispatch, token, id)
   }
   return (
     <SocialRelation id={relationId}>

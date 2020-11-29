@@ -47,6 +47,16 @@
       "title": "Utilisateurs bloqués"
     }
   },
+  "messages": {
+    "title": "Messages",
+    "link": {
+      "title": "Messages",
+      "tooltip": ""
+    },
+    "contact": {
+      "title": "Nous contacter"
+    }
+  },
   "support": {
     "title": "Support",
     "link": {

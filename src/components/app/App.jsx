@@ -39,6 +39,7 @@ import {
   faPowerOff,
   faHome,
   faUsers,
+  faEnvelope,
   faAngleDoubleLeft,
   faAngleDoubleRight,
   faQuestionCircle
@@ -48,6 +49,7 @@ import DataStates from 'lib/constants/DataStates'
 
 import Home from 'components/app/home/Home'
 import Social from 'components/app/social/Social'
+import Messages from 'components/app/messages/Messages'
 import Support from 'components/app/support/Support'
 
 import './App.scss'
@@ -106,6 +108,9 @@ const App = () => {
               </Route>
               <Route path={Routes.SOCIAL}>
                 <Social />
+              </Route>
+              <Route path={Routes.MESSAGES}>
+                <Messages />
               </Route>
               <Route path={Routes.SUPPORT}>
                 <Support />
@@ -174,6 +179,7 @@ const AppMenu = () => {
   const { t } = useTranslation()
   const menuHome = t('app:home.link.title')
   const menuSocial = t('app:social.link.title')
+  const menuMessages = t('app:messages.link.title')
   const menuSupport = t('app:support.link.title')
 
   const onToggleExpanded = () => {
@@ -201,6 +207,12 @@ const AppMenu = () => {
         to={Routes.SOCIAL}
         icon={faUsers}
         text={menuSocial}
+      />
+
+      <AppMenuLink
+        to={Routes.MESSAGES}
+        icon={faEnvelope}
+        text={menuMessages}
       />
 
       <AppMenuLink

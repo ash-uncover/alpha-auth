@@ -59,10 +59,7 @@ const Social = () => {
 
   const blockedTitle = t('app:social.ignore.title')
 
-  const {
-    token,
-    userId
-  } = useSelector(AuthSelectors.authLogonDataSelector)
+  const { userId } = useSelector(AuthSelectors.authLogonDataSelector)
   const userRelationsData = useSelector(UsersSelectors.restUserRelationsDataSelector(userId))
 
   const data = userRelationsData.reduce((acc, relationId) => {

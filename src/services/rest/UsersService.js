@@ -1,4 +1,7 @@
-/* globals fetch, Headers */
+import {
+  get,
+  patch
+} from 'lib/RestHelper'
 
 import {
   actions
@@ -8,25 +11,7 @@ import CONFIG from 'configuration'
 
 export const userGet = async (dispatch, token, id) => {
   dispatch(actions.userGetFetch({ id }))
-
-  const headers = new Headers()
-  headers.append('Accept', 'application/json')
-  headers.append('Content-Type', 'application/json')
-  headers.append('Authorization', token)
-
-  return fetch(
-    `${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}`,
-    {
-      method: 'GET',
-      headers
-    }
-  )
-    .then((response) => {
-      if (response.status >= 200 && response.status < 300) {
-        return response.json()
-      }
-      throw new Error(response)
-    })
+  return get(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}`, token)
     .then((user) => {
       dispatch(actions.userGetSuccess({ id, user }))
     })
@@ -35,39 +20,32 @@ export const userGet = async (dispatch, token, id) => {
     })
 }
 
-export const userPatch = async (dispatch, token, id, user) => {
+export const userPatch = async (dispatch, token, id, data) => {
   dispatch(actions.userGetFetch({ id }))
-
-  const headers = new Headers()
-  headers.append('Accept', 'application/json')
-  headers.append('Content-Type', 'application/json')
-  headers.append('Authorization', token)
-
-  return fetch(
-    `${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}`,
-    {
-      method: 'PATCH',
-      headers,
-      body: JSON.stringify(user)
-    }
-  )
-    .then((response) => {
-      if (response.status >= 200 && response.status < 300) {
-        return response.json()
-      }
-      throw new Error(response)
-    })
+  return patch(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}`, token, data)
     .then((user) => {
       dispatch(actions.userGetSuccess({ id, user }))
     })
     .catch((error) => {
       dispatch(actions.userGetFailure({ id, error }))
+    })
+}
+
+export const userRelationsGet = async (dispatch, token, id) => {
+  dispatch(actions.userRelationsGetFetch({ id }))
+  return get(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}/relations`, token)
+    .then((relations) => {
+      dispatch(actions.userRelationsGetSuccess({ id, relations }))
+    })
+    .catch((error) => {
+      dispatch(actions.userRelationsGetFailure({ id, error }))
     })
 }
 
 const UsersService = {
   get: userGet,
-  patch: userPatch
+  patch: userPatch,
+  getRelations: userRelationsGet
 }
 
 export default UsersService

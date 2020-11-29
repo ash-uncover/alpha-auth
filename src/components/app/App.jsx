@@ -44,12 +44,13 @@ import {
   faQuestionCircle
 } from '@fortawesome/free-solid-svg-icons'
 
+import DataStates from 'lib/constants/DataStates'
+
 import Home from 'components/app/home/Home'
 import Social from 'components/app/social/Social'
 import Support from 'components/app/support/Support'
 
 import './App.scss'
-import DataStates from '../../lib/constants/DataStates'
 
 const App = () => {
   // Hooks
@@ -64,13 +65,20 @@ const App = () => {
   const loaded = userStatus && userStatus !== DataStates.NEVER && userStatus !== DataStates.FETCHING_FIRST
   const canLoad = userStatus !== DataStates.FETCHING && userStatus !== DataStates.FAILURE && userStatus !== DataStates.FETCHING_FIRST
 
+  const userRelationsStatus = useSelector(UsersSelectors.restUserRelationsStatusSelector(userId))
+  const loadedRelations = userRelationsStatus && userRelationsStatus !== DataStates.NEVER && userRelationsStatus !== DataStates.FETCHING_FIRST
+  const canLoadRelations = userRelationsStatus !== DataStates.FETCHING && userRelationsStatus !== DataStates.FAILURE && userRelationsStatus !== DataStates.FETCHING_FIRST
+
   useEffect(() => {
     if (!loaded && canLoad) {
       RestService.api.users.get(dispatch, token, userId)
     }
+    if (!loadedRelations && canLoadRelations) {
+      RestService.api.users.getRelations(dispatch, token, userId)
+    }
   })
 
-  if (!loaded) {
+  if (!loaded || !loadedRelations) {
     return (
       <AppLoading />
     )

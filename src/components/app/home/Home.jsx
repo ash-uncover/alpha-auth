@@ -133,7 +133,7 @@ const Home = () => {
       </AppSection>
 
       <AppSection title={accountTitle}>
-        content
+        ...
       </AppSection>
     </AppArea>
   )

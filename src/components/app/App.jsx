@@ -39,6 +39,7 @@ import {
   faPowerOff,
   faHome,
   faUsers,
+  faEnvelope,
   faAngleDoubleLeft,
   faAngleDoubleRight,
   faQuestionCircle
@@ -48,6 +49,7 @@ import DataStates from 'lib/constants/DataStates'
 
 import Home from 'components/app/home/Home'
 import Social from 'components/app/social/Social'
+import Messages from 'components/app/messages/Messages'
 import Support from 'components/app/support/Support'
 
 import './App.scss'
@@ -69,12 +71,19 @@ const App = () => {
   const loadedRelations = userRelationsStatus && userRelationsStatus !== DataStates.NEVER && userRelationsStatus !== DataStates.FETCHING_FIRST
   const canLoadRelations = userRelationsStatus !== DataStates.FETCHING && userRelationsStatus !== DataStates.FAILURE && userRelationsStatus !== DataStates.FETCHING_FIRST
 
+  const userThreadsStatus = useSelector(UsersSelectors.restUserThreadsStatusSelector(userId))
+  const loadedThreads = userThreadsStatus && userThreadsStatus !== DataStates.NEVER && userThreadsStatus !== DataStates.FETCHING_FIRST
+  const canLoadThreads = userThreadsStatus !== DataStates.FETCHING && userThreadsStatus !== DataStates.FAILURE && userThreadsStatus !== DataStates.FETCHING_FIRST
+
   useEffect(() => {
     if (!loaded && canLoad) {
       RestService.api.users.get(dispatch, token, userId)
     }
     if (!loadedRelations && canLoadRelations) {
       RestService.api.users.getRelations(dispatch, token, userId)
+    }
+    if (!loadedThreads && canLoadThreads) {
+      RestService.api.users.getThreads(dispatch, token, userId)
     }
   })
 
@@ -99,22 +108,23 @@ const App = () => {
         <div className='alpha-auth app'>
           <AppNavbar />
           <AppMenu />
-          <div className='app-content'>
-            <Switch>
-              <Route path={Routes.HOME}>
-                <Home />
-              </Route>
-              <Route path={Routes.SOCIAL}>
-                <Social />
-              </Route>
-              <Route path={Routes.SUPPORT}>
-                <Support />
-              </Route>
-              <Route path='*'>
-                <Redirect to={Routes.HOME} />
-              </Route>
-            </Switch>
-          </div>
+          <Switch>
+            <Route path={Routes.HOME}>
+              <Home />
+            </Route>
+            <Route path={Routes.SOCIAL}>
+              <Social />
+            </Route>
+            <Route path={Routes.MESSAGES}>
+              <Messages />
+            </Route>
+            <Route path={Routes.SUPPORT}>
+              <Support />
+            </Route>
+            <Route path='*'>
+              <Redirect to={Routes.HOME} />
+            </Route>
+          </Switch>
         </div>
       </Route>
     </Switch>
@@ -174,6 +184,7 @@ const AppMenu = () => {
   const { t } = useTranslation()
   const menuHome = t('app:home.link.title')
   const menuSocial = t('app:social.link.title')
+  const menuMessages = t('app:messages.link.title')
   const menuSupport = t('app:support.link.title')
 
   const onToggleExpanded = () => {
@@ -201,6 +212,12 @@ const AppMenu = () => {
         to={Routes.SOCIAL}
         icon={faUsers}
         text={menuSocial}
+      />
+
+      <AppMenuLink
+        to={Routes.MESSAGES}
+        icon={faEnvelope}
+        text={menuMessages}
       />
 
       <AppMenuLink
@@ -232,6 +249,17 @@ const AppMenuLink = ({
         {text}
       </span>
     </NavLink>
+  )
+}
+
+export const AppContent = ({
+  className = '',
+  children
+}) => {
+  return (
+    <div className={`app-content ${className}`}>
+      {children}
+    </div>
   )
 }
 

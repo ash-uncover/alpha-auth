@@ -82,9 +82,7 @@ export const reduceUserRelationsGetSuccess = (state, { payload }) => {
 }
 
 export const reduceAuthLogoutSuccess = (state) => {
-  state.data = {}
-  state.status = DataStates.NEVER
-  state.error = null
+  Object.assign(state, initialState())
 }
 
 // MAIN REDUCER //

@@ -6,6 +6,7 @@ const Routes = {
 
   HOME: '/home',
   SOCIAL: '/social',
+  MESSAGES: '/messages',
   SUPPORT: '/support'
 }
 

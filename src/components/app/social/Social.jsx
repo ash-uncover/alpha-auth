@@ -4,6 +4,7 @@ import {
   useDispatch,
   useEffect,
   useSelector,
+  useState,
   useTranslation
 } from 'lib/hooks'
 
@@ -41,28 +42,27 @@ import {
 } from 'store/rest/users'
 
 import {
+  AppContent,
   AppArea,
   AppSection
 } from 'components/app/App'
 
+import SearchBar from 'lib/components/SearchBar'
+
 import './Social.scss'
 
 const Social = () => {
+  const [search, setSearch] = useState('')
+
   const { t } = useTranslation()
   const title = t('app:social.title')
-
+  const searchPlaceholder = t('app:social.search.placeholder')
   const pendingTitle = t('app:social.pending.title')
-
   const activeTitle = t('app:social.active.title')
-
   const waitingTitle = t('app:social.waiting.title')
-
   const blockedTitle = t('app:social.ignore.title')
 
-  const {
-    token,
-    userId
-  } = useSelector(AuthSelectors.authLogonDataSelector)
+  const { userId } = useSelector(AuthSelectors.authLogonDataSelector)
   const userRelationsData = useSelector(UsersSelectors.restUserRelationsDataSelector(userId))
 
   const data = userRelationsData.reduce((acc, relationId) => {
@@ -72,49 +72,73 @@ const Social = () => {
     return acc
   }, { relations: [], pending: 0, active: 0, waiting: 0, blocked: 0 })
 
+  const onSearch = (value) => {
+    setSearch(value)
+  }
+
   return (
-    <AppArea className='social'>
-      <h1>{title}</h1>
+    <AppContent className='social'>
+      <AppArea>
+        <h1>{title}</h1>
 
-      {data.pending > 0 && (
-        <AppSection title={`${pendingTitle} (${data.pending})`}>
+        <SearchBar
+          placeholder={searchPlaceholder}
+          value={search}
+          onChange={onSearch}
+        />
+
+        {data.pending > 0 && (
+          <AppSection
+            title={`${pendingTitle} (${data.pending})`}
+            className='social-section'
+          >
+            {
+              data.relations
+                .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
+                .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} relationId={relationId} />)
+            }
+          </AppSection>
+        )}
+
+        <AppSection
+          className='social-section'
+          title={`${activeTitle} (${data.active})`}
+        >
           {
             data.relations
-              .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
-              .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} relationId={relationId} />)
+              .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
+              .map(({ id, relationId }) => <SocialRelationActive key={id} id={id} relationId={relationId} />)
           }
+          {data.active === 0 && 'No friends lol'}
         </AppSection>
-      )}
 
-      <AppSection title={`${activeTitle} (${data.active})`}>
-        {
-          data.relations
-            .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
-            .map(({ id, relationId }) => <SocialRelationActive key={id} id={id} relationId={relationId} />)
-        }
-        {data.active === 0 && 'No friends lol'}
-      </AppSection>
+        {data.waiting > 0 && (
+          <AppSection
+            className='social-section'
+            title={`${waitingTitle} (${data.waiting})`}
+          >
+            {
+              data.relations
+                .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
+                .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} relationId={relationId} />)
+            }
+          </AppSection>
+        )}
 
-      {data.waiting > 0 && (
-        <AppSection title={`${waitingTitle} (${data.waiting})`}>
-          {
-            data.relations
-              .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
-              .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} relationId={relationId} />)
-          }
-        </AppSection>
-      )}
-
-      {data.blocked > 0 && (
-        <AppSection title={`${blockedTitle} (${data.blocked})`}>
-          {
-            data.relations
-              .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
-              .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationId={relationId} />)
-          }
-        </AppSection>
-      )}
-    </AppArea>
+        {data.blocked > 0 && (
+          <AppSection
+            className='social-section'
+            title={`${blockedTitle} (${data.blocked})`}
+          >
+            {
+              data.relations
+                .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
+                .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationId={relationId} />)
+            }
+          </AppSection>
+        )}
+      </AppArea>
+    </AppContent>
   )
 }
 
@@ -124,6 +148,10 @@ const SocialRelationPending = ({
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
+
+  const { t } = useTranslation()
+  const acceptTooltip = t('app:social.actions.accept.tooltip')
+  const rejectTooltip = t('app:social.actions.reject.tooltip')
 
   const onAccept = () => {
     RestService.api.relations.patch(dispatch, token, id, 'accept')
@@ -135,11 +163,15 @@ const SocialRelationPending = ({
   return (
     <SocialRelation id={relationId}>
       <SocialRelationAction
+        className='accept'
         icon={faCheckCircle}
+        tooltip={acceptTooltip}
         onClick={onAccept}
       />
       <SocialRelationAction
+        className='reject'
         icon={faTimesCircle}
+        tooltip={rejectTooltip}
         onClick={onReject}
       />
     </SocialRelation>
@@ -153,6 +185,11 @@ const SocialRelationActive = ({
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
+  const { t } = useTranslation()
+  const blockTooltip = t('app:social.actions.block.tooltip')
+  const deleteTooltip = t('app:social.actions.delete.tooltip')
+  const chatTooltip = t('app:social.actions.chat.tooltip')
+
   const onBlock = () => {
     RestService.api.relations.patch(dispatch, token, id, 'block')
   }
@@ -165,15 +202,21 @@ const SocialRelationActive = ({
   return (
     <SocialRelation id={relationId}>
       <SocialRelationAction
+        className='reject'
         icon={faCommentSlash}
+        tooltip={blockTooltip}
         onClick={onBlock}
       />
       <SocialRelationAction
+        className='reject'
         icon={faUserSlash}
+        tooltip={deleteTooltip}
         onClick={onDelete}
       />
       <SocialRelationAction
+        className='info'
         icon={faCommentDots}
+        tooltip={chatTooltip}
         onClick={onMessage}
       />
     </SocialRelation>
@@ -196,6 +239,10 @@ const SocialRelationIgnore = ({
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
+  const { t } = useTranslation()
+  const unblockTooltip = t('app:social.actions.unblock.tooltip')
+  const deleteTooltip = t('app:social.actions.delete.tooltip')
+
   const onUnblock = () => {
     RestService.api.relations.patch(dispatch, token, id, 'unblock')
   }
@@ -205,11 +252,15 @@ const SocialRelationIgnore = ({
   return (
     <SocialRelation id={relationId}>
       <SocialRelationAction
+        className='accept'
         icon={faComment}
+        tooltip={unblockTooltip}
         onClick={onUnblock}
       />
       <SocialRelationAction
+        className='reject'
         icon={faUserSlash}
+        tooltip={deleteTooltip}
         onClick={onDelete}
       />
     </SocialRelation>
@@ -252,23 +303,30 @@ const SocialRelation = ({
     )
     default: return (
       <div className='social-relation'>
-        {userData.name}
-        {userData.description}
-        {children}
+        <h3 className='title'>
+          {userData.name}
+        </h3>
+        <p className='info'>
+          {userData.description}
+        </p>
+        <p className='actions'>
+          {children}
+        </p>
       </div>
     )
   }
 }
 
 const SocialRelationAction = ({
+  className,
   icon,
   tooltip,
   onClick
 }) => {
   return (
     <Button
-      className='social-relation-action'
-      title={tooltip}
+      className={`social-relation-action ${className}`}
+      tooltip={tooltip}
       onClick={onClick}
     >
       <FontAwesomeIcon icon={icon} />

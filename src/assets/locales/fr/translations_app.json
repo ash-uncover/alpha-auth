@@ -45,6 +45,36 @@
     },
     "ignore": {
       "title": "Utilisateurs bloqués"
+    },
+    "actions": {
+      "block": {
+        "tooltip": "Bloquer l'utilisateur"
+      },
+      "unblock": {
+        "tooltip": "Débloquer l'utilisateur"
+      },
+      "accept": {
+        "tooltip": "Accepter l'invitation"
+      },
+      "reject": {
+        "tooltip": "Rejeter la demande"
+      },
+      "delete": {
+        "tooltip": "Supprimer l'utilisateur"
+      },
+      "chat": {
+        "tooltip": "Envoyer un message"
+      }
+    }
+  },
+  "messages": {
+    "title": "Messages",
+    "link": {
+      "title": "Messages",
+      "tooltip": ""
+    },
+    "contact": {
+      "title": "Nous contacter"
     }
   },
   "support": {

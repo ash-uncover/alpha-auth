@@ -42,10 +42,22 @@ export const userRelationsGet = async (dispatch, token, id) => {
     })
 }
 
+export const userThreadsGet = async (dispatch, token, id) => {
+  dispatch(actions.userThreadsGetFetch({ id }))
+  return get(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}/threads`, token)
+    .then((threads) => {
+      dispatch(actions.userThreadsGetSuccess({ id, threads }))
+    })
+    .catch((error) => {
+      dispatch(actions.userThreadsGetFailure({ id, error }))
+    })
+}
+
 const UsersService = {
   get: userGet,
   patch: userPatch,
-  getRelations: userRelationsGet
+  getRelations: userRelationsGet,
+  getThreads: userThreadsGet
 }
 
 export default UsersService

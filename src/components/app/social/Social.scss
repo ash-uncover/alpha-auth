@@ -1,0 +1,50 @@
+@import '../../../variables.scss';
+
+.social {
+  .social-relation {
+    width: 10rem;
+    height: 8rem;
+    border: 1px solid $alpha-main-effect;
+    border-radius: 0.15rem;
+    display: inline-flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    margin: 0.5rem;
+
+    .title {
+      font-size: 1rem;
+      margin: 0;
+      flex-grow: 0;
+    }
+    .info {
+      font-size: 0.8rem;
+      margin: 0;
+      flex-grow: 1;
+      margin: 0.25rem 0;
+    }
+    .actions {
+      margin: 0;
+      flex-grow: 0;
+      text-align: right;
+    }
+    .social-relation-action {
+      width: 1.5rem;
+      height: 1.5rem;
+      padding: 0;
+      background: transparent;
+      border: 0;
+      &.reject {
+        color: blue;
+      }
+      &.reject {
+        color: red;
+      }
+      &.accept {
+        color: green;
+      }
+    }
+    .social-relation-action+.social-relation-action {
+      margin-left: .25rem;
+    }
+  }
+}

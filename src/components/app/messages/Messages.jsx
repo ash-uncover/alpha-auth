@@ -10,27 +10,27 @@ import {
 import {
   AppContent,
   AppArea,
-  AppSection
+  AppPanel
 } from 'components/app/App'
 
-import './Support.scss'
+import './Messages.scss'
 
-const Support = () => {
+const Messages = () => {
   const { t } = useTranslation()
-  const title = t('app:support.title')
-
-  const contactTitle = t('app:support.contact.title')
+  const title = t('app:messages.title')
 
   return (
-    <AppContent className='support'>
+    <AppContent className='messages'>
+      <AppPanel>
+        <h1>{title}</h1>
+        ...
+      </AppPanel>
       <AppArea>
         <h1>{title}</h1>
-        <AppSection title={contactTitle}>
-          ...
-        </AppSection>
+        ...
       </AppArea>
     </AppContent>
   )
 }
 
-export default Support
+export default Messages

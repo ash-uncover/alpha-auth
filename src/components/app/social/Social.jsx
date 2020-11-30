@@ -76,7 +76,10 @@ const Social = () => {
         <h1>{title}</h1>
 
         {data.pending > 0 && (
-          <AppSection title={`${pendingTitle} (${data.pending})`}>
+          <AppSection
+            title={`${pendingTitle} (${data.pending})`}
+            className='social-section'
+          >
             {
               data.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
@@ -85,7 +88,10 @@ const Social = () => {
           </AppSection>
         )}
 
-        <AppSection title={`${activeTitle} (${data.active})`}>
+        <AppSection
+          className='social-section'
+          title={`${activeTitle} (${data.active})`}
+        >
           {
             data.relations
               .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
@@ -95,7 +101,10 @@ const Social = () => {
         </AppSection>
 
         {data.waiting > 0 && (
-          <AppSection title={`${waitingTitle} (${data.waiting})`}>
+          <AppSection
+            className='social-section'
+            title={`${waitingTitle} (${data.waiting})`}
+          >
             {
               data.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
@@ -105,7 +114,10 @@ const Social = () => {
         )}
 
         {data.blocked > 0 && (
-          <AppSection title={`${blockedTitle} (${data.blocked})`}>
+          <AppSection
+            className='social-section'
+            title={`${blockedTitle} (${data.blocked})`}
+          >
             {
               data.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
@@ -125,6 +137,10 @@ const SocialRelationPending = ({
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
+  const { t } = useTranslation()
+  const acceptTooltip = t('app:social.actions.accept.tooltip')
+  const rejectTooltip = t('app:social.actions.reject.tooltip')
+
   const onAccept = () => {
     RestService.api.relations.patch(dispatch, token, id, 'accept')
   }
@@ -135,11 +151,15 @@ const SocialRelationPending = ({
   return (
     <SocialRelation id={relationId}>
       <SocialRelationAction
+        className='accept'
         icon={faCheckCircle}
+        tooltip={acceptTooltip}
         onClick={onAccept}
       />
       <SocialRelationAction
+        className='reject'
         icon={faTimesCircle}
+        tooltip={rejectTooltip}
         onClick={onReject}
       />
     </SocialRelation>
@@ -153,6 +173,11 @@ const SocialRelationActive = ({
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
+  const { t } = useTranslation()
+  const blockTooltip = t('app:social.actions.block.tooltip')
+  const deleteTooltip = t('app:social.actions.delete.tooltip')
+  const chatTooltip = t('app:social.actions.chat.tooltip')
+
   const onBlock = () => {
     RestService.api.relations.patch(dispatch, token, id, 'block')
   }
@@ -165,15 +190,21 @@ const SocialRelationActive = ({
   return (
     <SocialRelation id={relationId}>
       <SocialRelationAction
+        className='reject'
         icon={faCommentSlash}
+        tooltip={blockTooltip}
         onClick={onBlock}
       />
       <SocialRelationAction
+        className='reject'
         icon={faUserSlash}
+        tooltip={deleteTooltip}
         onClick={onDelete}
       />
       <SocialRelationAction
+        className='info'
         icon={faCommentDots}
+        tooltip={chatTooltip}
         onClick={onMessage}
       />
     </SocialRelation>
@@ -196,6 +227,10 @@ const SocialRelationIgnore = ({
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
+  const { t } = useTranslation()
+  const unblockTooltip = t('app:social.actions.unblock.tooltip')
+  const deleteTooltip = t('app:social.actions.delete.tooltip')
+
   const onUnblock = () => {
     RestService.api.relations.patch(dispatch, token, id, 'unblock')
   }
@@ -205,11 +240,15 @@ const SocialRelationIgnore = ({
   return (
     <SocialRelation id={relationId}>
       <SocialRelationAction
+        className='accept'
         icon={faComment}
+        tooltip={unblockTooltip}
         onClick={onUnblock}
       />
       <SocialRelationAction
+        className='reject'
         icon={faUserSlash}
+        tooltip={deleteTooltip}
         onClick={onDelete}
       />
     </SocialRelation>
@@ -252,23 +291,30 @@ const SocialRelation = ({
     )
     default: return (
       <div className='social-relation'>
-        {userData.name}
-        {userData.description}
-        {children}
+        <h3 className='title'>
+          {userData.name}
+        </h3>
+        <p className='info'>
+          {userData.description}
+        </p>
+        <p className='actions'>
+          {children}
+        </p>
       </div>
     )
   }
 }
 
 const SocialRelationAction = ({
+  className,
   icon,
   tooltip,
   onClick
 }) => {
   return (
     <Button
-      className='social-relation-action'
-      title={tooltip}
+      className={`social-relation-action ${className}`}
+      tooltip={tooltip}
       onClick={onClick}
     >
       <FontAwesomeIcon icon={icon} />

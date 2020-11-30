@@ -61,8 +61,10 @@
       },
       "delete": {
         "tooltip": "Supprimer l'utilisateur"
+      },
+      "chat": {
+        "tooltip": "Envoyer un message"
       }
-
     }
   },
   "messages": {

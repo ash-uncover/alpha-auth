@@ -4,6 +4,7 @@ import {
   useDispatch,
   useEffect,
   useSelector,
+  useState,
   useTranslation
 } from 'lib/hooks'
 
@@ -46,18 +47,19 @@ import {
   AppSection
 } from 'components/app/App'
 
+import SearchBar from 'lib/components/SearchBar'
+
 import './Social.scss'
 
 const Social = () => {
+  const [search, setSearch] = useState('')
+
   const { t } = useTranslation()
   const title = t('app:social.title')
-
+  const searchPlaceholder = t('app:social.search.placeholder')
   const pendingTitle = t('app:social.pending.title')
-
   const activeTitle = t('app:social.active.title')
-
   const waitingTitle = t('app:social.waiting.title')
-
   const blockedTitle = t('app:social.ignore.title')
 
   const { userId } = useSelector(AuthSelectors.authLogonDataSelector)
@@ -70,10 +72,20 @@ const Social = () => {
     return acc
   }, { relations: [], pending: 0, active: 0, waiting: 0, blocked: 0 })
 
+  const onSearch = (value) => {
+    setSearch(value)
+  }
+
   return (
     <AppContent className='social'>
       <AppArea>
         <h1>{title}</h1>
+
+        <SearchBar
+          placeholder={searchPlaceholder}
+          value={search}
+          onChange={onSearch}
+        />
 
         {data.pending > 0 && (
           <AppSection

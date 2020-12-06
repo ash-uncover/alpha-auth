@@ -1,0 +1,66 @@
+@import '../../variables.scss';
+
+$avatar-size: 5rem;
+
+.user-tile {
+  width: calc(2.5 * #{$avatar-size});
+  height: $avatar-size;
+  border: 1px solid $alpha-main-effect;
+  border-radius: 0.15rem;
+  display: inline-flex;
+
+  margin: 0.5rem;
+
+  .header {
+    width: $avatar-size;
+    height: $avatar-size;
+    .avatar {
+      object-fit: contain;
+      width: 100%;
+      height: 100%;
+    }
+    border-right: 3px solid $alpha-main-effect;
+  }
+  .content {
+    width: calc(1.5 * #{$avatar-size});
+    height: $avatar-size;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem;
+    box-sizing: border-box;
+
+    .name {
+      flex-grow: 0;
+      font-size: 0.8rem;
+      margin: 0;
+    }
+    .description {
+      flex-grow: 1;
+      font-size: 0.6rem;
+      margin: 0;
+    }
+    .actions {
+      flex-grow: 0;
+      margin: 0;
+      text-align: right;
+      margin-right: -0.25rem;
+      .user-tile-action {
+        width: 1.5rem;
+        height: 1rem;
+        padding: 0;
+        background: transparent;
+        border: 0;
+        &.reject {
+          color: blue;
+        }
+        &.reject {
+          color: red;
+        }
+        &.accept {
+          color: green;
+        }
+      }
+    }
+  }
+}

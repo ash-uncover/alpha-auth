@@ -23,8 +23,7 @@ const Support = () => {
 
   return (
     <AppContent className='support'>
-      <AppArea>
-        <h1>{title}</h1>
+      <AppArea title={title}>
         <AppSection title={contactTitle}>
           ...
         </AppSection>

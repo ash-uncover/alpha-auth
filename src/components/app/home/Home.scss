@@ -38,6 +38,25 @@
         &:focus {
           border-color: $alpha-main-color;
         }
+        &.form-avatar {
+          padding: 0.5rem;
+          .image {
+            margin-right: 0.5rem;
+            border: 1px solid grey;
+            &.l {
+              width: 150px;
+              height: 150px;
+            }
+            &.m {
+              width: 100px;
+              height: 100px;
+            }
+            &.s {
+              width: 50px;
+              height: 50px;
+            }
+          }
+        }
       }
       textarea.form-control {
         line-height: 1.5rem;

@@ -81,9 +81,7 @@ const Home = () => {
 
   return (
     <AppContent className='home'>
-      <AppArea>
-        <h1>{title}</h1>
-
+      <AppArea title={title}>
         <AppSection title={infoTitle}>
           <form>
             <div className='form-group'>

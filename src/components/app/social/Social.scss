@@ -16,6 +16,9 @@
       margin: 0;
       flex-grow: 0;
     }
+    .avatar {
+      object-fit: contain;
+    }
     .info {
       font-size: 0.8rem;
       margin: 0;

@@ -9,18 +9,8 @@ import {
 } from 'lib/hooks'
 
 import {
-  Button
-} from '@uncover/react-commons'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {
-  faCheckCircle,
-  faComment,
-  faCommentDots,
-  faCommentSlash,
-  faTimesCircle,
-  faUserSlash
-} from '@fortawesome/free-solid-svg-icons'
+  UserTile
+} from 'components/commons'
 
 import DataStates from 'lib/constants/DataStates'
 import RelationsStatus from 'lib/constants/RelationsStatus'
@@ -47,6 +37,7 @@ import {
   AppSection
 } from 'components/app/App'
 
+import CONFIG from 'configuration'
 import SearchBar from 'lib/components/SearchBar'
 
 import './Social.scss'
@@ -78,8 +69,7 @@ const Social = () => {
 
   return (
     <AppContent className='social'>
-      <AppArea>
-        <h1>{title}</h1>
+      <AppArea title={title}>
 
         <SearchBar
           placeholder={searchPlaceholder}
@@ -149,10 +139,6 @@ const SocialRelationPending = ({
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
-  const { t } = useTranslation()
-  const acceptTooltip = t('app:social.actions.accept.tooltip')
-  const rejectTooltip = t('app:social.actions.reject.tooltip')
-
   const onAccept = () => {
     RestService.api.relations.patch(dispatch, token, id, 'accept')
   }
@@ -161,20 +147,11 @@ const SocialRelationPending = ({
   }
 
   return (
-    <SocialRelation id={relationId}>
-      <SocialRelationAction
-        className='accept'
-        icon={faCheckCircle}
-        tooltip={acceptTooltip}
-        onClick={onAccept}
-      />
-      <SocialRelationAction
-        className='reject'
-        icon={faTimesCircle}
-        tooltip={rejectTooltip}
-        onClick={onReject}
-      />
-    </SocialRelation>
+    <SocialRelation
+      id={relationId}
+      onAccept={onAccept}
+      onReject={onReject}
+    />
   )
 }
 
@@ -184,11 +161,6 @@ const SocialRelationActive = ({
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
-
-  const { t } = useTranslation()
-  const blockTooltip = t('app:social.actions.block.tooltip')
-  const deleteTooltip = t('app:social.actions.delete.tooltip')
-  const chatTooltip = t('app:social.actions.chat.tooltip')
 
   const onBlock = () => {
     RestService.api.relations.patch(dispatch, token, id, 'block')
@@ -200,26 +172,12 @@ const SocialRelationActive = ({
 
   }
   return (
-    <SocialRelation id={relationId}>
-      <SocialRelationAction
-        className='reject'
-        icon={faCommentSlash}
-        tooltip={blockTooltip}
-        onClick={onBlock}
-      />
-      <SocialRelationAction
-        className='reject'
-        icon={faUserSlash}
-        tooltip={deleteTooltip}
-        onClick={onDelete}
-      />
-      <SocialRelationAction
-        className='info'
-        icon={faCommentDots}
-        tooltip={chatTooltip}
-        onClick={onMessage}
-      />
-    </SocialRelation>
+    <SocialRelation
+      id={relationId}
+      onBlock={onBlock}
+      onDelete={onDelete}
+      onMessage={onMessage}
+    />
   )
 }
 
@@ -239,10 +197,6 @@ const SocialRelationIgnore = ({
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
 
-  const { t } = useTranslation()
-  const unblockTooltip = t('app:social.actions.unblock.tooltip')
-  const deleteTooltip = t('app:social.actions.delete.tooltip')
-
   const onUnblock = () => {
     RestService.api.relations.patch(dispatch, token, id, 'unblock')
   }
@@ -250,26 +204,22 @@ const SocialRelationIgnore = ({
     RestService.api.relations.delete(dispatch, token, id)
   }
   return (
-    <SocialRelation id={relationId}>
-      <SocialRelationAction
-        className='accept'
-        icon={faComment}
-        tooltip={unblockTooltip}
-        onClick={onUnblock}
-      />
-      <SocialRelationAction
-        className='reject'
-        icon={faUserSlash}
-        tooltip={deleteTooltip}
-        onClick={onDelete}
-      />
-    </SocialRelation>
+    <SocialRelation
+      id={relationId}
+      onUnblock={onUnblock}
+      onDelete={onDelete}
+    />
   )
 }
 
 const SocialRelation = ({
   id,
-  children
+  onAccept,
+  onReject,
+  onUnblock,
+  onBlock,
+  onDelete,
+  onChat
 }) => {
   const dispatch = useDispatch()
 
@@ -302,36 +252,19 @@ const SocialRelation = ({
       </div>
     )
     default: return (
-      <div className='social-relation'>
-        <h3 className='title'>
-          {userData.name}
-        </h3>
-        <p className='info'>
-          {userData.description}
-        </p>
-        <p className='actions'>
-          {children}
-        </p>
-      </div>
+      <UserTile
+        name={userData.name}
+        avatar={`${CONFIG.ALPHA_AUTH_REST_URL}/${userData.avatar}`}
+        description={userData.description}
+        onAccept={onAccept}
+        onReject={onReject}
+        onUnblock={onUnblock}
+        onBlock={onBlock}
+        onDelete={onDelete}
+        onChat={onChat}
+      />
     )
   }
-}
-
-const SocialRelationAction = ({
-  className,
-  icon,
-  tooltip,
-  onClick
-}) => {
-  return (
-    <Button
-      className={`social-relation-action ${className}`}
-      tooltip={tooltip}
-      onClick={onClick}
-    >
-      <FontAwesomeIcon icon={icon} />
-    </Button>
-  )
 }
 
 export default Social

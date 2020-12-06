@@ -151,11 +151,11 @@ $menu-width-collapse: 3rem;
       background: white;
       padding: 0 2rem;
       .app-area-section {
-        .title {
+        >.title {
           color: $alpha-main-color;
           border-bottom: 1px solid $alpha-main-inactive;
         }
-        .content {
+        >.content {
           padding: 1rem;
           border: 1px solid $alpha-main-inactive;
           border-radius: 0.25rem;

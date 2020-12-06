@@ -34,6 +34,8 @@ import {
   AppSection
 } from 'components/app/App'
 
+import ImageUploader from 'lib/components/ImageUploader'
+import CONFIG from 'configuration'
 import './Home.scss'
 
 const Home = () => {
@@ -43,6 +45,8 @@ const Home = () => {
   const title = t('app:home.title')
 
   const infoTitle = t('app:home.info.title')
+  const infoAvatarTitle = t('app:home.info.avatar.title')
+  const infoAvatarTooltip = t('app:home.info.avatar.tooltip')
   const infoNameTitle = t('app:home.info.name.title')
   const infoNameTooltip = t('app:home.info.name.tooltip')
   const infoNamePlaceholder = t('app:home.info.name.placeholder')
@@ -61,10 +65,15 @@ const Home = () => {
   const userData = useSelector(UsersSelectors.restUserDataSelector(userId))
 
   const [name, setName] = useState(userData.name)
+  const [avatar, setAvatar] = useState(userData.avatar)
   const [description, setDescription] = useState(userData.description)
 
   const onNameChange = (event) => {
     setName(event.target.value)
+  }
+
+  const onAvatarChange = (event) => {
+    // TODO
   }
 
   const onDescriptionChange = (event) => {
@@ -84,6 +93,22 @@ const Home = () => {
       <AppArea title={title}>
         <AppSection title={infoTitle}>
           <form>
+            <div className='form-group'>
+              <label className='form-label'>
+                {infoAvatarTitle}
+                <FontAwesomeIcon
+                  icon={faInfoCircle}
+                  size='sm'
+                  title={infoAvatarTooltip}
+                />
+              </label>
+              <div className='form-control form-avatar'>
+                <ImageUploader
+                  src={`${CONFIG.ALPHA_AUTH_REST_URL}/${avatar}`}
+                  onChange={onAvatarChange}
+                />
+              </div>
+            </div>
             <div className='form-group'>
               <label className='form-label'>
                 {infoNameTitle}

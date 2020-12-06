@@ -9,6 +9,11 @@
     },
     "info": {
       "title": "Mes Informations",
+      "avatar": {
+        "title": "Avatar",
+        "tooltip": "L'avatar sous lequel vous appraissez",
+        "placeholder": "Sélectionnez une image"
+      },
       "name": {
         "title": "Nom d'utilisateur",
         "tooltip": "Le nom sous lequel vous apparaissez",

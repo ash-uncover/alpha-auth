@@ -3,7 +3,7 @@
 $avatar-size: 5rem;
 
 .user-tile {
-  width: calc(3 * #{$avatar-size});
+  width: calc(2.5 * #{$avatar-size});
   height: $avatar-size;
   border: 1px solid $alpha-main-effect;
   border-radius: 0.15rem;
@@ -22,12 +22,13 @@ $avatar-size: 5rem;
     border-right: 3px solid $alpha-main-effect;
   }
   .content {
-    width: calc(2 * #{$avatar-size});
+    width: calc(1.5 * #{$avatar-size});
     height: $avatar-size;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     padding: 0.5rem;
+    box-sizing: border-box;
 
     .name {
       flex-grow: 0;
@@ -43,9 +44,10 @@ $avatar-size: 5rem;
       flex-grow: 0;
       margin: 0;
       text-align: right;
+      margin-right: -0.25rem;
       .user-tile-action {
         width: 1.5rem;
-        height: 1.5rem;
+        height: 1rem;
         padding: 0;
         background: transparent;
         border: 0;
@@ -58,9 +60,6 @@ $avatar-size: 5rem;
         &.accept {
           color: green;
         }
-      }
-      .user-tile-action+.user-tile-action {
-        margin-left: .25rem;
       }
     }
   }

@@ -64,7 +64,9 @@ const ImageUploader = ({
         return
       }
       setError('')
-      setSource(createObjectURL(file))
+      const url = createObjectURL(file)
+      setSource(url)
+      //revokeObjectURL(url)
       onChange(file)
     }
   }

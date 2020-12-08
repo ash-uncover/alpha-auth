@@ -1,5 +1,6 @@
 import {
   get,
+  postImage,
   patch
 } from 'lib/RestHelper'
 
@@ -17,6 +18,17 @@ export const userGet = async (dispatch, token, id) => {
     })
     .catch((error) => {
       dispatch(actions.userGetFailure({ id, error }))
+    })
+}
+
+export const userAvatarPost = async (dispatch, token, id, file) => {
+  dispatch(actions.postUserAvatarFetch({ id }))
+  return postImage(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}/avatar`, token, file)
+    .then(() => {
+      dispatch(actions.postUserAvatarSuccess({ id }))
+    })
+    .catch((error) => {
+      dispatch(actions.postUserAvatarFailure({ id, error }))
     })
 }
 
@@ -56,6 +68,7 @@ export const userThreadsGet = async (dispatch, token, id) => {
 const UsersService = {
   get: userGet,
   patch: userPatch,
+  postAvatar: userAvatarPost,
   getRelations: userRelationsGet,
   getThreads: userThreadsGet
 }

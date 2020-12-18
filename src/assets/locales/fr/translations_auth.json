@@ -20,14 +20,51 @@
     }
   },
   "register": {
-    "title": "Inscription",
-    "submit": {
-      "title": "S'enregistrer",
-      "tooltip": "Se Connecter"
+    "ask": {
+      "title": "Inscription",
+      "text": "Création d'un nouveau compte",
+      "error": "Erreur lors de la création du compte",
+      "username": {
+        "placeholder": "Adresse électronique"
+      },
+      "password": {
+        "placeholder": "Mot de passe"
+      },
+      "repeat": {
+        "placeholder": "Confirmer Mot de passe"
+      },
+      "submit": {
+        "title": "M'inscrire",
+        "tooltip": "Créer un compte associé a l'adresse électronique spécifiée"
+      },
+      "links": {
+        "login":"J'ai déjà un compte"
+      }
     },
-    "link": {
-      "title":"S'inscrire",
-      "tooltip":"Connxion"
+    "confirm": {
+      "title": "Confirmation",
+      "text": "Un courrier a été envoyé à l'adresse électronique spécifiée",
+      "token": {
+        "placeholder": "Code de confirmation"
+      },
+      "error": {
+        "message": "Echec lors de la confirmation du compte"
+      },
+      "submit": {
+        "title": "Confirmer",
+        "tooltip": "Confirmer l'adresse élecrtonique et finaliser votre inscription"
+      },
+      "links": {
+        "back": "Annuler",
+        "resend": "Je n'ai pas reçu de courrier électronique."
+      }
+    },
+    "complete": {
+      "title": "Félicitations",
+      "text": "Votre compte a été créé et peut être utilisé",
+      "links": {
+        "login": "Retourner à l'écran de connexion"
+      }
     }
   },
   "recover": {

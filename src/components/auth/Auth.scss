@@ -84,6 +84,10 @@
         color: $alpha-main-background;
         background: $alpha-main-color;
         border: 0;
+        &:disabled {
+          cursor: not-allowed;
+          background: $alpha-main-inactive;
+        }
       }
     }
   }

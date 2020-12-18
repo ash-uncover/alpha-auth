@@ -72,8 +72,8 @@ const Home = () => {
     setName(event.target.value)
   }
 
-  const onAvatarChange = (event) => {
-    // TODO
+  const onAvatarChange = (file) => {
+    RestService.api.users.postAvatar(dispatch, token, userId, file)
   }
 
   const onDescriptionChange = (event) => {

@@ -47,6 +47,7 @@ export const reduceAuthLogoutFetch = (state, { payload }) => {
   state.logoutState = DataStates.FETCHING
 }
 export const reduceAuthLogoutSuccess = (state, { payload }) => {
+  LocalStorage.remove(ALPHA_AUTH_LOGON_DATA)
   state.logonState = DataStates.NEVER
   state.logonData = null
   state.logoutState = DataStates.NEVER

@@ -37,20 +37,20 @@ export const getUserState = (state, id) => {
 
 // USER GET REDUCER //
 
-export const reduceUserGetFetch = (state, { payload }) => {
+export const getUserFetch = (state, { payload }) => {
   const { id } = payload
   const userState = getUserState(state, id)
   userState.error = null
   userState.status = userState.status === DataStates.NEVER ? DataStates.FETCHING_FIRST : DataStates.FETCHING
 }
-export const reduceUserGetSuccess = (state, { payload }) => {
+export const getUserSuccess = (state, { payload }) => {
   const { id, user } = payload
   const userState = getUserState(state, id)
   userState.data = user
   userState.error = null
   userState.status = DataStates.SUCCESS
 }
-export const reduceUserGetFailure = (state, { payload }) => {
+export const getUserFailure = (state, { payload }) => {
   const { id, error } = payload
   const userState = getUserState(state, id)
   userState.data = null
@@ -58,19 +58,18 @@ export const reduceUserGetFailure = (state, { payload }) => {
   userState.status = DataStates.FAILURE
 }
 
-export const reduceUserPatchFetch = (state, { payload }) => {
+export const postUserAvatarFetch = (state, { payload }) => {
   const { id } = payload
   const userState = getUserState(state, id)
   userState.status = DataStates.FETCHING
 }
-export const reduceUserPatchSuccess = (state, { payload }) => {
-  const { id, user } = payload
+export const postUserAvatarSuccess = (state, { payload }) => {
+  const { id } = payload
   const userState = getUserState(state, id)
-  userState.data = user
   userState.error = null
   userState.status = DataStates.SUCCESS
 }
-export const reduceUserPatchFailure = (state, { payload }) => {
+export const postUserAvatarFailure = (state, { payload }) => {
   const { id, error } = payload
   const userState = getUserState(state, id)
   userState.data = null
@@ -78,19 +77,39 @@ export const reduceUserPatchFailure = (state, { payload }) => {
   userState.status = DataStates.FAILURE
 }
 
-export const reduceUserRelationsGetFetch = (state, { payload }) => {
+export const patchUserFetch = (state, { payload }) => {
+  const { id } = payload
+  const userState = getUserState(state, id)
+  userState.status = DataStates.FETCHING
+}
+export const patchUserSuccess = (state, { payload }) => {
+  const { id, user } = payload
+  const userState = getUserState(state, id)
+  userState.data = user
+  userState.error = null
+  userState.status = DataStates.SUCCESS
+}
+export const patchUserFailure = (state, { payload }) => {
+  const { id, error } = payload
+  const userState = getUserState(state, id)
+  userState.data = null
+  userState.error = error
+  userState.status = DataStates.FAILURE
+}
+
+export const getUserRelationsFetch = (state, { payload }) => {
   const { id } = payload
   const userState = getUserState(state, id)
   userState.relationsStatus = userState.relationsStatus === DataStates.NEVER ? DataStates.FETCHING_FIRST : DataStates.FETCHING
 }
-export const reduceUserRelationsGetSuccess = (state, { payload }) => {
+export const getUserRelationsSuccess = (state, { payload }) => {
   const { id, relations } = payload
   const userState = getUserState(state, id)
   userState.relationsData = relations.map((relation) => relation.id)
   userState.relationsError = null
   userState.relationsStatus = DataStates.SUCCESS
 }
-export const reduceUserRelationsGetFailure = (state, { payload }) => {
+export const getUserRelationsFailure = (state, { payload }) => {
   const { id, error } = payload
   const userState = getUserState(state, id)
   userState.relationsData = null
@@ -98,19 +117,19 @@ export const reduceUserRelationsGetFailure = (state, { payload }) => {
   userState.relationsStatus = DataStates.FAILURE
 }
 
-export const reduceUserThreadsGetFetch = (state, { payload }) => {
+export const getUserThreadsFetch = (state, { payload }) => {
   const { id } = payload
   const userState = getUserState(state, id)
   userState.threadsStatus = userState.threadsStatus === DataStates.NEVER ? DataStates.FETCHING_FIRST : DataStates.FETCHING
 }
-export const reduceUserThreadsGetSuccess = (state, { payload }) => {
+export const getUserThreadsSuccess = (state, { payload }) => {
   const { id, threads } = payload
   const userState = getUserState(state, id)
   userState.threadsData = threads.map((thread) => thread.id)
   userState.threadsError = null
   userState.threadsStatus = DataStates.SUCCESS
 }
-export const reduceUserThreadsGetFailure = (state, { payload }) => {
+export const getUserThreadsFailure = (state, { payload }) => {
   const { id, error } = payload
   const userState = getUserState(state, id)
   userState.threadsData = null
@@ -130,21 +149,25 @@ const usersSlice = createSlice({
   initialState: initialState(),
 
   reducers: {
-    userGetFetch: reduceUserGetFetch,
-    userGetSuccess: reduceUserGetSuccess,
-    userGetFailure: reduceUserGetFailure,
+    userGetFetch: getUserFetch,
+    userGetSuccess: getUserSuccess,
+    userGetFailure: getUserFailure,
 
-    userPatchFetch: reduceUserPatchFetch,
-    userPatchSuccess: reduceUserPatchSuccess,
-    userPatchFailure: reduceUserPatchFailure,
+    postUserAvatarFetch,
+    postUserAvatarSuccess,
+    postUserAvatarFailure,
 
-    userRelationsGetFetch: reduceUserRelationsGetFetch,
-    userRelationsGetSuccess: reduceUserRelationsGetSuccess,
-    userRelationsGetFailure: reduceUserRelationsGetFailure,
+    userPatchFetch: patchUserFetch,
+    userPatchSuccess: patchUserSuccess,
+    userPatchFailure: patchUserFailure,
 
-    userThreadsGetFetch: reduceUserThreadsGetFetch,
-    userThreadsGetSuccess: reduceUserThreadsGetSuccess,
-    userThreadsGetFailure: reduceUserThreadsGetFailure
+    userRelationsGetFetch: getUserRelationsFetch,
+    userRelationsGetSuccess: getUserRelationsSuccess,
+    userRelationsGetFailure: getUserRelationsFailure,
+
+    userThreadsGetFetch: getUserThreadsFetch,
+    userThreadsGetSuccess: getUserThreadsSuccess,
+    userThreadsGetFailure: getUserThreadsFailure
   },
 
   extraReducers: {

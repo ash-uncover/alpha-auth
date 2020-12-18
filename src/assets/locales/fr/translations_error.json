@@ -1,0 +1,8 @@
+{
+  "AUTH_REGISTER_ACCOUNT_EXISTS": "Un compte associé à cette adresse électronique existe déjà",
+  "AUTH_REGISTER_MAIL_ERROR": "Une erreur est survenue lors de l'envoie du courrier de confirmation",
+  "AUTH_REGISTER_CONFIRM_ACCOUNT_INVALID": "Erreur lors du traitement de votre requête",
+  "AUTH_REGISTER_CONFIRM_ACCOUNT_EXISTS": "Erreur lors du traitement de votre requête",
+  "AUTH_REGISTER_CONFIRM_TOKEN_INVALID": "Le code de confirmation n'est pas valide",
+  "AUTH_REGISTER_CONFIRM_TOKEN_EXPIRED": "Le code de confirmation a expiré"
+}

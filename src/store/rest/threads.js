@@ -31,7 +31,7 @@ export const getThreadState = (state, id) => {
 
 // PATCH RELATION REDUCER //
 
-export const reduceUserThreadsGetSuccess = (state, { payload }) => {
+export const getUserThreadsSuccess = (state, { payload }) => {
   const { threads } = payload
   threads.forEach((relation) => {
     const threadState = getThreadState(state, relation.id)
@@ -41,7 +41,7 @@ export const reduceUserThreadsGetSuccess = (state, { payload }) => {
   })
 }
 
-export const reduceAuthLogoutSuccess = (state) => {
+export const authLogoutSuccess = (state) => {
   Object.assign(state, initialState())
 }
 
@@ -56,8 +56,8 @@ const relationsSlice = createSlice({
   },
 
   extraReducers: {
-    'auth/authLogoutSuccess': reduceAuthLogoutSuccess,
-    'users/userThreadsGetSuccess': reduceUserThreadsGetSuccess
+    'auth/authLogoutSuccess': authLogoutSuccess,
+    'users/getUserThreadsSuccess': getUserThreadsSuccess
   }
 })
 

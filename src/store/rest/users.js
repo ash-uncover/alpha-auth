@@ -137,7 +137,7 @@ export const getUserThreadsFailure = (state, { payload }) => {
   userState.threadsStatus = DataStates.FAILURE
 }
 
-export const reduceAuthLogoutSuccess = (state) => {
+export const authLogoutSuccess = (state) => {
   Object.assign(state, initialState())
 }
 
@@ -149,29 +149,29 @@ const usersSlice = createSlice({
   initialState: initialState(),
 
   reducers: {
-    userGetFetch: getUserFetch,
-    userGetSuccess: getUserSuccess,
-    userGetFailure: getUserFailure,
+    getUserFetch,
+    getUserSuccess,
+    getUserFailure,
 
     postUserAvatarFetch,
     postUserAvatarSuccess,
     postUserAvatarFailure,
 
-    userPatchFetch: patchUserFetch,
-    userPatchSuccess: patchUserSuccess,
-    userPatchFailure: patchUserFailure,
+    patchUserFetch,
+    patchUserSuccess,
+    patchUserFailure,
 
-    userRelationsGetFetch: getUserRelationsFetch,
-    userRelationsGetSuccess: getUserRelationsSuccess,
-    userRelationsGetFailure: getUserRelationsFailure,
+    getUserRelationsFetch,
+    getUserRelationsSuccess,
+    getUserRelationsFailure,
 
-    userThreadsGetFetch: getUserThreadsFetch,
-    userThreadsGetSuccess: getUserThreadsSuccess,
-    userThreadsGetFailure: getUserThreadsFailure
+    getUserThreadsFetch,
+    getUserThreadsSuccess,
+    getUserThreadsFailure
   },
 
   extraReducers: {
-    'auth/authLogoutSuccess': reduceAuthLogoutSuccess
+    'auth/authLogoutSuccess': authLogoutSuccess
   }
 })
 

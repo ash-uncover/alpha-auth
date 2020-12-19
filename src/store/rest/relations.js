@@ -31,19 +31,19 @@ export const getRelationState = (state, id) => {
 
 // PATCH RELATION REDUCER //
 
-export const reduceRelationPatchFetch = (state, { payload }) => {
+export const patchRelationFetch = (state, { payload }) => {
   const { id } = payload
   const relationState = getRelationState(state, id)
   relationState.status = DataStates.FETCHING
 }
-export const reduceRelationPatchSuccess = (state, { payload }) => {
+export const patchRelationSuccess = (state, { payload }) => {
   const { id, relation } = payload
   const relationState = getRelationState(state, id)
   relationState.data = relation
   relationState.error = null
   relationState.status = DataStates.SUCCESS
 }
-export const reduceRelationPatchFailure = (state, { payload }) => {
+export const patchRelationFailure = (state, { payload }) => {
   const { id, error } = payload
   const relationState = getRelationState(state, id)
   relationState.data = null
@@ -51,19 +51,19 @@ export const reduceRelationPatchFailure = (state, { payload }) => {
   relationState.status = DataStates.FAILURE
 }
 
-export const reduceRelationDeleteFetch = (state, { payload }) => {
+export const deleteRelationFetch = (state, { payload }) => {
   const { id } = payload
   const relationState = getRelationState(state, id)
   relationState.status = DataStates.FETCHING
 }
-export const reduceRelationDeleteSuccess = (state, { payload }) => {
+export const deleteRelationSuccess = (state, { payload }) => {
   const { id, relation } = payload
   const relationState = getRelationState(state, id)
   relationState.data = relation
   relationState.error = null
   relationState.status = DataStates.SUCCESS
 }
-export const reduceRelationDeleteFailure = (state, { payload }) => {
+export const deleteRelationFailure = (state, { payload }) => {
   const { id, error } = payload
   const relationState = getRelationState(state, id)
   relationState.data = null
@@ -71,7 +71,7 @@ export const reduceRelationDeleteFailure = (state, { payload }) => {
   relationState.status = DataStates.FAILURE
 }
 
-export const reduceUserRelationsGetSuccess = (state, { payload }) => {
+export const getUserRelationsSuccess = (state, { payload }) => {
   const { relations } = payload
   relations.forEach((relation) => {
     const relationState = getRelationState(state, relation.id)
@@ -81,7 +81,7 @@ export const reduceUserRelationsGetSuccess = (state, { payload }) => {
   })
 }
 
-export const reduceAuthLogoutSuccess = (state) => {
+export const authLogoutSuccess = (state) => {
   Object.assign(state, initialState())
 }
 
@@ -93,18 +93,18 @@ const relationsSlice = createSlice({
   initialState: initialState(),
 
   reducers: {
-    relationPatchFetch: reduceRelationPatchFetch,
-    relationPatchSuccess: reduceRelationPatchSuccess,
-    relationPatchFailure: reduceRelationPatchFailure,
+    patchRelationFetch,
+    patchRelationSuccess,
+    patchRelationFailure,
 
-    relationDeleteFetch: reduceRelationDeleteFetch,
-    relationDeleteSuccess: reduceRelationDeleteSuccess,
-    relationDeleteFailure: reduceRelationDeleteFailure
+    deleteRelationFetch,
+    deleteRelationSuccess,
+    deleteRelationFailure
   },
 
   extraReducers: {
-    'auth/authLogoutSuccess': reduceAuthLogoutSuccess,
-    'users/userRelationsGetSuccess': reduceUserRelationsGetSuccess
+    'auth/authLogoutSuccess': authLogoutSuccess,
+    'users/getUserRelationsSuccess': getUserRelationsSuccess
   }
 })
 

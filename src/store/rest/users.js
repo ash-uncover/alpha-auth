@@ -175,26 +175,36 @@ const usersSlice = createSlice({
   }
 })
 
+export const selectUsers = (state) => restSelectors.selectRest(state).users
+export const selectUsersData = (state) => selectUsers(state).data
+export const selectUsersStatus = (state) => selectUsers(state).status
+export const selectUsersError = (state) => selectUsers(state).error
+export const selectUser = (id) => (state) => selectUsersData(state)[id] || initialUserState()
+export const selectUserData = (id) => (state) => selectUser(id)(state).data
+export const selectUserStatus = (id) => (state) => selectUser(id)(state).status
+export const selectUserError = (id) => (state) => selectUser(id)(state).error
+export const selectUserRelationsData = (id) => (state) => selectUser(id)(state).relationsData
+export const selectUserRelationsStatus = (id) => (state) => selectUser(id)(state).relationsStatus
+export const selectUserRelationsError = (id) => (state) => selectUser(id)(state).relationError
+export const selectUserThreadsData = (id) => (state) => selectUser(id)(state).threadsData
+export const selectUserThreadsStatus = (id) => (state) => selectUser(id)(state).threadsStatus
+export const selectUserThreadsError = (id) => (state) => selectUser(id)(state).threadError
+
 usersSlice.selectors = {
-  restUsersSelector: (state) => restSelectors.restSelector(state).users,
-
-  restUsersDataSelector: (state) => usersSlice.selectors.restUsersSelector(state).data,
-  restUsersStatusSelector: (state) => usersSlice.selectors.restUsersSelector(state).status,
-  restUsersErrorSelector: (state) => usersSlice.selectors.restUsersSelector(state).error,
-
-  restUserSelector: (id) => (state) => usersSlice.selectors.restUsersDataSelector(state)[id] || initialUserState(),
-
-  restUserDataSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).data,
-  restUserStatusSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).status,
-  restUserErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).error,
-
-  restUserRelationsDataSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationsData,
-  restUserRelationsStatusSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationsStatus,
-  restUserRelationsErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).relationError,
-
-  restUserThreadsDataSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).threadsData,
-  restUserThreadsStatusSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).threadsStatus,
-  restUserThreadsErrorSelector: (id) => (state) => usersSlice.selectors.restUserSelector(id)(state).threadError
+  selectUsers,
+  selectUsersData,
+  selectUsersStatus,
+  selectUsersError,
+  selectUser,
+  selectUserData,
+  selectUserStatus,
+  selectUserError,
+  selectUserRelationsData,
+  selectUserRelationsStatus,
+  selectUserRelationsError,
+  selectUserThreadsData,
+  selectUserThreadsStatus,
+  selectUserThreadsError
 }
 
 export const {

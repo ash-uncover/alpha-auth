@@ -108,18 +108,24 @@ const relationsSlice = createSlice({
   }
 })
 
+export const selectRelations = (state) => restSelectors.selectRest(state).relations
+export const selectRelationsData = (state) => selectRelations(state).data
+export const selectRelationsStatus = (state) => selectRelations(state).status
+export const selectRelationsError = (state) => selectRelations(state).error
+export const selectRelation = (id) => (state) => selectRelationsData(state)[id] || initialRelationState()
+export const selectRelationData = (id) => (state) => selectRelation(id)(state).data
+export const selectRelationStatus = (id) => (state) => selectRelation(id)(state).status
+export const selectRelationError = (id) => (state) => selectRelation(id)(state).error
+
 relationsSlice.selectors = {
-  restRelationsSelector: (state) => restSelectors.restSelector(state).relations,
-
-  restRelationsDataSelector: (state) => relationsSlice.selectors.restRelationsSelector(state).data,
-  restRelationsStatusSelector: (state) => relationsSlice.selectors.restRelationsSelector(state).status,
-  restRelationsErrorSelector: (state) => relationsSlice.selectors.restRelationsSelector(state).error,
-
-  restRelationSelector: (id) => (state) => relationsSlice.selectors.restRelationsDataSelector(state)[id] || initialRelationState(),
-
-  restRelationDataSelector: (id) => (state) => relationsSlice.selectors.restRelationSelector(id)(state).data,
-  restRelationStatusSelector: (id) => (state) => relationsSlice.selectors.restRelationSelector(id)(state).status,
-  restRelationErrorSelector: (id) => (state) => relationsSlice.selectors.restRelationSelector(id)(state).error
+  selectRelations,
+  selectRelationsData,
+  selectRelationsStatus,
+  selectRelationsError,
+  selectRelation,
+  selectRelationData,
+  selectRelationStatus,
+  selectRelationError
 }
 
 export const {

@@ -62,17 +62,17 @@ const App = () => {
   const {
     token,
     userId
-  } = useSelector(AuthSelectors.authLogonDataSelector)
+  } = useSelector(AuthSelectors.selectLogonData)
 
-  const userStatus = useSelector(UsersSelectors.restUserStatusSelector(userId))
+  const userStatus = useSelector(UsersSelectors.selectUserStatus(userId))
   const loaded = userStatus && userStatus !== DataStates.NEVER && userStatus !== DataStates.FETCHING_FIRST
   const canLoad = userStatus !== DataStates.FETCHING && userStatus !== DataStates.FAILURE && userStatus !== DataStates.FETCHING_FIRST
 
-  const userRelationsStatus = useSelector(UsersSelectors.restUserRelationsStatusSelector(userId))
+  const userRelationsStatus = useSelector(UsersSelectors.selectUserRelationsStatus(userId))
   const loadedRelations = userRelationsStatus && userRelationsStatus !== DataStates.NEVER && userRelationsStatus !== DataStates.FETCHING_FIRST
   const canLoadRelations = userRelationsStatus !== DataStates.FETCHING && userRelationsStatus !== DataStates.FAILURE && userRelationsStatus !== DataStates.FETCHING_FIRST
 
-  const userThreadsStatus = useSelector(UsersSelectors.restUserThreadsStatusSelector(userId))
+  const userThreadsStatus = useSelector(UsersSelectors.selectUserThreadsStatus(userId))
   const loadedThreads = userThreadsStatus && userThreadsStatus !== DataStates.NEVER && userThreadsStatus !== DataStates.FETCHING_FIRST
   const canLoadThreads = userThreadsStatus !== DataStates.FETCHING && userThreadsStatus !== DataStates.FAILURE && userThreadsStatus !== DataStates.FETCHING_FIRST
 
@@ -152,7 +152,7 @@ const AppLogout = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const loading = t('app:logging out')
-  const logonData = useSelector(AuthSelectors.authLogonDataSelector)
+  const logonData = useSelector(AuthSelectors.selectLogonData)
 
   useEffect(async () => {
     RestService.api.auth.delete(dispatch, logonData)

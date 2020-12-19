@@ -61,8 +61,8 @@ const Home = () => {
   const {
     token,
     userId
-  } = useSelector(AuthSelectors.authLogonDataSelector)
-  const userData = useSelector(UsersSelectors.restUserDataSelector(userId))
+  } = useSelector(AuthSelectors.selectLogonData)
+  const userData = useSelector(UsersSelectors.selectUserData(userId))
 
   const [name, setName] = useState(userData.name)
   const [avatar, setAvatar] = useState(userData.avatar)

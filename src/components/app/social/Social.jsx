@@ -53,11 +53,11 @@ const Social = () => {
   const waitingTitle = t('app:social.waiting.title')
   const blockedTitle = t('app:social.ignore.title')
 
-  const { userId } = useSelector(AuthSelectors.authLogonDataSelector)
-  const userRelationsData = useSelector(UsersSelectors.restUserRelationsDataSelector(userId))
+  const { userId } = useSelector(AuthSelectors.selectLogonData)
+  const userRelationsData = useSelector(UsersSelectors.selectUserRelationsData(userId))
 
   const data = userRelationsData.reduce((acc, relationId) => {
-    const relation = useSelector(RelationsSelectors.restRelationDataSelector(relationId))
+    const relation = useSelector(RelationsSelectors.selectRelationData(relationId))
     acc.relations.push(relation)
     acc[relation.status.toLowerCase()]++
     return acc
@@ -137,7 +137,7 @@ const SocialRelationPending = ({
   relationId
 }) => {
   const dispatch = useDispatch()
-  const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
+  const token = useSelector(AuthSelectors.selectLogonDataToken)
 
   const onAccept = () => {
     RestService.api.relations.patch(dispatch, token, id, 'accept')
@@ -160,7 +160,7 @@ const SocialRelationActive = ({
   relationId
 }) => {
   const dispatch = useDispatch()
-  const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
+  const token = useSelector(AuthSelectors.selectToken)
 
   const onBlock = () => {
     RestService.api.relations.patch(dispatch, token, id, 'block')
@@ -195,7 +195,7 @@ const SocialRelationIgnore = ({
   relationId
 }) => {
   const dispatch = useDispatch()
-  const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
+  const token = useSelector(AuthSelectors.selectToken)
 
   const onUnblock = () => {
     RestService.api.relations.patch(dispatch, token, id, 'unblock')
@@ -223,10 +223,10 @@ const SocialRelation = ({
 }) => {
   const dispatch = useDispatch()
 
-  const token = useSelector(AuthSelectors.authLogonDataTokenSelector)
+  const token = useSelector(AuthSelectors.selectToken)
 
-  const userData = useSelector(UsersSelectors.restUserDataSelector(id))
-  const userStatus = useSelector(UsersSelectors.restUserStatusSelector(id))
+  const userData = useSelector(UsersSelectors.selectUserData(id))
+  const userStatus = useSelector(UsersSelectors.selectUserStatus(id))
 
   useEffect(() => {
     if (userStatus === DataStates.NEVER || userStatus === DataStates.OUTDATED) {

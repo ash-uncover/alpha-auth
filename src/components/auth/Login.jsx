@@ -35,7 +35,7 @@ const Login = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const error = useSelector(AuthSelectors.authLogonErrorSelector)
+  const error = useSelector(AuthSelectors.selectLogonError)
 
   const { t } = useTranslation()
   const title = t('auth:login.title')

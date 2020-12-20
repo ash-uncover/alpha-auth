@@ -43,12 +43,14 @@ import {
   faEnvelope,
   faAngleDoubleLeft,
   faAngleDoubleRight,
-  faQuestionCircle
+  faQuestionCircle,
+  faUserCircle
 } from '@fortawesome/free-solid-svg-icons'
 
 import DataStates from 'lib/constants/DataStates'
 
 import Home from 'components/app/home/Home'
+import Account from 'components/app/account/Account'
 import Social from 'components/app/social/Social'
 import Messages from 'components/app/messages/Messages'
 import Support from 'components/app/support/Support'
@@ -115,6 +117,9 @@ const App = () => {
           <Switch>
             <Route path={Routes.HOME}>
               <Home />
+            </Route>
+            <Route path={Routes.ACCOUNT}>
+              <Account />
             </Route>
             <Route path={Routes.SOCIAL}>
               <Social />
@@ -198,6 +203,7 @@ const AppMenu = () => {
 
   const { t } = useTranslation()
   const menuHome = t('app:home.link.title')
+  const menuAccount = t('app:account.link.title')
   const menuSocial = t('app:social.link.title')
   const menuMessages = t('app:messages.link.title')
   const menuSupport = t('app:support.link.title')
@@ -221,6 +227,12 @@ const AppMenu = () => {
         to={Routes.HOME}
         icon={faHome}
         text={menuHome}
+      />
+
+      <AppMenuLink
+        to={Routes.ACCOUNT}
+        icon={faUserCircle}
+        text={menuAccount}
       />
 
       <AppMenuLink

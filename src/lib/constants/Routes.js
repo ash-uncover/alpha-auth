@@ -5,6 +5,7 @@ const Routes = {
   RECOVER: '/recover',
 
   HOME: '/home',
+  ACCOUNT: '/account',
   SOCIAL: '/social',
   MESSAGES: '/messages',
   SUPPORT: '/support'

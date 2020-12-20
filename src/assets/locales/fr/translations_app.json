@@ -8,6 +8,16 @@
       "tooltip": ""
     },
     "info": {
+      "title": "Bienvenue"
+    }
+  },
+  "account": {
+    "title": "Mon Profil",
+    "link": {
+      "title": "Profil",
+      "tooltip": ""
+    },
+    "info": {
       "title": "Mes Informations",
       "avatar": {
         "title": "Avatar",
@@ -29,7 +39,7 @@
         "tooltip": "Sauvegarder les modifications"
       }
     },
-    "account": {
+    "manage": {
       "title": "Gestion du Compte"
     }
   },

@@ -39,14 +39,14 @@ const Login = () => {
 
   const { t } = useTranslation()
   const title = t('auth:login.title')
-  const usernamePlaceholder = t('auth:username.placeholder')
-  const passwordPlaceholder = t('auth:password.placeholder')
+  const usernamePlaceholder = t('auth:login.username.placeholder')
+  const passwordPlaceholder = t('auth:login.password.placeholder')
   const errorMessage = t('auth:login.error.message')
   const submitTitle = t('auth:login.submit.title')
   const submitTooltip = t('auth:login.submit.tooltip')
 
-  const linkRecover = t('auth:recover.link.title')
-  const linkRegister = t('auth:register.link.title')
+  const linkRecover = t('auth:login.links.recover')
+  const linkRegister = t('auth:login.links.register')
 
   const disabled = !username
 

@@ -2,7 +2,7 @@ import React from 'react'
 
 import {
   useDispatch,
-  useEffect,
+  useQuery,
   useSelector,
   useState,
   useTranslation
@@ -12,24 +12,16 @@ import {
   UserTile
 } from 'components/commons'
 
-import DataStates from 'lib/constants/DataStates'
 import RelationsStatus from 'lib/constants/RelationsStatus'
 
 import {
+  GraphQLService,
   RestService
 } from 'services'
 
 import {
   selectors as AuthSelectors
 } from 'store/auth'
-
-import {
-  selectors as RelationsSelectors
-} from 'store/rest/relations'
-
-import {
-  selectors as UsersSelectors
-} from 'store/rest/users'
 
 import {
   AppContent,
@@ -45,6 +37,12 @@ import './Social.scss'
 const Social = () => {
   const [search, setSearch] = useState('')
 
+  const {
+    loading,
+    error,
+    data
+  } = useQuery(GraphQLService.query.getViewerRelations())
+
   const { t } = useTranslation()
   const title = t('app:social.title')
   const searchPlaceholder = t('app:social.search.placeholder')
@@ -53,19 +51,37 @@ const Social = () => {
   const waitingTitle = t('app:social.waiting.title')
   const blockedTitle = t('app:social.ignore.title')
 
-  const { userId } = useSelector(AuthSelectors.selectLogonData)
-  const userRelationsData = useSelector(UsersSelectors.selectUserRelationsData(userId))
+  const onSearch = (value) => {
+    setSearch(value)
+  }
 
-  const data = userRelationsData.reduce((acc, relationId) => {
-    const relation = useSelector(RelationsSelectors.selectRelationData(relationId))
+  if (loading) {
+    return (
+      <AppContent className='social'>
+        <AppArea title={title}>
+          Loading.....
+        </AppArea>
+      </AppContent>
+    )
+  }
+
+  if (error) {
+    return (
+      <AppContent className='social'>
+        <AppArea title={title}>
+          Error
+          <br />
+          {error}
+        </AppArea>
+      </AppContent>
+    )
+  }
+
+  const dataGQL = data.viewer.relations.reduce((acc, relation) => {
     acc.relations.push(relation)
     acc[relation.status.toLowerCase()]++
     return acc
   }, { relations: [], pending: 0, active: 0, waiting: 0, blocked: 0 })
-
-  const onSearch = (value) => {
-    setSearch(value)
-  }
 
   return (
     <AppContent className='social'>
@@ -77,53 +93,53 @@ const Social = () => {
           onChange={onSearch}
         />
 
-        {data.pending > 0 && (
+        {dataGQL.pending > 0 && (
           <AppSection
-            title={`${pendingTitle} (${data.pending})`}
+            title={`${pendingTitle} (${dataGQL.pending})`}
             className='social-section'
           >
             {
-              data.relations
+              dataGQL.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
-                .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} relationId={relationId} />)
+                .map(({ id, user }) => <SocialRelationPending key={id} userId={user.id} />)
             }
           </AppSection>
         )}
 
         <AppSection
           className='social-section'
-          title={`${activeTitle} (${data.active})`}
+          title={`${activeTitle} (${dataGQL.active})`}
         >
           {
-            data.relations
+            dataGQL.relations
               .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
-              .map(({ id, relationId }) => <SocialRelationActive key={id} id={id} relationId={relationId} />)
+              .map(({ id, user }) => <SocialRelationActive key={id} userId={user.id} />)
           }
-          {data.active === 0 && 'No friends lol'}
+          {dataGQL.active === 0 && 'No friends lol'}
         </AppSection>
 
-        {data.waiting > 0 && (
+        {dataGQL.waiting > 0 && (
           <AppSection
             className='social-section'
-            title={`${waitingTitle} (${data.waiting})`}
+            title={`${waitingTitle} (${dataGQL.waiting})`}
           >
             {
-              data.relations
+              dataGQL.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
-                .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} relationId={relationId} />)
+                .map(({ id, user }) => <SocialRelationWaiting key={id} userId={user.id} />)
             }
           </AppSection>
         )}
 
-        {data.blocked > 0 && (
+        {dataGQL.blocked > 0 && (
           <AppSection
             className='social-section'
-            title={`${blockedTitle} (${data.blocked})`}
+            title={`${blockedTitle} (${dataGQL.blocked})`}
           >
             {
-              data.relations
+              dataGQL.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
-                .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationId={relationId} />)
+                .map(({ id, user }) => <SocialRelationIgnore key={id} userId={user.id} />)
             }
           </AppSection>
         )}
@@ -134,7 +150,7 @@ const Social = () => {
 
 const SocialRelationPending = ({
   id,
-  relationId
+  userId
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.selectLogonDataToken)
@@ -148,7 +164,8 @@ const SocialRelationPending = ({
 
   return (
     <SocialRelation
-      id={relationId}
+      id={id}
+      userId={userId}
       onAccept={onAccept}
       onReject={onReject}
     />
@@ -157,7 +174,7 @@ const SocialRelationPending = ({
 
 const SocialRelationActive = ({
   id,
-  relationId
+  userId
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.selectToken)
@@ -173,7 +190,8 @@ const SocialRelationActive = ({
   }
   return (
     <SocialRelation
-      id={relationId}
+      id={id}
+      userId={userId}
       onBlock={onBlock}
       onDelete={onDelete}
       onMessage={onMessage}
@@ -183,16 +201,19 @@ const SocialRelationActive = ({
 
 const SocialRelationWaiting = ({
   id,
-  relationId
+  userId
 }) => {
   return (
-    <SocialRelation id={relationId} />
+    <SocialRelation
+      id={id}
+      userId={userId}
+    />
   )
 }
 
 const SocialRelationIgnore = ({
   id,
-  relationId
+  userId
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.selectToken)
@@ -205,7 +226,8 @@ const SocialRelationIgnore = ({
   }
   return (
     <SocialRelation
-      id={relationId}
+      id={id}
+      userId={userId}
       onUnblock={onUnblock}
       onDelete={onDelete}
     />
@@ -214,6 +236,7 @@ const SocialRelationIgnore = ({
 
 const SocialRelation = ({
   id,
+  userId,
   onAccept,
   onReject,
   onUnblock,
@@ -221,50 +244,47 @@ const SocialRelation = ({
   onDelete,
   onChat
 }) => {
-  const dispatch = useDispatch()
+  // HOOKS //
 
-  const token = useSelector(AuthSelectors.selectToken)
+  const {
+    loading,
+    error,
+    data
+  } = useQuery(GraphQLService.query.getUser(userId))
 
-  const userData = useSelector(UsersSelectors.selectUserData(id))
-  const userStatus = useSelector(UsersSelectors.selectUserStatus(id))
+  // RENDERING //
 
-  useEffect(() => {
-    if (userStatus === DataStates.NEVER || userStatus === DataStates.OUTDATED) {
-      RestService.api.users.get(dispatch, token, id)
-    }
-  })
-
-  switch (userStatus) {
-    case DataStates.NEVER: return (
-      <div className='social-relation'>
-        Not Loaded
-      </div>
-    )
-    case DataStates.FETCHING:
-    case DataStates.FETCHING_FIRST: return (
+  if (loading) {
+    return (
       <div className='social-relation'>
         Loading...
       </div>
     )
-    case DataStates.FAILURE: return (
+  }
+
+  if (error) {
+    return (
       <div className='social-relation'>
         Error
       </div>
     )
-    default: return (
-      <UserTile
-        name={userData.name}
-        avatar={`${CONFIG.ALPHA_AUTH_REST_URL}/${userData.avatar}`}
-        description={userData.description}
-        onAccept={onAccept}
-        onReject={onReject}
-        onUnblock={onUnblock}
-        onBlock={onBlock}
-        onDelete={onDelete}
-        onChat={onChat}
-      />
-    )
   }
+
+  const { user } = data
+
+  return (
+    <UserTile
+      name={user.name}
+      avatar={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.avatar}`}
+      description={user.description}
+      onAccept={onAccept}
+      onReject={onReject}
+      onUnblock={onUnblock}
+      onBlock={onBlock}
+      onDelete={onDelete}
+      onChat={onChat}
+    />
+  )
 }
 
 export default Social

@@ -2,12 +2,14 @@ import React from 'react'
 
 import {
   useDispatch,
+  useQuery,
   useState,
   useSelector,
   useTranslation
 } from 'lib/hooks'
 
 import {
+  GraphQLService,
   RestService
 } from 'services'
 
@@ -16,14 +18,13 @@ import {
 } from 'store/auth'
 
 import {
-  selectors as UsersSelectors
-} from 'store/rest/users'
-
-import {
   Button
 } from '@uncover/react-commons'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import {
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome'
+
 import {
   faInfoCircle
 } from '@fortawesome/free-solid-svg-icons'
@@ -43,7 +44,6 @@ const Account = () => {
 
   const { t } = useTranslation()
   const title = t('app:account.title')
-
   const infoTitle = t('app:account.info.title')
   const infoAvatarTitle = t('app:account.info.avatar.title')
   const infoAvatarTooltip = t('app:account.info.avatar.tooltip')
@@ -55,18 +55,22 @@ const Account = () => {
   const infoDescPlaceholder = t('app:account.info.description.placeholder')
   const infoSubmitTitle = t('app:account.info.submit.title')
   const infoSubmitTooltip = t('app:account.info.submit.tooltip')
-
   const accountTitle = t('app:account.manage.title')
+
+  const {
+    loading,
+    error,
+    data
+  } = useQuery(GraphQLService.query.getViewerInfo())
 
   const {
     token,
     userId
   } = useSelector(AuthSelectors.selectLogonData)
-  const userData = useSelector(UsersSelectors.selectUserData(userId))
 
-  const [name, setName] = useState(userData.name)
-  const [avatar, setAvatar] = useState(userData.avatar)
-  const [description, setDescription] = useState(userData.description)
+  const [name, setName] = useState(data.viewer.name)
+  const [avatar, setAvatar] = useState(data.viewer.avatar)
+  const [description, setDescription] = useState(data.viewer.description)
 
   const onNameChange = (event) => {
     setName(event.target.value)
@@ -147,7 +151,7 @@ const Account = () => {
               <Button
                 className='form-submit'
                 type='submit'
-                disabled={name === userData.name && description === userData.description}
+                disabled={name === data.name && description === data.description}
                 title={infoSubmitTooltip}
                 onClick={onUpdateInfo}
               >

@@ -15,6 +15,7 @@
     "test-update": "jest --updateSnapshot"
   },
   "dependencies": {
+    "@apollo/client": "latest",
     "@babel/core": "latest",
     "@babel/preset-env": "latest",
     "@babel/preset-react": "latest",
@@ -34,6 +35,7 @@
     "copy-webpack-plugin": "latest",
     "css-loader": "latest",
     "express": "latest",
+    "graphql": "latest",
     "html-webpack-plugin": "latest",
     "i18next": "latest",
     "i18next-browser-languagedetector": "latest",

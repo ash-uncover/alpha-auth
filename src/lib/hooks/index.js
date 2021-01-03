@@ -17,6 +17,10 @@ import {
 } from 'react-redux'
 
 import {
+  useQuery as useQueryBase
+} from '@apollo/client'
+
+import {
   useTranslation as useTranslationBase
 } from 'react-i18next'
 
@@ -31,5 +35,7 @@ export const useRouteMatch = useRouteMatchBase
 
 export const useDispatch = useDispatchBase
 export const useSelector = useSelectorBase
+
+export const useQuery = useQueryBase
 
 export const useTranslation = useTranslationBase

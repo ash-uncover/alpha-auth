@@ -25,8 +25,7 @@ const Messages = () => {
         <h1>{title}</h1>
         ...
       </AppPanel>
-      <AppArea>
-        <h1>{title}</h1>
+      <AppArea title={title}>
         ...
       </AppArea>
     </AppContent>

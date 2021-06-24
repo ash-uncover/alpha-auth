@@ -1,5 +1,7 @@
 import {
   get,
+  post,
+  put,
   del
 } from 'lib/RestHelper'
 
@@ -36,9 +38,21 @@ export const authDelete = async (dispatch, { token }) => {
     })
 }
 
+export const authRegisterPost = async ({ username, password }) => {
+  return post(`${CONFIG.ALPHA_AUTH_REST_URL}/auth/register`, null, { username, password })
+}
+
+export const authRegisterPut = async ({ username, token }) => {
+  return put(`${CONFIG.ALPHA_AUTH_REST_URL}/auth/register`, null, { username, token })
+}
+
 const AuthService = {
   get: authGet,
-  delete: authDelete
+  delete: authDelete,
+  register: {
+    post: authRegisterPost,
+    put: authRegisterPut
+  }
 }
 
 export default AuthService

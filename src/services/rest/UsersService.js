@@ -1,5 +1,6 @@
 import {
   get,
+  postImage,
   patch
 } from 'lib/RestHelper'
 
@@ -9,55 +10,67 @@ import {
 
 import CONFIG from 'configuration'
 
-export const userGet = async (dispatch, token, id) => {
-  dispatch(actions.userGetFetch({ id }))
+export const getUser = async (dispatch, token, id) => {
+  dispatch(actions.getUserFetch({ id }))
   return get(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}`, token)
     .then((user) => {
-      dispatch(actions.userGetSuccess({ id, user }))
+      dispatch(actions.getUserSuccess({ id, user }))
     })
     .catch((error) => {
-      dispatch(actions.userGetFailure({ id, error }))
+      dispatch(actions.getUserFailure({ id, error }))
     })
 }
 
-export const userPatch = async (dispatch, token, id, data) => {
-  dispatch(actions.userGetFetch({ id }))
+export const postUserAvatar = async (dispatch, token, id, file) => {
+  dispatch(actions.postUserAvatarFetch({ id }))
+  return postImage(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}/avatar`, token, file)
+    .then(() => {
+      dispatch(actions.postUserAvatarSuccess({ id }))
+    })
+    .catch((error) => {
+      dispatch(actions.postUserAvatarFailure({ id, error }))
+    })
+}
+
+export const patchUser = async (dispatch, token, id, data) => {
+  dispatch(actions.patchUserFetch({ id }))
   return patch(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}`, token, data)
     .then((user) => {
-      dispatch(actions.userGetSuccess({ id, user }))
+      dispatch(actions.patchUserSuccess({ id, user }))
     })
     .catch((error) => {
-      dispatch(actions.userGetFailure({ id, error }))
+      dispatch(actions.patchUserFailure({ id, error }))
     })
 }
 
-export const userRelationsGet = async (dispatch, token, id) => {
-  dispatch(actions.userRelationsGetFetch({ id }))
+export const getUserRelations = async (dispatch, token, id) => {
+  dispatch(actions.getUserRelationsFetch({ id }))
   return get(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}/relations`, token)
     .then((relations) => {
-      dispatch(actions.userRelationsGetSuccess({ id, relations }))
+      dispatch(actions.getUserRelationsSuccess({ id, relations }))
     })
     .catch((error) => {
-      dispatch(actions.userRelationsGetFailure({ id, error }))
+      dispatch(actions.getUserRelationsFailure({ id, error }))
     })
 }
 
-export const userThreadsGet = async (dispatch, token, id) => {
-  dispatch(actions.userThreadsGetFetch({ id }))
+export const getUserThreads = async (dispatch, token, id) => {
+  dispatch(actions.getUserThreadsFetch({ id }))
   return get(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/users/${id}/threads`, token)
     .then((threads) => {
-      dispatch(actions.userThreadsGetSuccess({ id, threads }))
+      dispatch(actions.getUserThreadsSuccess({ id, threads }))
     })
     .catch((error) => {
-      dispatch(actions.userThreadsGetFailure({ id, error }))
+      dispatch(actions.getUserThreadsFailure({ id, error }))
     })
 }
 
 const UsersService = {
-  get: userGet,
-  patch: userPatch,
-  getRelations: userRelationsGet,
-  getThreads: userThreadsGet
+  get: getUser,
+  patch: patchUser,
+  postAvatar: postUserAvatar,
+  getRelations: getUserRelations,
+  getThreads: getUserThreads
 }
 
 export default UsersService

@@ -31,7 +31,7 @@ export const getThreadState = (state, id) => {
 
 // PATCH RELATION REDUCER //
 
-export const reduceUserThreadsGetSuccess = (state, { payload }) => {
+export const getUserThreadsSuccess = (state, { payload }) => {
   const { threads } = payload
   threads.forEach((relation) => {
     const threadState = getThreadState(state, relation.id)
@@ -41,7 +41,7 @@ export const reduceUserThreadsGetSuccess = (state, { payload }) => {
   })
 }
 
-export const reduceAuthLogoutSuccess = (state) => {
+export const authLogoutSuccess = (state) => {
   Object.assign(state, initialState())
 }
 
@@ -56,23 +56,29 @@ const relationsSlice = createSlice({
   },
 
   extraReducers: {
-    'auth/authLogoutSuccess': reduceAuthLogoutSuccess,
-    'users/userThreadsGetSuccess': reduceUserThreadsGetSuccess
+    'auth/authLogoutSuccess': authLogoutSuccess,
+    'users/getUserThreadsSuccess': getUserThreadsSuccess
   }
 })
 
+export const selectThreads = (state) => restSelectors.selectRest(state).relations
+export const selectThreadsData = (state) => selectThreads(state).data
+export const selectThreadsStatus = (state) => selectThreads(state).status
+export const selectThreadsError = (state) => selectThreads(state).error
+export const selectThread = (id) => (state) => selectThreadsData(state)[id] || initialThreadState()
+export const selectThreadData = (id) => (state) => selectThread(id)(state).data
+export const selectThreadStatus = (id) => (state) => selectThread(id)(state).status
+export const selectThreadError = (id) => (state) => selectThread(id)(state).error
+
 relationsSlice.selectors = {
-  restThreadsSelector: (state) => restSelectors.restSelector(state).relations,
-
-  restThreadsDataSelector: (state) => relationsSlice.selectors.restThreadsSelector(state).data,
-  restThreadsStatusSelector: (state) => relationsSlice.selectors.restThreadsSelector(state).status,
-  restThreadsErrorSelector: (state) => relationsSlice.selectors.restThreadsSelector(state).error,
-
-  restThreadSelector: (id) => (state) => relationsSlice.selectors.restThreadsDataSelector(state)[id] || initialThreadState(),
-
-  restThreadDataSelector: (id) => (state) => relationsSlice.selectors.restThreadSelector(id)(state).data,
-  restThreadStatusSelector: (id) => (state) => relationsSlice.selectors.restThreadSelector(id)(state).status,
-  restThreadErrorSelector: (id) => (state) => relationsSlice.selectors.restThreadSelector(id)(state).error
+  selectThreads,
+  selectThreadsData,
+  selectThreadsStatus,
+  selectThreadsError,
+  selectThread,
+  selectThreadData,
+  selectThreadStatus,
+  selectThreadError
 }
 
 export const {

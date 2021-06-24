@@ -1,27 +1,43 @@
-/* globals fetch, Headers */
+/* globals fetch, Headers, FormData */
 
-export const request = (url, token, method, body) => {
+export const getResponseBody = async (response) => {
+  try {
+    const result = await response.json()
+    return result
+  } catch (error) {
+    return null
+  }
+}
+
+export const request = async (url, token, method, body) => {
   const headers = new Headers()
   headers.append('Accept', 'application/json')
   headers.append('Content-Type', 'application/json')
-  headers.append('Authorization', token)
+  if (token) {
+    headers.append('Authorization', token)
+  }
 
   const params = {
     method,
     headers,
-    body
+    body: body ? JSON.stringify(body) : null
   }
 
-  return fetch(url, params)
-    .then((response) => {
-      if (response.status >= 200 && response.status < 300) {
-        if (method === 'DELETE') {
-          return null
-        }
-        return response.json()
-      }
-      throw new Error(response)
-    })
+  try {
+    const response = await fetch(url, params)
+    if (response.ok) {
+      const result = await getResponseBody(response)
+      return result
+    } else {
+      const error = await getResponseBody(response)
+      throw new Error(error.error)
+    }
+  } catch (error) {
+    if (error.message) {
+      throw error
+    }
+    throw new Error(error)
+  }
 }
 
 export const get = (url, token) => {
@@ -29,17 +45,39 @@ export const get = (url, token) => {
 }
 
 export const post = (url, token, body) => {
-  return request(url, token, 'POST', body ? JSON.stringify(body) : null)
+  return request(url, token, 'POST', body)
 }
 
 export const put = (url, token, body) => {
-  return request(url, token, 'PUT', body ? JSON.stringify(body) : null)
+  return request(url, token, 'PUT', body)
 }
 
 export const patch = (url, token, body) => {
-  return request(url, token, 'PATCH', body ? JSON.stringify(body) : null)
+  return request(url, token, 'PATCH', body)
 }
 
 export const del = (url, token) => {
   return request(url, token, 'DELETE')
+}
+
+export const postImage = (url, token, file) => {
+  const headers = new Headers()
+  headers.append('Authorization', token)
+
+  const body = new FormData()
+  body.append('file', file)
+
+  const params = {
+    method: 'POST',
+    headers,
+    body
+  }
+
+  return fetch(url, params)
+    .then((response) => {
+      if (response.status >= 200 && response.status < 300) {
+        return null
+      }
+      throw new Error(response)
+    })
 }

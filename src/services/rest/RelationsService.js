@@ -9,31 +9,31 @@ import {
 
 import CONFIG from 'configuration'
 
-export const relationPatch = async (dispatch, token, id, status) => {
-  dispatch(actions.relationPatchFetch({ id }))
+export const patchRelation = async (dispatch, token, id, status) => {
+  dispatch(actions.patchRelationFetch({ id }))
   return patch(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/relations/${id}/${status.toLowerCase()}`, token)
     .then((relation) => {
-      dispatch(actions.relationPatchSuccess({ id, relation }))
+      dispatch(actions.patchRelationSuccess({ id, relation }))
     })
     .catch((error) => {
-      dispatch(actions.relationPatchFailure({ id, error }))
+      dispatch(actions.patchRelationFailure({ id, error }))
     })
 }
 
-export const relationDelete = async (dispatch, token, id) => {
-  dispatch(actions.relationDeleteFetch({ id }))
+export const deleteRelation = async (dispatch, token, id) => {
+  dispatch(actions.deleteRelationFetch({ id }))
   return del(`${CONFIG.ALPHA_AUTH_REST_URL}/rest/relations/${id}`, token)
     .then((relation) => {
-      dispatch(actions.relationDeleteSuccess({ id, relation }))
+      dispatch(actions.deleteRelationSuccess({ id, relation }))
     })
     .catch((error) => {
-      dispatch(actions.relationDeleteFailure({ id, error }))
+      dispatch(actions.deleteRelationFailure({ id, error }))
     })
 }
 
 const RelationsService = {
-  patch: relationPatch,
-  delete: relationDelete
+  patch: patchRelation,
+  delete: deleteRelation
 }
 
 export default RelationsService

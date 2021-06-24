@@ -10,8 +10,10 @@ export const reducer = combineReducers({
   users
 })
 
+export const selectRest = (state) => state.rest
+
 export const selectors = {
-  restSelector: (state) => state.rest
+  selectRest
 }
 
 export default {

@@ -20,39 +20,40 @@ export const initialState = () => ({
 
 // INITIALIZATION //
 
-export const reduceAppStart = (state, { payload }) => {
+export const appStart = (state, { payload }) => {
   const initialData = LocalStorage.get(ALPHA_AUTH_LOGON_DATA, null)
   state.logonData = initialData
 }
 
 // AUTH LOGON REDUCER //
 
-export const reduceAuthLogonFetch = (state, { payload }) => {
+export const authLogonFetch = (state, { payload }) => {
   state.logonState = DataStates.FETCHING
 }
-export const reduceAuthLogonSuccess = (state, { payload }) => {
+export const authLogonSuccess = (state, { payload }) => {
   const { token, userId } = payload
   state.logonState = DataStates.SUCCESS
   state.logonData = { token, userId }
   state.logonError = null
 }
-export const reduceAuthLogonFailure = (state, { payload }) => {
+export const authLogonFailure = (state, { payload }) => {
   const { error } = payload
   state.logonState = DataStates.FAILURE
   state.logonData = null
   state.logonError = error
 }
 
-export const reduceAuthLogoutFetch = (state, { payload }) => {
+export const authLogoutFetch = (state, { payload }) => {
   state.logoutState = DataStates.FETCHING
 }
-export const reduceAuthLogoutSuccess = (state, { payload }) => {
+export const authLogoutSuccess = (state, { payload }) => {
+  LocalStorage.remove(ALPHA_AUTH_LOGON_DATA)
   state.logonState = DataStates.NEVER
   state.logonData = null
   state.logoutState = DataStates.NEVER
   state.logoutError = null
 }
-export const reduceAuthLogoutFailure = (state, { payload }) => {
+export const authLogoutFailure = (state, { payload }) => {
   const { error } = payload
   state.logonState = DataStates.NEVER
   state.logonData = null
@@ -67,29 +68,38 @@ const authSlice = createSlice({
   initialState: initialState(),
 
   reducers: {
-    authLogonFetch: reduceAuthLogonFetch,
-    authLogonSuccess: reduceAuthLogonSuccess,
-    authLogonFailure: reduceAuthLogonFailure,
+    authLogonFetch,
+    authLogonSuccess,
+    authLogonFailure,
 
-    authLogoutFetch: reduceAuthLogoutFetch,
-    authLogoutSuccess: reduceAuthLogoutSuccess,
-    authLogoutFailure: reduceAuthLogoutFailure
+    authLogoutFetch,
+    authLogoutSuccess,
+    authLogoutFailure
   },
 
   extraReducers: {
-    'app/appStart': reduceAppStart
+    'app/appStart': appStart
   }
 })
 
+export const selectAuth = (state) => state.auth
+export const selectLogonState = (state) => selectAuth(state).logonState
+export const selectLogonData = (state) => selectAuth(state).logonData
+export const selectLogonError = (state) => selectAuth(state).logonError
+export const selectToken = (state) => selectLogonData(state).token
+export const selectUserId = (state) => selectLogonData(state).userId
+export const selectLogoutState = (state) => selectAuth(state).logoutState
+export const selectLogoutError = (state) => selectAuth(state).logoutData
+
 authSlice.selectors = {
-  authSelector: (state) => state.auth,
-
-  authLogonStateSelector: (state) => authSlice.selectors.authSelector(state).logonState,
-  authLogonDataSelector: (state) => authSlice.selectors.authSelector(state).logonData,
-  authLogonErrorSelector: (state) => authSlice.selectors.authSelector(state).logonError,
-
-  authLogonDataTokenSelector: (state) => authSlice.selectors.authLogonDataSelector(state).token,
-  authLogonDataUserIdSelector: (state) => authSlice.selectors.authLogonDataSelector(state).userId
+  selectAuth,
+  selectLogonState,
+  selectLogonData,
+  selectLogonError,
+  selectToken,
+  selectUserId,
+  selectLogoutState,
+  selectLogoutError
 }
 
 export const {

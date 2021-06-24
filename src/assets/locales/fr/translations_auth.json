@@ -1,19 +1,19 @@
 {
-  "username": {
-    "placeholder": "Nom d'utilisateur"
-  },
-  "password": {
-    "placeholder": "Mot de passe"
-  },
   "login": {
     "title": "Connexion",
+    "username": {
+      "placeholder": "Adresse électronique"
+    },
+    "password": {
+      "placeholder": "Mot de passe"
+    },
     "submit": {
       "title": "Se Connecter",
       "tooltip": "Se Connecter"
     },
-    "link": {
-      "title":"Connexion",
-      "tooltip":"Connexion"
+    "links": {
+      "register":"S'inscrire",
+      "recover":"Mot de passe oublié"
     },
     "error": {
       "message": "Vos identifiants sont incorrects."
@@ -69,13 +69,15 @@
   },
   "recover": {
     "title": "Récupération de compte",
+    "username": {
+      "placeholder": "Adresse électronique"
+    },
     "submit": {
       "title": "Envoyer demande",
       "tooltip": ""
     },
-    "link": {
-      "title":"Mot de passe oublié",
-      "tooltip":""
+    "links": {
+      "login":"Retour a l'écran de connexion"
     }
   }
 }

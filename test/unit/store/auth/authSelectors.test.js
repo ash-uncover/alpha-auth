@@ -3,7 +3,7 @@ import {
   authLogonStateSelector,
   authLogonDataSelector,
   authLogonErrorSelector
-} from 'store/auth/authSelectors'
+} from 'store/auth'
 
 describe('AuthSelectors', () => {
   describe('authSelector', () => {

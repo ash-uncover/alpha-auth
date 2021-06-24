@@ -10,6 +10,7 @@ import {
 
 import {
   useDispatch,
+  useQuery,
   useState,
   useSelector,
   useTranslation
@@ -20,6 +21,7 @@ import {
 } from 'lib/constants'
 
 import {
+  GraphQLService,
   RestService
 } from 'services'
 
@@ -43,12 +45,14 @@ import {
   faEnvelope,
   faAngleDoubleLeft,
   faAngleDoubleRight,
-  faQuestionCircle
+  faQuestionCircle,
+  faUserCircle
 } from '@fortawesome/free-solid-svg-icons'
 
 import DataStates from 'lib/constants/DataStates'
 
 import Home from 'components/app/home/Home'
+import Account from 'components/app/account/Account'
 import Social from 'components/app/social/Social'
 import Messages from 'components/app/messages/Messages'
 import Support from 'components/app/support/Support'
@@ -60,19 +64,25 @@ const App = () => {
   const dispatch = useDispatch()
 
   const {
+    loadingViewer,
+    errorViewer,
+    dataViewer
+  } = useQuery(GraphQLService.query.getViewerData())
+
+  const {
     token,
     userId
-  } = useSelector(AuthSelectors.authLogonDataSelector)
+  } = useSelector(AuthSelectors.selectLogonData)
 
-  const userStatus = useSelector(UsersSelectors.restUserStatusSelector(userId))
+  const userStatus = useSelector(UsersSelectors.selectUserStatus(userId))
   const loaded = userStatus && userStatus !== DataStates.NEVER && userStatus !== DataStates.FETCHING_FIRST
   const canLoad = userStatus !== DataStates.FETCHING && userStatus !== DataStates.FAILURE && userStatus !== DataStates.FETCHING_FIRST
 
-  const userRelationsStatus = useSelector(UsersSelectors.restUserRelationsStatusSelector(userId))
+  const userRelationsStatus = useSelector(UsersSelectors.selectUserRelationsStatus(userId))
   const loadedRelations = userRelationsStatus && userRelationsStatus !== DataStates.NEVER && userRelationsStatus !== DataStates.FETCHING_FIRST
   const canLoadRelations = userRelationsStatus !== DataStates.FETCHING && userRelationsStatus !== DataStates.FAILURE && userRelationsStatus !== DataStates.FETCHING_FIRST
 
-  const userThreadsStatus = useSelector(UsersSelectors.restUserThreadsStatusSelector(userId))
+  const userThreadsStatus = useSelector(UsersSelectors.selectUserThreadsStatus(userId))
   const loadedThreads = userThreadsStatus && userThreadsStatus !== DataStates.NEVER && userThreadsStatus !== DataStates.FETCHING_FIRST
   const canLoadThreads = userThreadsStatus !== DataStates.FETCHING && userThreadsStatus !== DataStates.FAILURE && userThreadsStatus !== DataStates.FETCHING_FIRST
 
@@ -116,6 +126,9 @@ const App = () => {
             <Route path={Routes.HOME}>
               <Home />
             </Route>
+            <Route path={Routes.ACCOUNT}>
+              <Account />
+            </Route>
             <Route path={Routes.SOCIAL}>
               <Social />
             </Route>
@@ -152,7 +165,7 @@ const AppLogout = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const loading = t('app:logging out')
-  const logonData = useSelector(AuthSelectors.authLogonDataSelector)
+  const logonData = useSelector(AuthSelectors.selectLogonData)
 
   useEffect(async () => {
     RestService.api.auth.delete(dispatch, logonData)
@@ -198,6 +211,7 @@ const AppMenu = () => {
 
   const { t } = useTranslation()
   const menuHome = t('app:home.link.title')
+  const menuAccount = t('app:account.link.title')
   const menuSocial = t('app:social.link.title')
   const menuMessages = t('app:messages.link.title')
   const menuSupport = t('app:support.link.title')
@@ -221,6 +235,12 @@ const AppMenu = () => {
         to={Routes.HOME}
         icon={faHome}
         text={menuHome}
+      />
+
+      <AppMenuLink
+        to={Routes.ACCOUNT}
+        icon={faUserCircle}
+        text={menuAccount}
       />
 
       <AppMenuLink

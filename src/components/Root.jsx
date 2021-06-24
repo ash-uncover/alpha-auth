@@ -22,8 +22,8 @@ const Root = () => {
   // Hooks
   const dispatch = useDispatch()
 
-  const logonData = useSelector(AuthSelectors.authLogonDataSelector)
-  const appStarted = useSelector(AppSelectors.appStartSelector)
+  const logonData = useSelector(AuthSelectors.selectLogonData)
+  const appStarted = useSelector(AppSelectors.selectAppStart)
 
   useEffect(() => {
     if (!appStarted) {

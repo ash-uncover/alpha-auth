@@ -1,4 +1,7 @@
-import React from 'react'
+import React, {
+  useEffect,
+  useState
+} from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -12,21 +15,40 @@ const SearchBar = ({
   placeholder,
   value,
   suggestions,
-  onChange,
-  onSubmit
+  onChange
 }) => {
+  /* HOOKS */
+
+  const [searchValue, setSearchValue] = useState(value)
+
+  useEffect(() => {
+    setSearchValue(value)
+  }, [value])
+
+  /* VIEW CALLBACKS */
+
   const onInputChange = (event) => {
-    return onChange(event.target.value)
+    setSearchValue(event.target.value)
   }
+
+  const onInputSubmit = (event) => {
+    event.preventDefault()
+    onChange(searchValue)
+  }
+
+  /* RENDERING */
+
   return (
     <div
       className={`search-bar ${className}`}
     >
       <input
         className='search-bar-input'
+        autocomplete='off'
         placeholder={placeholder}
-        value={value}
+        value={searchValue}
         onChange={onInputChange}
+        onSubmit={onInputSubmit}
       />
       <button
         className='search-bar-action'

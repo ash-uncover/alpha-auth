@@ -23,10 +23,10 @@ const Recover = () => {
 
   const { t } = useTranslation()
   const recoverTitle = t('auth:recover.title')
-  const usernamePlaceholder = t('auth:username.placeholder')
+  const usernamePlaceholder = t('auth:recover.username.placeholder')
   const submitTitle = t('auth:recover.submit.title')
   const submitTooltip = t('auth:recover.submit.tooltip')
-  const linkLogin = t('auth:login.link.title')
+  const linkLogin = t('auth:recover.links.login')
 
   const [username, setUsername] = useState('')
 

@@ -8,7 +8,7 @@ export const initialState = () => ({
 
 // START //
 
-export const reduceAppStart = (state, action) => {
+export const appStart = (state, action) => {
   state.started = true
 }
 
@@ -19,14 +19,16 @@ const appSlice = createSlice({
   initialState: initialState(),
 
   reducers: {
-    appStart: reduceAppStart
+    appStart: appStart
   }
 })
 
-appSlice.selectors = {
-  appSelector: (state) => state.app,
+export const selectApp = (state) => state.app
+export const selectAppStart = (state) => selectApp(state).started
 
-  appStartSelector: (state) => appSlice.selectors.appSelector(state).started
+appSlice.selectors = {
+  selectApp,
+  selectAppStart
 }
 
 export const {

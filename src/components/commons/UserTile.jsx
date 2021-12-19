@@ -21,7 +21,7 @@ import {
   faUserSlash
 } from '@fortawesome/free-solid-svg-icons'
 
-import './UserTile.scss'
+import './UserTile.less'
 
 const UserTile = ({
   name,

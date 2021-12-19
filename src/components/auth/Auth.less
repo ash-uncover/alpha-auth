@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import '../../variables.less';
 
 .alpha-auth.auth {
   position: absolute;
@@ -14,7 +14,7 @@
   .auth-box {
     width: 25rem;
     height: 30rem;
-    background: $alpha-main-background;
+    background: @alpha-main-background;
 
     .form {
       margin: 0;
@@ -24,7 +24,7 @@
       justify-content: center;
 
       .form-title {
-        color: $alpha-main-color;
+        color: @alpha-main-color;
         margin-top: 2rem;
         margin-bottom: 3rem;
       }
@@ -48,22 +48,22 @@
 
         &.input {
           .input-control {
-            border-color: $alpha-main-inactive;
+            border-color: @alpha-main-inactive;
             .input-show {
-              color: $alpha-main-color;
+              color: @alpha-main-color;
             }
           }
           .input-mask {
-            background: $alpha-main-inactive;
+            background: @alpha-main-inactive;
             button {
-              border: 2px solid $alpha-main-inactive;
+              border: 2px solid @alpha-main-inactive;
               background: none;
             }
           }
 
           &.active.focus {
             .input-control {
-              border-color: $alpha-main-color;
+              border-color: @alpha-main-color;
             }
           }
         }
@@ -81,12 +81,12 @@
       .form-submit {
         height: 2.5rem;
         font-weight: bold;
-        color: $alpha-main-background;
-        background: $alpha-main-color;
+        color: @alpha-main-background;
+        background: @alpha-main-color;
         border: 0;
         &:disabled {
           cursor: not-allowed;
-          background: $alpha-main-inactive;
+          background: @alpha-main-inactive;
         }
       }
     }

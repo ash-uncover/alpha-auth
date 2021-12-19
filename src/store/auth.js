@@ -21,7 +21,8 @@ export const initialState = () => ({
 // INITIALIZATION //
 
 export const appStart = (state, { payload }) => {
-  const initialData = LocalStorage.get(ALPHA_AUTH_LOGON_DATA, null)
+  //const initialData = LocalStorage.get(ALPHA_AUTH_LOGON_DATA, null)
+  const initialData = initialState()
   state.logonData = initialData
 }
 

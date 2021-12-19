@@ -10,7 +10,7 @@ import {
   AppSection
 } from 'components/app/App'
 
-import './Home.scss'
+import './Home.less'
 
 const Home = () => {
   const { t } = useTranslation()

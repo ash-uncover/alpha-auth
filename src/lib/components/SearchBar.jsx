@@ -5,7 +5,7 @@ import {
   faSearch
 } from '@fortawesome/free-solid-svg-icons'
 
-import './SearchBar.scss'
+import './SearchBar.less'
 
 const SearchBar = ({
   className,

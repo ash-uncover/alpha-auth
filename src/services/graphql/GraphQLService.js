@@ -73,6 +73,26 @@ export const getUser = (id) => gql`
   }
 `
 
+export const createUser = (name) => gql`
+  mutation createUser {
+    createUser(name: "${name}") {
+      id
+      name
+    }
+  }
+`
+
+export const updateUser = (user) => gql`
+  mutation updateUser($user: UserInfo!) {
+    updateUser(user: $user) {
+      id
+      name
+      avatar
+      description
+    }
+  }
+`
+
 const GraphQLService = {
   query: {
     getUser,
@@ -80,7 +100,10 @@ const GraphQLService = {
     getViewerInfo,
     getViewerRelations
   },
-  mutation: {},
+  mutation: {
+    createUser,
+    updateUser
+  },
   subscription: {}
 }
 

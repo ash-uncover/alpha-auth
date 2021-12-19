@@ -14,7 +14,7 @@ import Login from 'components/auth/Login'
 import Recover from 'components/auth/Recover'
 import Register from 'components/auth/Register'
 
-import './Auth.scss'
+import './Auth.less'
 
 const Auth = () => {
   return (

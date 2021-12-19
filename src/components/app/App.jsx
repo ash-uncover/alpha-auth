@@ -57,7 +57,7 @@ import Social from 'components/app/social/Social'
 import Messages from 'components/app/messages/Messages'
 import Support from 'components/app/support/Support'
 
-import './App.scss'
+import './App.less'
 
 const App = () => {
   // Hooks

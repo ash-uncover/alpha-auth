@@ -1,8 +1,8 @@
-@import '../../variables.scss';
+@import '../../variables.less';
 
-$navbar-height: 3rem;
-$menu-width: 12rem;
-$menu-width-collapse: 3rem;
+@navbar-height: 3rem;
+@menu-width: 12rem;
+@menu-width-collapse: 3rem;
 
 .app-loading {
   position: absolute;
@@ -15,8 +15,8 @@ $menu-width-collapse: 3rem;
   align-items: center;
   justify-content: center;
   .box {
-    background: $alpha-main-background;
-    color: $alpha-main-color;
+    background: @alpha-main-background;
+    color: @alpha-main-color;
     width: 12rem;
     height: 8rem;
 
@@ -33,17 +33,17 @@ $menu-width-collapse: 3rem;
   left: 0;
   right: 0;
 
-  background: $alpha-main-background-alpha;
+  background: @alpha-main-background-alpha;
 
   .app-navbar {
-    height: $navbar-height;
+    height: @navbar-height;
     display: flex;
     align-items: center;
     padding: 0 1rem;
     box-sizing: border-box;
 
-    background: $alpha-main-background;
-    border-bottom: 1px solid $alpha-main-effect;
+    background: @alpha-main-background;
+    border-bottom: 1px solid @alpha-main-effect;
 
     .left {
       flex-grow: 1;
@@ -54,7 +54,7 @@ $menu-width-collapse: 3rem;
 
     .title {
       font-weight: bold;
-      color: $alpha-main-color
+      color: @alpha-main-color
     }
     .action {
       border: 0;
@@ -63,26 +63,26 @@ $menu-width-collapse: 3rem;
       height: 2rem;
 
       font-size: 1rem;
-      color: $alpha-main-color;
+      color: @alpha-main-color;
 
       &:focus {
         outline: none;
         border-radius: 0.25rem;
-        border: 1px dashed $alpha-main-color;
+        border: 1px dashed @alpha-main-color;
       }
     }
   }
   .app-menu {
     position: absolute;
-    top: $navbar-height;
+    top: @navbar-height;
     bottom: 0;
     left: 0;
-    width: $menu-width-collapse;
+    width: @menu-width-collapse;
 
     background: lightgoldenrodyellow;
 
     &.expanded {
-      width: $menu-width;
+      width: @menu-width;
       .app-menu-item {
         &.action {
           text-align: right;
@@ -115,7 +115,7 @@ $menu-width-collapse: 3rem;
         box-sizing: border-box;
         text-decoration: unset;
         height: 2.5rem;
-        color: $alpha-main-color;
+        color: @alpha-main-color;
         .text {
           display: none;
         }
@@ -130,16 +130,16 @@ $menu-width-collapse: 3rem;
   }
 
   .app-menu.expanded + .app-content {
-    left: $menu-width;
+    left: @menu-width;
   }
   .app-content {
     position: absolute;
-    top: $navbar-height;
-    left: $menu-width-collapse;
+    top: @navbar-height;
+    left: @menu-width-collapse;
     right: 0;
     bottom: 0;
     box-sizing: border-box;
-    background: $alpha-main-background;
+    background: @alpha-main-background;
     display: flex;
     >* {
       height: 100%;
@@ -152,12 +152,12 @@ $menu-width-collapse: 3rem;
       padding: 0 2rem;
       .app-area-section {
         >.title {
-          color: $alpha-main-color;
-          border-bottom: 1px solid $alpha-main-inactive;
+          color: @alpha-main-color;
+          border-bottom: 1px solid @alpha-main-inactive;
         }
         >.content {
           padding: 1rem;
-          border: 1px solid $alpha-main-inactive;
+          border: 1px solid @alpha-main-inactive;
           border-radius: 0.25rem;
         }
         +.app-area-section  {
@@ -167,7 +167,7 @@ $menu-width-collapse: 3rem;
     }
     .app-panel {
       flex-grow: 0;
-      width: $menu-width;
+      width: @menu-width;
 
       background: lightyellow;
     }

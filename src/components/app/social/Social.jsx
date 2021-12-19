@@ -32,7 +32,7 @@ import {
 import CONFIG from 'configuration'
 import SearchBar from 'lib/components/SearchBar'
 
-import './Social.scss'
+import './Social.less'
 
 const Social = () => {
   const [search, setSearch] = useState('')

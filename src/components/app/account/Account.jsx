@@ -3,6 +3,7 @@ import React from 'react'
 import {
   useDispatch,
   useQuery,
+  useMutation,
   useState,
   useSelector,
   useTranslation
@@ -37,7 +38,7 @@ import {
 
 import ImageUploader from 'lib/components/ImageUploader'
 import CONFIG from 'configuration'
-import './Account.scss'
+import './Account.less'
 
 const Account = () => {
   const dispatch = useDispatch()
@@ -63,6 +64,11 @@ const Account = () => {
     data
   } = useQuery(GraphQLService.query.getViewerInfo())
 
+  const [
+    updateUser,
+    mutationData
+  ] = useMutation(GraphQLService.mutation.updateUser())
+
   const {
     token,
     userId
@@ -86,9 +92,14 @@ const Account = () => {
 
   const onUpdateInfo = (event) => {
     event.preventDefault()
-    RestService.api.users.patch(dispatch, token, userId, {
-      name,
-      description
+    updateUser({
+      variables: {
+        user: {
+          id: userId,
+          name,
+          description
+        }
+      }
     })
   }
 

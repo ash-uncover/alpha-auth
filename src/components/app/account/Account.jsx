@@ -2,16 +2,14 @@ import React from 'react'
 
 import {
   useDispatch,
-  useQuery,
-  useMutation,
   useState,
   useSelector,
   useTranslation
 } from 'lib/hooks'
 
 import {
-  GraphQLService,
-  RestService
+  RestService,
+  StoreService,
 } from 'services'
 
 import {
@@ -59,24 +57,15 @@ const Account = () => {
   const accountTitle = t('app:account.manage.title')
 
   const {
-    loading,
-    error,
-    data
-  } = useQuery(GraphQLService.query.getViewerInfo())
-
-  const [
-    updateUser,
-    mutationData
-  ] = useMutation(GraphQLService.mutation.updateUser())
-
-  const {
     token,
     userId
   } = useSelector(AuthSelectors.selectLogonData)
 
-  const [name, setName] = useState(data.viewer.name)
-  const [avatar, setAvatar] = useState(data.viewer.avatar)
-  const [description, setDescription] = useState(data.viewer.description)
+  const user = StoreService.useUser(userId)
+
+  const [name, setName] = useState(user.name)
+  const [avatar, setAvatar] = useState(user.avatar)
+  const [description, setDescription] = useState(user.description)
 
   const onNameChange = (event) => {
     setName(event.target.value)
@@ -136,7 +125,7 @@ const Account = () => {
               <input
                 className='form-control'
                 placeholder={infoNamePlaceholder}
-                value={name}
+                value={name || ''}
                 onChange={onNameChange}
               />
             </div>
@@ -162,7 +151,7 @@ const Account = () => {
               <Button
                 className='form-submit'
                 type='submit'
-                disabled={name === data.name && description === data.description}
+                disabled={name === user.name && description === user.description}
                 title={infoSubmitTooltip}
                 onClick={onUpdateInfo}
               >

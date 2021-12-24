@@ -44,7 +44,7 @@ const SearchBar = ({
     >
       <input
         className='search-bar-input'
-        autocomplete='off'
+        autoComplete='off'
         placeholder={placeholder}
         value={searchValue}
         onChange={onInputChange}

@@ -10,7 +10,6 @@ import {
 
 import {
   useDispatch,
-  useQuery,
   useState,
   useSelector,
   useTranslation
@@ -21,7 +20,6 @@ import {
 } from 'lib/constants'
 
 import {
-  GraphQLService,
   RestService
 } from 'services'
 
@@ -62,12 +60,6 @@ import './App.less'
 const App = () => {
   // Hooks
   const dispatch = useDispatch()
-
-  const {
-    loadingViewer,
-    errorViewer,
-    dataViewer
-  } = useQuery(GraphQLService.query.getViewerData())
 
   const {
     token,

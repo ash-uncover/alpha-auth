@@ -21,9 +21,16 @@ export const initialState = () => ({
 // INITIALIZATION //
 
 export const appStart = (state, { payload }) => {
-  //const initialData = LocalStorage.get(ALPHA_AUTH_LOGON_DATA, null)
+  const storedData = LocalStorage.get(ALPHA_AUTH_LOGON_DATA, null)
   const initialData = initialState()
-  state.logonData = initialData
+  if (storedData && storedData.token && storedData.userId) {
+    initialData.logonData = storedData
+  }
+  state.logonState = initialData.logonState
+  state.logonData = initialData.logonData
+  state.logonError = initialData.logonError
+  state.logoutState = initialData.logoutState
+  state.logoutError = initialData.logoutError
 }
 
 // AUTH LOGON REDUCER //

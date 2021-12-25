@@ -15,7 +15,7 @@ import {
 } from 'lib/hooks'
 
 import {
-  Routes
+  AppRoutes
 } from 'lib/constants'
 
 const Recover = () => {
@@ -75,8 +75,8 @@ const Recover = () => {
       <Link
         className='form-link'
         to={{
-          pathname: Routes.LOGIN,
-          state: { from: Routes.RECOVER }
+          pathname: AppRoutes.LOGIN,
+          state: { from: AppRoutes.RECOVER }
         }}
       >
         {linkLogin}

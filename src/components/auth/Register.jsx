@@ -10,19 +10,13 @@ import {
 } from '@uncover/react-commons'
 
 import {
-  useDispatch,
   useState,
-  useSelector,
   useTranslation
 } from 'lib/hooks'
 
 import {
-  Routes
+  AppRoutes
 } from 'lib/constants'
-
-import {
-  selectors as AuthSelectors
-} from 'store/auth'
 
 import {
   RestService
@@ -197,8 +191,8 @@ export const RegisterAsk = ({
       <Link
         className='form-link'
         to={{
-          pathname: Routes.LOGIN,
-          state: { from: Routes.REGISTER }
+          pathname: AppRoutes.LOGIN,
+          state: { from: AppRoutes.REGISTER }
         }}
       >
         {linkLogin}
@@ -347,8 +341,8 @@ export const RegisterCompleted = () => {
       <Link
         className='form-link'
         to={{
-          pathname: Routes.LOGIN,
-          state: { from: Routes.REGISTER }
+          pathname: AppRoutes.LOGIN,
+          state: { from: AppRoutes.REGISTER }
         }}
       >
         {linkLogin}

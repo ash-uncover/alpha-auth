@@ -17,7 +17,7 @@ import {
 } from 'lib/hooks'
 
 import {
-  Routes
+  AppRoutes
 } from 'lib/constants'
 
 import {
@@ -112,8 +112,8 @@ const Login = () => {
       <Link
         className='form-link'
         to={{
-          pathname: Routes.RECOVER,
-          state: { from: Routes.LOGIN }
+          pathname: AppRoutes.RECOVER,
+          state: { from: AppRoutes.LOGIN }
         }}
       >
         {linkRecover}
@@ -122,8 +122,8 @@ const Login = () => {
       <Link
         className='form-link'
         to={{
-          pathname: Routes.REGISTER,
-          state: { from: Routes.LOGIN }
+          pathname: AppRoutes.REGISTER,
+          state: { from: AppRoutes.LOGIN }
         }}
       >
         {linkRegister}

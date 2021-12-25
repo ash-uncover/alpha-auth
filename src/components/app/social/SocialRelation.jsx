@@ -36,8 +36,6 @@ const SocialRelation = ({
   if (user.status.error) {
     return (
       <div className='social-relation'>
-        {relationError}
-        <br />
         {user.error}
       </div>
     )

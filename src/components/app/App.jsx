@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 
 import {
-  Switch,
-  Redirect,
-  Route,
   Link,
-  NavLink
+  Outlet,
+  Navigate,
+  NavLink,
+  Route,
+  Routes
 } from 'react-router-dom'
 
 import {
@@ -16,7 +17,7 @@ import {
 } from 'lib/hooks'
 
 import {
-  Routes
+  AppRoutes
 } from 'lib/constants'
 
 import {
@@ -97,46 +98,28 @@ const App = () => {
   }
 
   return (
-    <Switch>
-      <Route path={Routes.LOGIN}>
-        <Redirect to='/' />
+    <Routes>
+      <Route path='/' element={<AppMain />}>
+        <Route path={AppRoutes.HOME} element={<Home />} />
+        <Route path={AppRoutes.ACCOUNT} element={<Account />} />
+        <Route path={AppRoutes.SOCIAL} element={<Social />} />
+        <Route path={AppRoutes.MESSAGES} element={<Messages />} />
+        <Route path={AppRoutes.SUPPORT} element={<Support />} />
+        <Route path={AppRoutes.LOGOUT} element={<AppLogout />} />
       </Route>
-      <Route path={Routes.RECOVER}>
-        <Redirect to='/' />
-      </Route>
-      <Route path={Routes.REGISTER}>
-        <Redirect to='/' />
-      </Route>
-      <Route path={Routes.LOGOUT}>
-        <AppLogout />
-      </Route>
-      <Route path='/'>
-        <div className='alpha-auth app'>
-          <AppNavbar />
-          <AppMenu />
-          <Switch>
-            <Route path={Routes.HOME}>
-              <Home />
-            </Route>
-            <Route path={Routes.ACCOUNT}>
-              <Account />
-            </Route>
-            <Route path={Routes.SOCIAL}>
-              <Social />
-            </Route>
-            <Route path={Routes.MESSAGES}>
-              <Messages />
-            </Route>
-            <Route path={Routes.SUPPORT}>
-              <Support />
-            </Route>
-            <Route path='*'>
-              <Redirect to={Routes.HOME} />
-            </Route>
-          </Switch>
-        </div>
-      </Route>
-    </Switch>
+
+      <Route path='*' element={<Navigate to='/' />} />
+    </Routes>
+  )
+}
+
+const AppMain = () => {
+  return (
+    <div className='alpha-auth app'>
+      <AppNavbar />
+      <AppMenu />
+      <Outlet />
+    </div>
   )
 }
 
@@ -189,7 +172,7 @@ const AppNavbar = () => {
         <Link
           className='action'
           title={logoutTooltip}
-          to={Routes.LOGOUT}
+          to={AppRoutes.LOGOUT}
         >
           <FontAwesomeIcon icon={faPowerOff} />
         </Link>
@@ -224,31 +207,31 @@ const AppMenu = () => {
       </Button>
 
       <AppMenuLink
-        to={Routes.HOME}
+        to={AppRoutes.HOME}
         icon={faHome}
         text={menuHome}
       />
 
       <AppMenuLink
-        to={Routes.ACCOUNT}
+        to={AppRoutes.ACCOUNT}
         icon={faUserCircle}
         text={menuAccount}
       />
 
       <AppMenuLink
-        to={Routes.SOCIAL}
+        to={AppRoutes.SOCIAL}
         icon={faUsers}
         text={menuSocial}
       />
 
       <AppMenuLink
-        to={Routes.MESSAGES}
+        to={AppRoutes.MESSAGES}
         icon={faEnvelope}
         text={menuMessages}
       />
 
       <AppMenuLink
-        to={Routes.SUPPORT}
+        to={AppRoutes.SUPPORT}
         icon={faQuestionCircle}
         text={menuSupport}
       />
@@ -266,7 +249,6 @@ const AppMenuLink = ({
     <NavLink
       className='app-menu-item link'
       to={to}
-      activeClassName='active'
     >
       <FontAwesomeIcon
         icon={icon}

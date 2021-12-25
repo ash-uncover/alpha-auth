@@ -1,9 +1,6 @@
 import React from 'react'
 
 import {
-  useDispatch,
-  useState,
-  useSelector,
   useTranslation
 } from 'lib/hooks'
 

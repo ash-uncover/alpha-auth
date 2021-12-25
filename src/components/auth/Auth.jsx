@@ -1,13 +1,13 @@
 import React from 'react'
 
 import {
-  Switch,
-  Redirect,
-  Route
+  Navigate,
+  Route,
+  Routes
 } from 'react-router-dom'
 
 import {
-  Routes
+  AppRoutes
 } from 'lib/constants'
 
 import Login from 'components/auth/Login'
@@ -20,25 +20,12 @@ const Auth = () => {
   return (
     <div className='alpha-auth auth'>
       <div className='auth-box'>
-        <Switch>
-          <Route path={Routes.LOGIN} exact>
-            <Login />
-          </Route>
-          <Route path={Routes.RECOVER} exact>
-            <Recover />
-          </Route>
-          <Route path={Routes.REGISTER} exact>
-            <Register />
-          </Route>
-          <Route path='/'>
-            <Redirect
-              to={{
-                pathname: Routes.LOGIN,
-                state: { from: null }
-              }}
-            />
-          </Route>
-        </Switch>
+        <Routes>
+          <Route path={AppRoutes.LOGIN} exact element={<Login />} />
+          <Route path={AppRoutes.RECOVER} exact element={<Recover />} />
+          <Route path={AppRoutes.REGISTER} exact element={<Register />} />
+          <Route path='*' element={<Navigate to={{ pathname: AppRoutes.LOGIN, state: { from: null } }} />} />
+        </Routes>
       </div>
     </div>
   )

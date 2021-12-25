@@ -1,5 +1,5 @@
 import DataStatesBase from './DataStates'
-import RoutesBase from './Routes'
+import AppRoutesBase from './AppRoutes'
 
 export const DataStates = DataStatesBase
-export const Routes = RoutesBase
+export const AppRoutes = AppRoutesBase

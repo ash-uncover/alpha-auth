@@ -8,12 +8,10 @@ const common = require('./webpack.config.common.js')
 module.exports = merge(common, {
   mode: 'development',
 
-  devtool: 'source-map',
+  devtool: 'eval-source-map',
 
   devServer: {
-    contentBase: './dist',
-    historyApiFallback: true,
-    disableHostCheck: true
+    historyApiFallback: true
   },
 
   resolve: {

@@ -9,7 +9,7 @@ import {
 
 import {
   RestService,
-  StoreService,
+  StoreService
 } from 'services'
 
 import {
@@ -64,7 +64,6 @@ const Account = () => {
   const user = StoreService.useUser(userId)
 
   const [name, setName] = useState(user.name)
-  const [avatar, setAvatar] = useState(user.avatar)
   const [description, setDescription] = useState(user.description)
 
   const onNameChange = (event) => {
@@ -81,15 +80,11 @@ const Account = () => {
 
   const onUpdateInfo = (event) => {
     event.preventDefault()
-    updateUser({
-      variables: {
-        user: {
-          id: userId,
-          name,
-          description
-        }
-      }
-    })
+    const userData = {
+      name,
+      description
+    }
+    RestService.api.users.patchUser(dispatch, token, userId, userData)
   }
 
   return (
@@ -108,7 +103,7 @@ const Account = () => {
               </label>
               <div className='form-control form-avatar'>
                 <ImageUploader
-                  src={`${CONFIG.ALPHA_AUTH_REST_URL}/${avatar}`}
+                  src={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.avatar}`}
                   onChange={onAvatarChange}
                 />
               </div>

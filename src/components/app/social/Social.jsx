@@ -11,7 +11,7 @@ import RelationsStatus from 'lib/constants/RelationsStatus'
 
 import {
   RestService,
-  StoreService,
+  StoreService
 } from 'services'
 
 import {
@@ -137,7 +137,7 @@ const Social = () => {
             {
               data.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
-                .map(({ id, relationId }) => <SocialRelationIgnore key={id} relationId={id} relationUserId={relationId} />)
+                .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationUserId={relationId} />)
             }
           </AppSection>
         )}
@@ -147,7 +147,7 @@ const Social = () => {
 }
 
 const SocialRelationPending = ({
-  relationId,
+  id,
   relationUserId
 }) => {
   const dispatch = useDispatch()
@@ -170,17 +170,17 @@ const SocialRelationPending = ({
 }
 
 const SocialRelationActive = ({
-  relationId,
+  id,
   relationUserId
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.selectToken)
 
   const onBlock = () => {
-    RestService.api.relations.patch(dispatch, token, relationId, 'block')
+    RestService.api.relations.patch(dispatch, token, id, 'block')
   }
   const onDelete = () => {
-    RestService.api.relations.delete(dispatch, token, relationId)
+    RestService.api.relations.delete(dispatch, token, id)
   }
   const onMessage = () => {
 
@@ -196,7 +196,7 @@ const SocialRelationActive = ({
 }
 
 const SocialRelationWaiting = ({
-  relationId,
+  id, // eslint-disable-line no-unused-vars
   relationUserId
 }) => {
   return (
@@ -207,17 +207,17 @@ const SocialRelationWaiting = ({
 }
 
 const SocialRelationIgnore = ({
-  relationId,
+  id,
   relationUserId
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.selectToken)
 
   const onUnblock = () => {
-    RestService.api.relations.patch(dispatch, token, relationId, 'unblock')
+    RestService.api.relations.patch(dispatch, token, id, 'unblock')
   }
   const onDelete = () => {
-    RestService.api.relations.delete(dispatch, token, relationId)
+    RestService.api.relations.delete(dispatch, token, id)
   }
   return (
     <SocialRelation

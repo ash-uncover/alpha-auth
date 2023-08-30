@@ -65,4 +65,14 @@ StoreService.useUserRelations = (userId) => {
   )
 }
 
+StoreService.useUserThreads = (userId) => {
+  return useStoreData(
+    UsersSelectors.selectUserRelationsData,
+    UsersSelectors.selectUserRelationsStatus,
+    UsersSelectors.selectUserRelationsError,
+    RestService.api.users.getRelations,
+    userId
+  )
+}
+
 export default StoreService

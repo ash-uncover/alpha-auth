@@ -1,0 +1,9 @@
+{
+  "name": "alpha-auth",
+  "url": "http://localhost:8080",
+  "dependencies": [],
+  "defines": {
+  },
+  "provides": {
+  }
+}

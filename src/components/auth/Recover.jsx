@@ -5,11 +5,6 @@ import {
 } from 'react-router-dom'
 
 import {
-  Button,
-  Input
-} from '@uncover/react-commons'
-
-import {
   useState,
   useTranslation
 } from 'lib/hooks'
@@ -51,7 +46,7 @@ const Recover = () => {
         {recoverTitle}
       </h2>
 
-      <Input
+      <input
         className='form-control'
         name='alpha-username'
         placeholder={usernamePlaceholder}
@@ -60,7 +55,7 @@ const Recover = () => {
         onChange={onUsernameChanged}
       />
 
-      <Button
+      <button
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
@@ -68,7 +63,7 @@ const Recover = () => {
         onClick={onRecover}
       >
         {submitTitle}
-      </Button>
+      </button>
 
       <p className='form-control label' />
 

@@ -57,11 +57,8 @@ export const deleteRelationFetch = (state, { payload }) => {
   relationState.status = DataStates.FETCHING
 }
 export const deleteRelationSuccess = (state, { payload }) => {
-  const { id, relation } = payload
-  const relationState = getRelationState(state, id)
-  relationState.data = relation
-  relationState.error = null
-  relationState.status = DataStates.SUCCESS
+  const { id } = payload
+  delete state.data[id]
 }
 export const deleteRelationFailure = (state, { payload }) => {
   const { id, error } = payload

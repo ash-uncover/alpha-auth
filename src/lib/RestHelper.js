@@ -1,5 +1,3 @@
-/* globals fetch, Headers, FormData */
-
 export const getResponseBody = async (response) => {
   try {
     const result = await response.json()

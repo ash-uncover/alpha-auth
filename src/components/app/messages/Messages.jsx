@@ -10,7 +10,7 @@ import {
   AppPanel
 } from 'components/app/App'
 
-import './Messages.less'
+import './Messages.css'
 
 const Messages = () => {
   const { t } = useTranslation()

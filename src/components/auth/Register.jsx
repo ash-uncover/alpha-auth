@@ -5,11 +5,6 @@ import {
 } from 'react-router-dom'
 
 import {
-  Button,
-  Input
-} from '@uncover/react-commons'
-
-import {
   useState,
   useTranslation
 } from 'lib/hooks'
@@ -149,7 +144,7 @@ export const RegisterAsk = ({
         {text}
       </p>
 
-      <Input
+      <input
         className='form-control'
         name='alpha-username'
         placeholder={usernamePlaceholder}
@@ -157,7 +152,7 @@ export const RegisterAsk = ({
         value={username}
         onChange={onUsernameChanged}
       />
-      <Input
+      <input
         className='form-control'
         name='alpha-password'
         type='password'
@@ -165,7 +160,7 @@ export const RegisterAsk = ({
         value={password}
         onChange={onPasswordChanged}
       />
-      <Input
+      <input
         className='form-control'
         name='alpha-repeat'
         type='password'
@@ -174,7 +169,7 @@ export const RegisterAsk = ({
         onChange={onRepeatChanged}
       />
 
-      <Button
+      <button
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
@@ -182,7 +177,7 @@ export const RegisterAsk = ({
         onClick={onRegister}
       >
         {submitTitle}
-      </Button>
+      </button>
 
       <p className={`form-control label ${error ? 'error' : ''}`}>
         {error}

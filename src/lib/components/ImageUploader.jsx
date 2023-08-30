@@ -7,7 +7,7 @@ import {
   FileUtils
 } from '@uncover/js-utils'
 
-import './ImageUploader.less'
+import './ImageUploader.css'
 
 const createObjectURL = (object) => {
   return (window.URL) ? window.URL.createObjectURL(object) : window.webkitURL.createObjectURL(object)
@@ -66,7 +66,7 @@ const ImageUploader = ({
       setError('')
       const url = createObjectURL(file)
       setSource(url)
-      //revokeObjectURL(url)
+      revokeObjectURL(url)
       onChange(file)
     }
   }

@@ -17,10 +17,6 @@ import {
 } from 'store/auth'
 
 import {
-  Button
-} from '@uncover/react-commons'
-
-import {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome'
 
@@ -36,7 +32,7 @@ import {
 
 import ImageUploader from 'lib/components/ImageUploader'
 import CONFIG from 'configuration'
-import './Account.less'
+import './Account.css'
 
 const Account = () => {
   const dispatch = useDispatch()
@@ -63,8 +59,8 @@ const Account = () => {
 
   const user = StoreService.useUser(userId)
 
-  const [name, setName] = useState(user.name)
-  const [description, setDescription] = useState(user.description)
+  const [name, setName] = useState(user.data.name)
+  const [description, setDescription] = useState(user.data.description)
 
   const onNameChange = (event) => {
     setName(event.target.value)
@@ -84,7 +80,7 @@ const Account = () => {
       name,
       description
     }
-    RestService.api.users.patchUser(dispatch, token, userId, userData)
+    RestService.api.users.patch(dispatch, token, userId, userData)
   }
 
   return (
@@ -103,7 +99,7 @@ const Account = () => {
               </label>
               <div className='form-control form-avatar'>
                 <ImageUploader
-                  src={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.avatar}`}
+                  src={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.data.avatar}`}
                   onChange={onAvatarChange}
                 />
               </div>
@@ -143,15 +139,15 @@ const Account = () => {
               />
             </div>
             <div className='form-group actions'>
-              <Button
+              <button
                 className='form-submit'
                 type='submit'
-                disabled={name === user.name && description === user.description}
+                disabled={name === user.data.name && description === user.data.description}
                 title={infoSubmitTooltip}
                 onClick={onUpdateInfo}
               >
                 {infoSubmitTitle}
-              </Button>
+              </button>
             </div>
           </form>
         </AppSection>

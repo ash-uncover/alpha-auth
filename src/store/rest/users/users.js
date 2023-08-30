@@ -137,6 +137,12 @@ export const getUserThreadsFailure = (state, { payload }) => {
   userState.threadsStatus = DataStates.FAILURE
 }
 
+export const deleteRelationSuccess = (state, { payload }) => {
+  const { id, relation } = payload
+  console.log(id)
+  console.log(relation)
+}
+
 export const authLogoutSuccess = (state) => {
   Object.assign(state, initialState())
 }

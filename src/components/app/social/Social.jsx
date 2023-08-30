@@ -32,7 +32,7 @@ import SocialRelation from 'components/app/social/SocialRelation'
 
 import SearchBar from 'lib/components/SearchBar'
 
-import './Social.less'
+import './Social.css'
 
 const Social = () => {
   const [search, setSearch] = useState('')
@@ -99,7 +99,7 @@ const Social = () => {
             {
               data.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.PENDING)
-                .map(({ id, relationId }) => <SocialRelationPending key={id} relationId={id} relationUserId={relationId} />)
+                .map(({ id, relationId }) => <SocialRelationPending key={id} id={id} userId={relationId} />)
             }
           </AppSection>
         )}
@@ -111,7 +111,7 @@ const Social = () => {
           {
             data.relations
               .filter((relation) => relation && relation.status === RelationsStatus.ACTIVE)
-              .map(({ id, relationId }) => <SocialRelationActive key={id} relationId={id} relationUserId={relationId} />)
+              .map(({ id, relationId }) => <SocialRelationActive key={id} id={id} userId={relationId} />)
           }
           {data.active === 0 && 'No friends lol'}
         </AppSection>
@@ -124,7 +124,7 @@ const Social = () => {
             {
               data.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.WAITING)
-                .map(({ id, relationId }) => <SocialRelationWaiting key={id} relationId={id} relationUserId={relationId} />)
+                .map(({ id, relationId }) => <SocialRelationWaiting key={id} id={id} userId={relationId} />)
             }
           </AppSection>
         )}
@@ -137,7 +137,7 @@ const Social = () => {
             {
               data.relations
                 .filter((relation) => relation && relation.status === RelationsStatus.BLOCKED)
-                .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} relationUserId={relationId} />)
+                .map(({ id, relationId }) => <SocialRelationIgnore key={id} id={id} userId={relationId} />)
             }
           </AppSection>
         )}
@@ -148,10 +148,10 @@ const Social = () => {
 
 const SocialRelationPending = ({
   id,
-  relationUserId
+  userId
 }) => {
   const dispatch = useDispatch()
-  const token = useSelector(AuthSelectors.selectLogonDataToken)
+  const token = useSelector(AuthSelectors.selectToken)
 
   const onAccept = () => {
     RestService.api.relations.patch(dispatch, token, id, 'accept')
@@ -162,7 +162,7 @@ const SocialRelationPending = ({
 
   return (
     <SocialRelation
-      userId={relationUserId}
+      userId={userId}
       onAccept={onAccept}
       onReject={onReject}
     />
@@ -171,7 +171,7 @@ const SocialRelationPending = ({
 
 const SocialRelationActive = ({
   id,
-  relationUserId
+  userId
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.selectToken)
@@ -187,7 +187,7 @@ const SocialRelationActive = ({
   }
   return (
     <SocialRelation
-      userId={relationUserId}
+      userId={userId}
       onBlock={onBlock}
       onDelete={onDelete}
       onMessage={onMessage}
@@ -197,18 +197,18 @@ const SocialRelationActive = ({
 
 const SocialRelationWaiting = ({
   id, // eslint-disable-line no-unused-vars
-  relationUserId
+  userId
 }) => {
   return (
     <SocialRelation
-      userId={relationUserId}
+      userId={userId}
     />
   )
 }
 
 const SocialRelationIgnore = ({
   id,
-  relationUserId
+  userId
 }) => {
   const dispatch = useDispatch()
   const token = useSelector(AuthSelectors.selectToken)
@@ -221,7 +221,7 @@ const SocialRelationIgnore = ({
   }
   return (
     <SocialRelation
-      userId={relationUserId}
+      userId={userId}
       onUnblock={onUnblock}
       onDelete={onDelete}
     />

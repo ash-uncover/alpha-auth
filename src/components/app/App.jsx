@@ -21,20 +21,13 @@ import {
 } from 'lib/constants'
 
 import {
-  RestService
+  RestService,
+  StoreService
 } from 'services'
 
 import {
   selectors as AuthSelectors
 } from 'store/auth'
-
-import {
-  selectors as UsersSelectors
-} from 'store/rest/users'
-
-import {
-  Button
-} from '@uncover/react-commons'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -48,50 +41,26 @@ import {
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons'
 
-import DataStates from 'lib/constants/DataStates'
-
 import Home from 'components/app/home/Home'
 import Account from 'components/app/account/Account'
 import Social from 'components/app/social/Social'
 import Messages from 'components/app/messages/Messages'
 import Support from 'components/app/support/Support'
 
-import './App.less'
+import './App.css'
 
 const App = () => {
   // Hooks
-  const dispatch = useDispatch()
 
   const {
-    token,
     userId
   } = useSelector(AuthSelectors.selectLogonData)
 
-  const userStatus = useSelector(UsersSelectors.selectUserStatus(userId))
-  const loaded = userStatus && userStatus !== DataStates.NEVER && userStatus !== DataStates.FETCHING_FIRST
-  const canLoad = userStatus !== DataStates.FETCHING && userStatus !== DataStates.FAILURE && userStatus !== DataStates.FETCHING_FIRST
+  const user = StoreService.useUser(userId)
+  const userRelations = StoreService.useUserRelations(userId)
+  const userThreads = StoreService.useUserThreads(userId)
 
-  const userRelationsStatus = useSelector(UsersSelectors.selectUserRelationsStatus(userId))
-  const loadedRelations = userRelationsStatus && userRelationsStatus !== DataStates.NEVER && userRelationsStatus !== DataStates.FETCHING_FIRST
-  const canLoadRelations = userRelationsStatus !== DataStates.FETCHING && userRelationsStatus !== DataStates.FAILURE && userRelationsStatus !== DataStates.FETCHING_FIRST
-
-  const userThreadsStatus = useSelector(UsersSelectors.selectUserThreadsStatus(userId))
-  const loadedThreads = userThreadsStatus && userThreadsStatus !== DataStates.NEVER && userThreadsStatus !== DataStates.FETCHING_FIRST
-  const canLoadThreads = userThreadsStatus !== DataStates.FETCHING && userThreadsStatus !== DataStates.FAILURE && userThreadsStatus !== DataStates.FETCHING_FIRST
-
-  useEffect(() => {
-    if (!loaded && canLoad) {
-      RestService.api.users.get(dispatch, token, userId)
-    }
-    if (!loadedRelations && canLoadRelations) {
-      RestService.api.users.getRelations(dispatch, token, userId)
-    }
-    if (!loadedThreads && canLoadThreads) {
-      RestService.api.users.getThreads(dispatch, token, userId)
-    }
-  })
-
-  if (!loaded || !loadedRelations) {
+  if (!user.status.loaded || !userRelations.status.loaded || !userThreads.status.loaded) {
     return (
       <AppLoading />
     )
@@ -197,14 +166,14 @@ const AppMenu = () => {
 
   return (
     <div className={`app-menu ${expanded ? 'expanded' : ''}`}>
-      <Button
+      <button
         className='app-menu-item action'
         onClick={onToggleExpanded}
       >
         <FontAwesomeIcon
           icon={expanded ? faAngleDoubleLeft : faAngleDoubleRight}
         />
-      </Button>
+      </button>
 
       <AppMenuLink
         to={AppRoutes.HOME}

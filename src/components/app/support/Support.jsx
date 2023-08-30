@@ -10,7 +10,7 @@ import {
   AppSection
 } from 'components/app/App'
 
-import './Support.less'
+import './Support.css'
 
 const Support = () => {
   const { t } = useTranslation()

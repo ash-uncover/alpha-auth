@@ -10,7 +10,7 @@ import {
   AppSection
 } from 'components/app/App'
 
-import './Home.less'
+import './Home.css'
 
 const Home = () => {
   const { t } = useTranslation()

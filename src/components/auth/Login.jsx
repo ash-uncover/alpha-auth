@@ -5,11 +5,6 @@ import {
 } from 'react-router-dom'
 
 import {
-  Button,
-  Input
-} from '@uncover/react-commons'
-
-import {
   useDispatch,
   useState,
   useSelector,
@@ -78,7 +73,7 @@ const Login = () => {
         {title}
       </h2>
 
-      <Input
+      <input
         className='form-control'
         name='alpha-username'
         placeholder={usernamePlaceholder}
@@ -86,7 +81,7 @@ const Login = () => {
         value={username}
         onChange={onUsernameChanged}
       />
-      <Input
+      <input
         className='form-control'
         name='alpha-password'
         type='password'
@@ -95,7 +90,7 @@ const Login = () => {
         onChange={onPasswordChanged}
       />
 
-      <Button
+      <button
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
@@ -103,7 +98,7 @@ const Login = () => {
         onClick={onLogin}
       >
         {submitTitle}
-      </Button>
+      </button>
 
       <p className={`form-control label ${error ? 'error' : ''}`}>
         {error ? errorMessage : ''}

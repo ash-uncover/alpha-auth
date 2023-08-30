@@ -11,11 +11,18 @@ import LocalStorage, {
   ALPHA_AUTH_LOGON_DATA
 } from 'lib/LocalStorage'
 
+import {
+  Service
+} from 'alpha-auth-common'
+
 import CONFIG from 'configuration'
 
 export const authGet = async (dispatch, { username, password }) => {
   dispatch(actions.authLogonFetch({ username, password }))
   const token = `Basic ${window.btoa(unescape(encodeURIComponent(`${username}:${password}`)))}`
+
+  Service.api.auth.get();
+
   return get(`${CONFIG.ALPHA_AUTH_REST_URL}/auth`, token)
     .then(({ userId }) => {
       const result = { token, userId }

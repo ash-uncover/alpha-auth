@@ -5,10 +5,6 @@ import {
 } from 'lib/hooks'
 
 import {
-  Button
-} from '@uncover/react-commons'
-
-import {
   FontAwesomeIcon
 } from '@fortawesome/react-fontawesome'
 
@@ -21,7 +17,7 @@ import {
   faUserSlash
 } from '@fortawesome/free-solid-svg-icons'
 
-import './UserTile.less'
+import './UserTile.css'
 
 const UserTile = ({
   name,
@@ -123,13 +119,13 @@ const UserTileAction = ({
   onClick
 }) => {
   return (
-    <Button
+    <button
       className={`user-tile-action ${className}`}
       tooltip={tooltip}
       onClick={onClick}
     >
       <FontAwesomeIcon icon={icon} />
-    </Button>
+    </button>
   )
 }
 

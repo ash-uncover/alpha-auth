@@ -7,14 +7,19 @@ import {
 import {
   useState,
   useTranslation
-} from 'lib/hooks'
+} from '../../lib/hooks'
 
 import {
   AppRoutes
-} from 'lib/constants'
+} from '../../lib/constants'
 
-const Recover = () => {
-  // Hooks
+// ---------------------------------------------------
+// Create Component Recover
+// ---------------------------------------------------
+
+export const Recover = () => {
+
+  // Hooks //
 
   const { t } = useTranslation()
   const recoverTitle = t('auth:recover.title')
@@ -27,7 +32,7 @@ const Recover = () => {
 
   const disabled = !username
 
-  // Callbacks
+  // Callbacks //
 
   const onUsernameChanged = (event) => {
     setUsername(event.target.value)
@@ -37,7 +42,7 @@ const Recover = () => {
     event.preventDefault()
   }
 
-  // Rendering
+  // Rendering //
 
   return (
     <form className='form'>
@@ -59,7 +64,7 @@ const Recover = () => {
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
-        tooltip={submitTooltip}
+        title={submitTooltip}
         onClick={onRecover}
       >
         {submitTitle}
@@ -80,5 +85,3 @@ const Recover = () => {
     </form>
   )
 }
-
-export default Recover

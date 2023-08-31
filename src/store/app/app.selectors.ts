@@ -1,9 +1,11 @@
 import { RootState } from '../state'
 
-const base = (state: RootState) => state.app
+const root = (state: RootState) => state.app
 
-const started = (state: RootState) => base(state).started
+const started = (state: RootState) => root(state).started
 
 export const AppSelectors = {
+  root,
+
   started,
 }

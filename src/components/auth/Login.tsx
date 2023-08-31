@@ -9,28 +9,37 @@ import {
   useState,
   useSelector,
   useTranslation
-} from 'lib/hooks'
+} from '../../lib/hooks'
 
 import {
   AppRoutes
-} from 'lib/constants'
+} from '../../lib/constants'
 
 import {
-  selectors as AuthSelectors
-} from 'store/auth'
+  AuthSelectors
+} from '../../store/auth/auth.selectors'
 
 import {
   RestService
-} from 'services'
+} from '../../services'
+import { AuthService } from 'alpha-auth-common'
 
-const Login = () => {
-  // Hooks
+
+
+// ---------------------------------------------------
+// Create Component Login
+// ---------------------------------------------------
+
+export const Login = () => {
+
+  // Hooks //
+
   const dispatch = useDispatch()
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  const error = useSelector(AuthSelectors.selectLogonError)
+  const error = useSelector(AuthSelectors.logonError)
 
   const { t } = useTranslation()
   const title = t('auth:login.title')
@@ -45,7 +54,7 @@ const Login = () => {
 
   const disabled = !username
 
-  // Callbacks
+  // Callbacks //
 
   const onUsernameChanged = (event) => {
     setUsername(event.target.value)
@@ -57,14 +66,14 @@ const Login = () => {
 
   const onLogin = (event) => {
     event.preventDefault()
-    RestService.api.auth.get(dispatch, {
+    AuthService.api.auth.get(dispatch, {
       username,
       password
     })
       .then(() => setPassword(''))
   }
 
-  // Rendering
+  // Rendering //
 
   return (
     <form className='form'>
@@ -94,7 +103,7 @@ const Login = () => {
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
-        tooltip={submitTooltip}
+        title={submitTooltip}
         onClick={onLogin}
       >
         {submitTitle}
@@ -127,5 +136,3 @@ const Login = () => {
     </form>
   )
 }
-
-export default Login

@@ -8,15 +8,22 @@ import {
 
 import {
   AppRoutes
-} from 'lib/constants'
+} from '../../lib/constants'
 
-import Login from 'components/auth/Login'
-import Recover from 'components/auth/Recover'
-import Register from 'components/auth/Register'
+import { Login } from './Login'
+import { Recover } from './Recover'
+import { Register } from './Register'
 
 import './Auth.css'
 
-const Auth = () => {
+// ---------------------------------------------------
+// Create Component Auth
+// ---------------------------------------------------
+
+export const Auth = () => {
+
+  // Rendering //
+
   return (
     <div className='alpha-auth auth'>
       <div className='auth-box'>
@@ -30,5 +37,3 @@ const Auth = () => {
     </div>
   )
 }
-
-export default Auth

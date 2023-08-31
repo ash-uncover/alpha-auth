@@ -34,19 +34,24 @@ export const TYPES_ACCEPT = TYPES.reduce((acc, type) => {
 
 export const TYPES_EXT = TYPES.map((type) => type.ext)
 
-const ImageUploader = ({
+// ---------------------------------------------------
+// Create Component ImageUploader
+// ---------------------------------------------------
+
+export const ImageUploader = ({
   name,
   src,
   onChange
 }) => {
-  /* HOOKS */
+
+  // Hooks //
 
   const [error, setError] = useState('')
   const [source, setSource] = useState(src)
 
   const fileInput = useRef(null)
 
-  /* VIEW CALLBACKS */
+  // Callbacks //
 
   const onFileChange = (event) => {
     event.preventDefault()
@@ -71,7 +76,7 @@ const ImageUploader = ({
     }
   }
 
-  /* RENDERING */
+  // Rendering //
 
   return (
     <div className='image-uploader'>
@@ -109,7 +114,7 @@ const ImageUploader = ({
           className='input'
           type='file'
           ref={fileInput}
-          accept={TYPES_ACCEPT}
+          //accept={TYPES_ACCEPT}
           onChange={onFileChange}
         />
       </div>

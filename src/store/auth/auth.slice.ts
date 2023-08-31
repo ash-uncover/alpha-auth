@@ -2,7 +2,7 @@ import {
   CaseReducer,
   createAction,
   createSlice,
-  PayloadAction
+  PayloadAction,
 } from '@reduxjs/toolkit'
 
 import {
@@ -20,7 +20,7 @@ import {
 
 // STATE //
 
-const getInitialState = () => ({
+const getInitialState = (): AuthState => ({
   logonState: DataStates.NEVER,
   logonData: null,
   logonError: null,
@@ -32,8 +32,8 @@ const initialState = getInitialState()
 
 // REDUCERS //
 
-const setStartedAction = createAction('app/setStarted')
-const setStarted = (state: AuthState, action) => {
+const appSetStartedAction = createAction('app/setStarted')
+const appSetStarted = (state: AuthState, action) => {
   const storedData = LocalStorage.get(LocalStorageItem.ALPHA_AUTH_LOGON_DATA, null)
   const initialData = getInitialState()
   if (storedData && storedData.token && storedData.userId) {
@@ -46,18 +46,21 @@ const setStarted = (state: AuthState, action) => {
   state.logoutError = initialData.logoutError
 }
 
-
-export const logonFetch: CaseReducer<AuthState, PayloadAction<void>> = (state) => {
+interface LogonFetchPayload {
+  token: string
+}
+export const logonFetch: CaseReducer<AuthState, PayloadAction<LogonFetchPayload>> = (state, action) => {
+  const { token } = action.payload
   state.logonState = DataStates.FETCHING
+  state.logonData.token = token
 }
 interface LogonSuccessPayload {
-  token: string
   userId: string
 }
 export const logonSuccess: CaseReducer<AuthState, PayloadAction<LogonSuccessPayload>> = (state, action) => {
-  const { token, userId } = action.payload
+  const { userId } = action.payload
   state.logonState = DataStates.SUCCESS
-  state.logonData = { token, userId }
+  state.logonData.userId = userId
   state.logonError = null
 }
 interface LogonFailurePayload {
@@ -66,7 +69,10 @@ interface LogonFailurePayload {
 export const logonFailure: CaseReducer<AuthState, PayloadAction<LogonFailurePayload>> = (state, action) => {
   const { error } = action.payload
   state.logonState = DataStates.FAILURE
-  state.logonData = null
+  state.logonData = {
+    token: null,
+    userId: null
+  }
   state.logonError = error
 }
 
@@ -91,11 +97,11 @@ export const logoutFailure: CaseReducer<AuthState, PayloadAction<LogoutFailurePa
   state.logoutError = error
 }
 
-// MAIN REDUCER //
+// Export SLICE //
 
 export const AuthSlice = createSlice({
   name: 'auth',
-  initialState,
+  initialState: getInitialState(),
 
   reducers: {
     logonFetch,
@@ -108,6 +114,6 @@ export const AuthSlice = createSlice({
   },
 
   extraReducers: (builder) => {
-    builder.addCase(setStartedAction, setStarted)
+    builder.addCase(appSetStartedAction, appSetStarted)
   }
 })

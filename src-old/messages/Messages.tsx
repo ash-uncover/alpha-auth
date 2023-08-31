@@ -2,19 +2,28 @@ import React from 'react'
 
 import {
   useTranslation
-} from 'lib/hooks'
+} from '../../src/lib/hooks'
 
 import {
   AppContent,
   AppArea,
   AppPanel
-} from 'components/app/App'
+} from '../../src/components/app/App'
 
 import './Messages.css'
 
+// ---------------------------------------------------
+// Create Component
+// ---------------------------------------------------
+
 const Messages = () => {
+
+  // Hooks //
+
   const { t } = useTranslation()
   const title = t('app:messages.title')
+
+  // Rendering //
 
   return (
     <AppContent className='messages'>

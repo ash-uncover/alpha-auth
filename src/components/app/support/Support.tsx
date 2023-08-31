@@ -2,21 +2,29 @@ import React from 'react'
 
 import {
   useTranslation
-} from 'lib/hooks'
+} from '../../../lib/hooks'
 
 import {
   AppContent,
   AppArea,
   AppSection
-} from 'components/app/App'
+} from '../App'
 
 import './Support.css'
 
-const Support = () => {
+// ---------------------------------------------------
+// Create Component
+// ---------------------------------------------------
+
+export const Support = () => {
+
+  // Hooks //
   const { t } = useTranslation()
   const title = t('app:support.title')
 
   const contactTitle = t('app:support.contact.title')
+
+  // Rendering //
 
   return (
     <AppContent className='support'>
@@ -28,5 +36,3 @@ const Support = () => {
     </AppContent>
   )
 }
-
-export default Support

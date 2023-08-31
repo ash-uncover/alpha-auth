@@ -1,43 +1,28 @@
 /* eslint-disable */
 
-const webpack = require('webpack')
 const path = require('path')
 
-const DIR_BUILD = path.resolve(__dirname, 'dist')
 const DIR_SRC = path.resolve(__dirname, 'src')
 const DIR_NODE_MODULES = path.resolve(__dirname, 'node_modules')
-const pathToReact = path.resolve(DIR_NODE_MODULES, 'react/dist/react.min.js')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
-  entry: path.resolve(DIR_SRC, 'index.js'),
-
-  plugins: [
-    new CleanWebpackPlugin(),
-    new webpack.EnvironmentPlugin({
-      ALPHA_AUTH_REST_URL: 'http://localhost:8090'
-    }),
-    new CopyPlugin({
-      patterns: [
-        { from: path.resolve(__dirname, '_redirects'), },
-      ],
-    }),
-  ],
-
-  output: {
-    path: DIR_BUILD,
-    filename: '[name].bundle.js',
-    sourceMapFilename: '[name].bundle.js.map',
-    publicPath: '/',
-  },
+  entry: path.resolve(DIR_SRC, 'index.tsx'),
 
   resolve: {
     modules: ['node_modules', './src'],
-    extensions: ['.js', '.jsx'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
+
+  plugins: [
+    new CopyPlugin({
+      patterns: [{
+        from: path.resolve(__dirname, '_redirects'),
+        to: '.',
+      }],
+    }),
+  ],
 
   module: {
     rules: [
@@ -87,6 +72,5 @@ module.exports = {
         type: 'asset/resource',
       },
     ],
-    noParse: [pathToReact],
   },
 }

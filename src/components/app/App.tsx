@@ -10,26 +10,9 @@ import {
 } from 'react-router-dom'
 
 import {
-  useDispatch,
-  useState,
-  useSelector,
-  useTranslation
-} from 'lib/hooks'
+  FontAwesomeIcon
+} from '@fortawesome/react-fontawesome'
 
-import {
-  AppRoutes
-} from 'lib/constants'
-
-import {
-  RestService,
-  StoreService
-} from 'services'
-
-import {
-  selectors as AuthSelectors
-} from 'store/auth'
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
   faPowerOff,
   faHome,
@@ -41,24 +24,46 @@ import {
   faUserCircle
 } from '@fortawesome/free-solid-svg-icons'
 
-import Home from 'components/app/home/Home'
-import Account from 'components/app/account/Account'
-import Social from 'components/app/social/Social'
-import Messages from 'components/app/messages/Messages'
-import Support from 'components/app/support/Support'
+import {
+  useDispatch,
+  useState,
+  useSelector,
+  useTranslation
+} from '../../lib/hooks'
+
+import {
+  AppRoutes
+} from '../../lib/constants'
+
+import {
+  AuthSelectors
+} from '../../store/auth/auth.selectors'
+
+
+import { Home } from './home/Home'
+import { Account } from './account/Account'
+import { Support } from './support/Support'
 
 import './App.css'
 
-const App = () => {
-  // Hooks
+
+// ---------------------------------------------------
+// Create Component App
+// ---------------------------------------------------
+
+export const App = () => {
+
+  // Hooks //
 
   const {
     userId
-  } = useSelector(AuthSelectors.selectLogonData)
+  } = useSelector(AuthSelectors.logonData)
 
   const user = StoreService.useUser(userId)
   const userRelations = StoreService.useUserRelations(userId)
   const userThreads = StoreService.useUserThreads(userId)
+
+  // Rendering //
 
   if (!user.status.loaded || !userRelations.status.loaded || !userThreads.status.loaded) {
     return (
@@ -71,8 +76,6 @@ const App = () => {
       <Route path='/' element={<AppMain />}>
         <Route path={AppRoutes.HOME} element={<Home />} />
         <Route path={AppRoutes.ACCOUNT} element={<Account />} />
-        <Route path={AppRoutes.SOCIAL} element={<Social />} />
-        <Route path={AppRoutes.MESSAGES} element={<Messages />} />
         <Route path={AppRoutes.SUPPORT} element={<Support />} />
         <Route path={AppRoutes.LOGOUT} element={<AppLogout />} />
       </Route>
@@ -81,6 +84,11 @@ const App = () => {
     </Routes>
   )
 }
+
+
+// ---------------------------------------------------
+// Create Component AppMain
+// ---------------------------------------------------
 
 const AppMain = () => {
   return (
@@ -92,10 +100,20 @@ const AppMain = () => {
   )
 }
 
+
+// ---------------------------------------------------
+// Create Component AppLoading
+// ---------------------------------------------------
+
 const AppLoading = () => {
+
+  // Hooks //
+
   const { t } = useTranslation()
   const loading = t('app:loading')
 
+  // Rendering //
+
   return (
     <div className='app-loading'>
       <div className='box'>
@@ -105,15 +123,25 @@ const AppLoading = () => {
   )
 }
 
+
+// ---------------------------------------------------
+// Create Component AppLogout
+// ---------------------------------------------------
+
 const AppLogout = () => {
+
+  // Hooks //
+
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const loading = t('app:logging out')
-  const logonData = useSelector(AuthSelectors.selectLogonData)
+  const logonData = useSelector(AuthSelectors.logonData)
 
-  useEffect(async () => {
+  useEffect(() => {
     RestService.api.auth.delete(dispatch, logonData)
   })
+
+  // Rendering //
 
   return (
     <div className='app-loading'>
@@ -124,10 +152,20 @@ const AppLogout = () => {
   )
 }
 
+
+// ---------------------------------------------------
+// Create Component AppNavbar
+// ---------------------------------------------------
+
 const AppNavbar = () => {
+
+  // Hooks //
+
   const { t } = useTranslation()
   const appTitle = t('app:title')
   const logoutTooltip = t('app:actions.logout.title')
+
+  // Rendering //
 
   return (
     <div className='app-navbar'>
@@ -150,7 +188,14 @@ const AppNavbar = () => {
   )
 }
 
+// ---------------------------------------------------
+// Create Component AppMenu
+// ---------------------------------------------------
+
 const AppMenu = () => {
+
+  // Hooks //
+
   const [expanded, setExpanded] = useState(true)
 
   const { t } = useTranslation()
@@ -163,6 +208,8 @@ const AppMenu = () => {
   const onToggleExpanded = () => {
     setExpanded(!expanded)
   }
+
+  // Rendering //
 
   return (
     <div className={`app-menu ${expanded ? 'expanded' : ''}`}>
@@ -209,11 +256,20 @@ const AppMenu = () => {
   )
 }
 
+// ---------------------------------------------------
+// Create Component AppMenuLink
+// ---------------------------------------------------
+
 const AppMenuLink = ({
   to,
   icon,
   text
 }) => {
+
+  // Hooks //
+
+  // Rendering //
+
   return (
     <NavLink
       className='app-menu-item link'
@@ -230,10 +286,17 @@ const AppMenuLink = ({
   )
 }
 
+// ---------------------------------------------------
+// Create Component AppContent
+// ---------------------------------------------------
+
 export const AppContent = ({
   className = '',
   children
 }) => {
+
+  // Rendering //
+
   return (
     <div className={`app-content ${className}`}>
       {children}
@@ -241,11 +304,18 @@ export const AppContent = ({
   )
 }
 
+// ---------------------------------------------------
+// Create Component AppArea
+// ---------------------------------------------------
+
 export const AppArea = ({
   className = '',
   title,
   children
 }) => {
+
+  // Rendering //
+
   return (
     <div className={`app-area ${className}`}>
       {title && (<h1>{title}</h1>)}
@@ -254,10 +324,17 @@ export const AppArea = ({
   )
 }
 
+// ---------------------------------------------------
+// Create Component AppSection
+// ---------------------------------------------------
+
 export const AppSection = ({
   title,
   children
 }) => {
+
+  // Rendering //
+
   return (
     <section className='app-area-section'>
       <h2 className='title'>{title}</h2>
@@ -268,14 +345,19 @@ export const AppSection = ({
   )
 }
 
+// ---------------------------------------------------
+// Create Component AppPanel
+// ---------------------------------------------------
+
 export const AppPanel = ({
   children
 }) => {
+
+  // Rendering //
+
   return (
     <div className='app-panel'>
       {children}
     </div>
   )
 }
-
-export default App

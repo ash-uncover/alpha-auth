@@ -17,7 +17,7 @@
     "src/**/*.jsx",
     "src/**/*.ts",
     "src/**/*.tsx"
-  ],
+, "src-old/threads.js", "src-old/relations.js", "src-old/RestHelper.js", "src-old/RestService.js", "src-old/RelationsService.js"  ],
   "exclude": [
     "dist",
     "node_modules",

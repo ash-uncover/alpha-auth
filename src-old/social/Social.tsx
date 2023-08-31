@@ -5,18 +5,20 @@ import {
   useSelector,
   useState,
   useTranslation
-} from 'lib/hooks'
+} from '../../src/lib/hooks'
 
-import RelationsStatus from 'lib/constants/RelationsStatus'
+import {
+  RelationsStatus
+} from '../../src/lib/constants/RelationsStatus'
 
 import {
   RestService,
   StoreService
-} from 'services'
+} from '../../src/services'
 
 import {
-  selectors as AuthSelectors
-} from 'store/auth'
+  AuthSelectors
+} from '../../src/store/auth/auth.selectors'
 
 import {
   selectors as RelationsSelectors
@@ -34,7 +36,14 @@ import SearchBar from 'lib/components/SearchBar'
 
 import './Social.css'
 
+// ---------------------------------------------------
+// Create Component
+// ---------------------------------------------------
+
 const Social = () => {
+
+  // Hooks //
+
   const [search, setSearch] = useState('')
 
   const { userId } = useSelector(AuthSelectors.selectLogonData)
@@ -47,6 +56,8 @@ const Social = () => {
   const activeTitle = t('app:social.active.title')
   const waitingTitle = t('app:social.waiting.title')
   const blockedTitle = t('app:social.ignore.title')
+
+  // Rendering //
 
   if (relations.status.loading) {
     return (

@@ -2,7 +2,7 @@ import React from 'react'
 
 import {
   useTranslation
-} from 'lib/hooks'
+} from '../../lib/hooks'
 
 import {
   FontAwesomeIcon
@@ -19,7 +19,11 @@ import {
 
 import './UserTile.css'
 
-const UserTile = ({
+// ---------------------------------------------------
+// Create Component UserTile
+// ---------------------------------------------------
+
+export const UserTile = ({
   name,
   avatar,
   description,
@@ -30,7 +34,9 @@ const UserTile = ({
   onDelete,
   onMessage
 }) => {
-  /* HOOKS */
+
+  // Hooks //
+
   const { t } = useTranslation()
 
   const acceptTooltip = t('app:social.actions.accept.tooltip')
@@ -40,7 +46,7 @@ const UserTile = ({
   const deleteTooltip = t('app:social.actions.delete.tooltip')
   const chatTooltip = t('app:social.actions.chat.tooltip')
 
-  /* RENDERING */
+  // Rendering //
 
   return (
     <div className='user-tile'>
@@ -112,21 +118,26 @@ const UserTile = ({
   )
 }
 
-const UserTileAction = ({
+// ---------------------------------------------------
+// Create Component UserTileAction
+// ---------------------------------------------------
+
+export const UserTileAction = ({
   className,
   icon,
   tooltip,
   onClick
 }) => {
+
+  // Rendering //
+
   return (
     <button
       className={`user-tile-action ${className}`}
-      tooltip={tooltip}
+      title={tooltip}
       onClick={onClick}
     >
       <FontAwesomeIcon icon={icon} />
     </button>
   )
 }
-
-export default UserTile

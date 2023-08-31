@@ -2,20 +2,29 @@ import React from 'react'
 
 import {
   useTranslation
-} from 'lib/hooks'
+} from '../../../lib/hooks'
 
 import {
   AppContent,
   AppArea,
   AppSection
-} from 'components/app/App'
+} from '../App'
 
 import './Home.css'
 
-const Home = () => {
+// ---------------------------------------------------
+// Create Component Home
+// ---------------------------------------------------
+
+export const Home = () => {
+
+  // Hooks //
+
   const { t } = useTranslation()
   const title = t('app:home.title')
   const infoTitle = t('app:home.info.title')
+
+  // Rendering //
 
   return (
     <AppContent className='home'>
@@ -27,5 +36,3 @@ const Home = () => {
     </AppContent>
   )
 }
-
-export default Home

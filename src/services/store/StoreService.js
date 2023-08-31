@@ -16,7 +16,7 @@ import {
   selectors as UsersSelectors
 } from 'store/rest/users'
 
-const StoreService = {}
+export const StoreService = {}
 
 const useStoreData = (
   selectorData,
@@ -74,5 +74,3 @@ StoreService.useUserThreads = (userId) => {
     userId
   )
 }
-
-export default StoreService

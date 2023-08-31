@@ -16,7 +16,7 @@ const initialState: AppState = {
 
 // REDUCERS //
 
-const setStarted: CaseReducer<AppState, PayloadAction<boolean>> = (state, action) => {
+export const setStarted: CaseReducer<AppState, PayloadAction<boolean>> = (state, action) => {
   state.started = action.payload
 }
 

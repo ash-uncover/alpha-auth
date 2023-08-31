@@ -58,11 +58,4 @@ module.exports = merge(common, {
       directory: DIR_PUBLIC,
     },
   },
-
-  resolve: {
-    alias: {
-      // Needed when library is linked via `npm link` to app
-      react: path.resolve('./node_modules/react')
-    },
-  },
 })

@@ -7,15 +7,15 @@ import {
 import {
   useState,
   useTranslation
-} from 'lib/hooks'
+} from '../../lib/hooks'
 
 import {
   AppRoutes
-} from 'lib/constants'
+} from '../../lib/constants'
 
 import {
-  RestService
-} from 'services'
+  AuthService
+} from 'alpha-auth-common'
 
 export const REGISTER_STATE = {
   ASK: 'ASK',
@@ -23,14 +23,19 @@ export const REGISTER_STATE = {
   COMPLETED: 'COMPLETED'
 }
 
-const Register = () => {
-  // Hooks
+// ---------------------------------------------------
+// Create Component Register
+// ---------------------------------------------------
+
+export const Register = () => {
+
+  // Hooks //
 
   const [state, setState] = useState(REGISTER_STATE.ASK)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
-  // Callbacks
+  // Callbacks //
 
   const onAsk = () => {
     setUsername('')
@@ -48,7 +53,7 @@ const Register = () => {
     setState(REGISTER_STATE.COMPLETED)
   }
 
-  // Rendering
+  // Rendering //
 
   switch (state) {
     case REGISTER_STATE.ASK: {
@@ -76,10 +81,15 @@ const Register = () => {
   }
 }
 
+// ---------------------------------------------------
+// Create Component RegisterAsk
+// ---------------------------------------------------
+
 export const RegisterAsk = ({
   onConfirm
 }) => {
-  // Hooks
+
+  // Hooks //
 
   const { t, i18n } = useTranslation()
   const title = t('auth:register.ask.title')
@@ -99,7 +109,7 @@ export const RegisterAsk = ({
 
   const disabled = !username || !password || (password !== repeat)
 
-  // Callbacks
+  // Callbacks //
 
   const onUsernameChanged = (event) => {
     setUsername(event.target.value)
@@ -116,7 +126,7 @@ export const RegisterAsk = ({
   const onRegister = async (event) => {
     event.preventDefault()
     try {
-      await RestService.api.auth.register.post({
+      await AuthService.api.accounts.register.post({
         username,
         password
       })
@@ -131,7 +141,7 @@ export const RegisterAsk = ({
     }
   }
 
-  // Rendering
+  // Rendering //
 
   return (
     <form className='form'>
@@ -173,7 +183,7 @@ export const RegisterAsk = ({
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
-        tooltip={submitTooltip}
+        title={submitTooltip}
         onClick={onRegister}
       >
         {submitTitle}
@@ -197,13 +207,18 @@ export const RegisterAsk = ({
   )
 }
 
+// ---------------------------------------------------
+// Create Component RegisterConfirm
+// ---------------------------------------------------
+
 export const RegisterConfirm = ({
   username,
   password,
   onAsk,
   onCompleted
 }) => {
-  // Hooks
+
+  // Hooks //
 
   const { t } = useTranslation()
   const title = t('auth:register.confirm.title')
@@ -222,7 +237,7 @@ export const RegisterConfirm = ({
 
   const disabled = !token
 
-  // Callbacks
+  // Callbacks //
 
   const onTokenChanged = (event) => {
     setToken(event.target.value)
@@ -231,7 +246,7 @@ export const RegisterConfirm = ({
   const onConfirm = async (event) => {
     event.preventDefault()
     try {
-      await RestService.api.auth.register.put({
+      await AuthService.api.accounts.register.put({
         username,
         token
       })
@@ -256,7 +271,7 @@ export const RegisterConfirm = ({
       .catch((error) => setError(error))
   }
 
-  // Rendering
+  // Rendering //
 
   return (
     <form className='form'>
@@ -269,7 +284,7 @@ export const RegisterConfirm = ({
         {text}
       </p>
 
-      <Input
+      <input
         className='form-control'
         name='alpha-token'
         placeholder={tokenPlaceholder}
@@ -278,39 +293,43 @@ export const RegisterConfirm = ({
         onChange={onTokenChanged}
       />
 
-      <Button
+      <button
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
-        tooltip={submitTooltip}
+        title={submitTooltip}
         onClick={onConfirm}
       >
         {submitTitle}
-      </Button>
+      </button>
 
       <p className={`form-control label ${error ? 'error' : ''}`}>
         {error ? errorMessage : ''}
       </p>
 
-      <Button
+      <button
         className='form-link'
-        tooltip={submitTooltip}
+        title={submitTooltip}
         onClick={onResend}
       >
         {linkResend}
-      </Button>
+      </button>
 
-      <Button
+      <button
         className='form-link'
-        tooltip={submitTooltip}
+        title={submitTooltip}
         onClick={onBack}
       >
         {linkBack}
-      </Button>
+      </button>
 
     </form>
   )
 }
+
+// ---------------------------------------------------
+// Create Component Register Completed
+// ---------------------------------------------------
 
 export const RegisterCompleted = () => {
   // Hooks
@@ -346,5 +365,3 @@ export const RegisterCompleted = () => {
     </div>
   )
 }
-
-export default Register

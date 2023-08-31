@@ -5,16 +5,16 @@ import {
   useState,
   useSelector,
   useTranslation
-} from 'lib/hooks'
+} from '../../../lib/hooks'
 
 import {
   RestService,
   StoreService
-} from 'services'
+} from '../../../services'
 
 import {
-  selectors as AuthSelectors
-} from 'store/auth'
+  AuthSelectors
+} from '../../../store/auth/auth.selectors'
 
 import {
   FontAwesomeIcon
@@ -28,13 +28,21 @@ import {
   AppContent,
   AppArea,
   AppSection
-} from 'components/app/App'
+} from '../App'
 
-import ImageUploader from 'lib/components/ImageUploader'
-import CONFIG from 'configuration'
+import ImageUploader from '../../../lib/components/ImageUploader'
+import CONFIG from '../../../config'
+
 import './Account.css'
 
-const Account = () => {
+// ---------------------------------------------------
+// Create Component
+// ---------------------------------------------------
+
+export const Account = () => {
+
+  // Hooks //
+
   const dispatch = useDispatch()
 
   const { t } = useTranslation()
@@ -55,7 +63,7 @@ const Account = () => {
   const {
     token,
     userId
-  } = useSelector(AuthSelectors.selectLogonData)
+  } = useSelector(AuthSelectors.logonData)
 
   const user = StoreService.useUser(userId)
 
@@ -82,6 +90,8 @@ const Account = () => {
     }
     RestService.api.users.patch(dispatch, token, userId, userData)
   }
+
+  // Rendering //
 
   return (
     <AppContent className='account'>
@@ -132,7 +142,7 @@ const Account = () => {
               <textarea
                 className='form-control'
                 style={{ resize: 'none' }}
-                rows='5'
+                rows={5}
                 placeholder={infoDescPlaceholder}
                 value={description}
                 onChange={onDescriptionChange}
@@ -159,5 +169,3 @@ const Account = () => {
     </AppContent>
   )
 }
-
-export default Account

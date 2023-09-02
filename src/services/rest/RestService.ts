@@ -8,7 +8,7 @@ import {
 
 import {
   CONFIG
-} from 'src/config'
+} from '../../config'
 
 export const AuthConfig = new Config({
   server: CONFIG.ALPHA_AUTH_REST_URL,

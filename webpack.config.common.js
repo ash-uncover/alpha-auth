@@ -11,7 +11,7 @@ module.exports = {
   entry: path.resolve(DIR_SRC, 'index.tsx'),
 
   resolve: {
-    modules: ['node_modules', './src'],
+    modules: ['node_modules', 'src'],
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
 

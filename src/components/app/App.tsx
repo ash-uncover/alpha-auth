@@ -1,4 +1,7 @@
-import React, { useEffect } from 'react'
+import React, {
+  ReactNode,
+  useEffect
+} from 'react'
 
 import {
   Link,
@@ -39,6 +42,13 @@ import {
   AuthSelectors
 } from '../../store/auth/auth.selectors'
 
+import {
+  useUser
+} from '../../store'
+
+import {
+  AuthService
+} from '../../services/rest/AuthService'
 
 import { Home } from './home/Home'
 import { Account } from './account/Account'
@@ -51,38 +61,50 @@ import './App.css'
 // Create Component App
 // ---------------------------------------------------
 
-export const App = () => {
+interface AppProperties {
+  children: ReactNode
+}
+export const App = ({
+  children
+}: AppProperties) => {
 
   // Hooks //
 
   const {
+    token,
     userId
   } = useSelector(AuthSelectors.logonData)
 
-  const user = StoreService.useUser(userId)
-  const userRelations = StoreService.useUserRelations(userId)
-  const userThreads = StoreService.useUserThreads(userId)
+  console.log('here')
+
+  //const user = useUser(userId)
 
   // Rendering //
 
-  if (!user.status.loaded || !userRelations.status.loaded || !userThreads.status.loaded) {
+  return (
+    <div>{children}</div>
+  )
+
+  if (!token) {
     return (
       <AppLoading />
     )
   }
 
   return (
-    <Routes>
-      <Route path='/' element={<AppMain />}>
-        <Route path={AppRoutes.HOME} element={<Home />} />
-        <Route path={AppRoutes.ACCOUNT} element={<Account />} />
-        <Route path={AppRoutes.SUPPORT} element={<Support />} />
-        <Route path={AppRoutes.LOGOUT} element={<AppLogout />} />
-      </Route>
-
-      <Route path='*' element={<Navigate to='/' />} />
-    </Routes>
+    <div>{children}</div>
   )
+  //   <Routes>
+  //     <Route path='/' element={<AppMain />}>
+  //       <Route path={AppRoutes.HOME} element={<Home />} />
+  //       <Route path={AppRoutes.ACCOUNT} element={<Account />} />
+  //       <Route path={AppRoutes.SUPPORT} element={<Support />} />
+  //       <Route path={AppRoutes.LOGOUT} element={<AppLogout />} />
+  //     </Route>
+
+  //     <Route path='*' element={<Navigate to='/' />} />
+  //   </Routes>
+  // )
 }
 
 
@@ -135,10 +157,9 @@ const AppLogout = () => {
   const dispatch = useDispatch()
   const { t } = useTranslation()
   const loading = t('app:logging out')
-  const logonData = useSelector(AuthSelectors.logonData)
 
   useEffect(() => {
-    RestService.api.auth.delete(dispatch, logonData)
+    AuthService.logout(dispatch)
   })
 
   // Rendering //

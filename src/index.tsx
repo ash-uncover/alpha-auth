@@ -28,7 +28,7 @@ if (CONFIG.ALPHA_AUTH_ENVIRONMENT === 'github') {
   Router = HashRouter
 }
 
-const containerRoot = document.getElementById('reactroot')!
+const containerRoot = document.getElementById('react-root')!
 const root = createRoot(containerRoot)
 
 root.render(

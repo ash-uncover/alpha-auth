@@ -20,8 +20,6 @@ const transformPlugin = (buffer) => {
 module.exports = merge(common, {
   mode: 'development',
 
-  devtool: 'eval-source-map',
-
   output: {
     clean: true,
     path: DIR_DIST,
@@ -43,6 +41,8 @@ module.exports = merge(common, {
       }],
     }),
   ],
+
+  devtool: 'eval-source-map',
 
   devServer: {
     client: {

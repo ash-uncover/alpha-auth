@@ -7,11 +7,11 @@ import {
 import {
   useState,
   useTranslation
-} from '../../lib/hooks'
+} from '../../../lib/hooks'
 
 import {
   AppRoutes
-} from '../../lib/constants'
+} from '../../../lib/constants'
 
 // ---------------------------------------------------
 // Create Component Recover
@@ -74,10 +74,7 @@ export const Recover = () => {
 
       <Link
         className='form-link'
-        to={{
-          pathname: AppRoutes.LOGIN,
-          state: { from: AppRoutes.RECOVER }
-        }}
+        to={ AppRoutes.LOGIN}
       >
         {linkLogin}
       </Link>

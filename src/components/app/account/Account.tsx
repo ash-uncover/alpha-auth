@@ -8,11 +8,6 @@ import {
 } from '../../../lib/hooks'
 
 import {
-  RestService,
-  StoreService
-} from '../../../services'
-
-import {
   AuthSelectors
 } from '../../../store/auth/auth.selectors'
 
@@ -31,9 +26,11 @@ import {
 } from '../App'
 
 import ImageUploader from '../../../lib/components/ImageUploader'
-import CONFIG from '../../../config'
+import { CONFIG } from '../../../config'
 
 import './Account.css'
+import { useUser } from '../../../store'
+import { UsersService } from '../../../services/rest/UsersService'
 
 // ---------------------------------------------------
 // Create Component
@@ -65,7 +62,7 @@ export const Account = () => {
     userId
   } = useSelector(AuthSelectors.logonData)
 
-  const user = StoreService.useUser(userId)
+  const user: any = useUser(userId)
 
   const [name, setName] = useState(user.data.name)
   const [description, setDescription] = useState(user.data.description)
@@ -75,7 +72,7 @@ export const Account = () => {
   }
 
   const onAvatarChange = (file) => {
-    RestService.api.users.postAvatar(dispatch, token, userId, file)
+    UsersService.postUserAvatar(dispatch, userId, file)
   }
 
   const onDescriptionChange = (event) => {
@@ -88,7 +85,7 @@ export const Account = () => {
       name,
       description
     }
-    RestService.api.users.patch(dispatch, token, userId, userData)
+    UsersService.patchUser(dispatch, userId, userData)
   }
 
   // Rendering //
@@ -109,6 +106,7 @@ export const Account = () => {
               </label>
               <div className='form-control form-avatar'>
                 <ImageUploader
+                  name=''
                   src={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.data.avatar}`}
                   onChange={onAvatarChange}
                 />

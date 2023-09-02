@@ -22,8 +22,12 @@ import {
 
 const getInitialState = (): AuthState => ({
   logonState: DataStates.NEVER,
-  logonData: null,
+  logonData: {
+    token: null,
+    userId: null
+  },
   logonError: null,
+
   logoutState: DataStates.NEVER,
   logoutError: null
 })

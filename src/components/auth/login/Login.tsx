@@ -9,21 +9,19 @@ import {
   useState,
   useSelector,
   useTranslation
-} from '../../lib/hooks'
+} from '../../../lib/hooks'
 
 import {
   AppRoutes
-} from '../../lib/constants'
+} from '../../../lib/constants'
 
 import {
   AuthSelectors
-} from '../../store/auth/auth.selectors'
+} from '../../../store/auth/auth.selectors'
 
 import {
-  RestService
-} from '../../services'
-import { AuthService } from 'alpha-auth-common'
-
+  AuthService
+} from '../../../services/rest/AuthService'
 
 
 // ---------------------------------------------------
@@ -66,7 +64,7 @@ export const Login = () => {
 
   const onLogin = (event) => {
     event.preventDefault()
-    AuthService.api.auth.get(dispatch, {
+    AuthService.logon(dispatch, {
       username,
       password
     })
@@ -115,20 +113,14 @@ export const Login = () => {
 
       <Link
         className='form-link'
-        to={{
-          pathname: AppRoutes.RECOVER,
-          state: { from: AppRoutes.LOGIN }
-        }}
+        to={ AppRoutes.RECOVER}
       >
         {linkRecover}
       </Link>
 
       <Link
         className='form-link'
-        to={{
-          pathname: AppRoutes.REGISTER,
-          state: { from: AppRoutes.LOGIN }
-        }}
+        to={ AppRoutes.REGISTER }
       >
         {linkRegister}
       </Link>

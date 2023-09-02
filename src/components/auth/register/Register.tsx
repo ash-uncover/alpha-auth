@@ -7,15 +7,12 @@ import {
 import {
   useState,
   useTranslation
-} from '../../lib/hooks'
+} from '../../../lib/hooks'
 
 import {
   AppRoutes
-} from '../../lib/constants'
-
-import {
-  AuthService
-} from 'alpha-auth-common'
+} from '../../../lib/constants'
+import { AuthService } from 'src/services/rest/AuthService'
 
 export const REGISTER_STATE = {
   ASK: 'ASK',
@@ -126,10 +123,10 @@ export const RegisterAsk = ({
   const onRegister = async (event) => {
     event.preventDefault()
     try {
-      await AuthService.api.accounts.register.post({
-        username,
-        password
-      })
+      // await AuthService. .api.accounts.register.post({
+      //   username,
+      //   password
+      // })
       onConfirm(username, password)
     } catch (error) {
       const errorKey = `err:${error.message}`
@@ -195,10 +192,7 @@ export const RegisterAsk = ({
 
       <Link
         className='form-link'
-        to={{
-          pathname: AppRoutes.LOGIN,
-          state: { from: AppRoutes.REGISTER }
-        }}
+        to={ AppRoutes.LOGIN }
       >
         {linkLogin}
       </Link>
@@ -246,10 +240,10 @@ export const RegisterConfirm = ({
   const onConfirm = async (event) => {
     event.preventDefault()
     try {
-      await AuthService.api.accounts.register.put({
-        username,
-        token
-      })
+      // await AuthService.api.accounts.register.put({
+      //   username,
+      //   token
+      // })
       onCompleted()
     } catch (error) {
       console.log(error)
@@ -264,11 +258,11 @@ export const RegisterConfirm = ({
 
   const onResend = (event) => {
     event.preventDefault()
-    RestService.api.auth.register.post({
-      username,
-      password
-    })
-      .catch((error) => setError(error))
+    // RestService.api.auth.register.post({
+    //   username,
+    //   password
+    // })
+    //   .catch((error) => setError(error))
   }
 
   // Rendering //
@@ -354,10 +348,7 @@ export const RegisterCompleted = () => {
 
       <Link
         className='form-link'
-        to={{
-          pathname: AppRoutes.LOGIN,
-          state: { from: AppRoutes.REGISTER }
-        }}
+        to={ AppRoutes.LOGIN }
       >
         {linkLogin}
       </Link>

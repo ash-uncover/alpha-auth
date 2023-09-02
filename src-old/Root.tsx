@@ -4,22 +4,22 @@ import {
   useDispatch,
   useEffect,
   useSelector
-} from '../lib/hooks'
+} from '../src/lib/hooks'
 
 import {
   AuthSelectors
-} from '../store/auth/auth.selectors'
+} from '../src/store/auth/auth.selectors'
 
 import {
   AppSelectors
-} from '../store/app/app.selectors'
+} from '../src/store/app/app.selectors'
 
 import {
   AppSlice
-} from '../store/app/app.slice'
+} from '../src/store/app/app.slice'
 
-import { App } from './app/App'
-import { Auth } from './auth/Auth'
+import { App } from '../src/components/app/App'
+import { Auth } from '../src/components/auth/Auth'
 
 // ---------------------------------------------------
 // Create Component Root
@@ -43,7 +43,9 @@ export const Root = () => {
   // Rendering //
   if (logonData) {
     return (
-      <App />
+      <App>
+        {'toto'}
+      </App>
     )
   }
   return (

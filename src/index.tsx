@@ -23,6 +23,9 @@ import store from './store'
 import { RouteRoot } from './routes'
 import { CONFIG } from './config'
 
+// Import main css
+import './index.css'
+
 let Router = BrowserRouter
 if (CONFIG.ALPHA_AUTH_ENVIRONMENT === 'github') {
   Router = HashRouter

@@ -1,3 +1,17 @@
+
+:root {
+  --alpha-main-color: #3D348B;
+  --alpha-main-inactive: #C9CAF8 ;
+  --alpha-main-highlight: #F7B801;
+  --alpha-main-background: white;
+  --alpha-main-background-alpha: rgba(255,255,225,0.5);
+
+  --alpha-main-nuance1-color: #3D348B;
+  --alpha-main-nuance1-background: white;
+
+  --alpha-main-effect: #F7D4C0;
+}
+
 html, body {
   min-height: 100%;
   margin: 0;
@@ -34,7 +48,7 @@ textarea {
 
   user-select: none;
 
-  background-image: url('assets/images/background.jpg');
+  background-image: url('/images/background.jpg');
   background-size: cover;
-  background-position: top;
+  background-position: center;
 }

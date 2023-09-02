@@ -39,16 +39,16 @@ export const Login = () => {
 
   const error = useSelector(AuthSelectors.logonError)
 
-  const { t } = useTranslation()
-  const title = t('auth:login.title')
-  const usernamePlaceholder = t('auth:login.username.placeholder')
-  const passwordPlaceholder = t('auth:login.password.placeholder')
-  const errorMessage = t('auth:login.error.message')
-  const submitTitle = t('auth:login.submit.title')
-  const submitTooltip = t('auth:login.submit.tooltip')
+  const { t } = useTranslation(['auth'])
+  const title = t('login.title')
+  const usernamePlaceholder = t('login.username.placeholder')
+  const passwordPlaceholder = t('login.password.placeholder')
+  const errorMessage = t('login.error.message')
+  const submitTitle = t('login.submit.title')
+  const submitTooltip = t('login.submit.tooltip')
 
-  const linkRecover = t('auth:login.links.recover')
-  const linkRegister = t('auth:login.links.register')
+  const linkRecover = t('login.links.recover')
+  const linkRegister = t('login.links.register')
 
   const disabled = !username
 
@@ -113,14 +113,14 @@ export const Login = () => {
 
       <Link
         className='form-link'
-        to={ AppRoutes.RECOVER}
+        to={AppRoutes.RECOVER}
       >
         {linkRecover}
       </Link>
 
       <Link
         className='form-link'
-        to={ AppRoutes.REGISTER }
+        to={AppRoutes.REGISTER}
       >
         {linkRegister}
       </Link>

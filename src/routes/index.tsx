@@ -6,7 +6,6 @@ import { AuthSelectors } from '../store/auth/auth.selectors'
 import { RouteHome } from './home'
 import { RouteAuth } from './auth'
 
-import { App } from '../components/app/App'
 import { Auth } from '../components/auth/Auth'
 import { AppLoader } from '../components/app/AppLoader'
 
@@ -18,30 +17,22 @@ export const RouteRoot = () => {
 
   // Hooks //
 
-  const { token } = useSelector(AuthSelectors.logonData)
+  const token = useSelector(AuthSelectors.logonToken)
   const logonState = useSelector(AuthSelectors.logonState)
 
   // Rendering //
 
   if (!token) {
-    return (
-      <Auth>
-        <RouteAuth />
-      </Auth>
-    )
+    return (<RouteAuth />)
   }
 
   if (token && !logonState.loaded) {
     return (
-      <App>
+      <Auth>
         <AppLoader />
-      </App>
+      </Auth>
     )
   }
 
-  return (
-    <App>
-      <RouteHome />
-    </App>
-  )
+  return (<RouteHome />)
 }

@@ -6,10 +6,7 @@ import React, {
 import {
   Link,
   Outlet,
-  Navigate,
   NavLink,
-  Route,
-  Routes
 } from 'react-router-dom'
 
 import {
@@ -70,7 +67,8 @@ export const App = ({
 
   // Hooks //
 
-  //const user = useUser(userId)
+  const userAuth = useSelector(AuthSelectors.logonData);
+  const user = useUser(userAuth.id)
 
   // Rendering //
 
@@ -84,58 +82,6 @@ export const App = ({
   )
 }
 
-
-// ---------------------------------------------------
-// Create Component AppLoading
-// ---------------------------------------------------
-
-const AppLoading = () => {
-
-  // Hooks //
-
-  const { t } = useTranslation()
-  const loading = t('app:loading')
-
-  // Rendering //
-
-  return (
-    <div className='app-loading'>
-      <div className='box'>
-        {loading}
-      </div>
-    </div>
-  )
-}
-
-
-// ---------------------------------------------------
-// Create Component AppLogout
-// ---------------------------------------------------
-
-const AppLogout = () => {
-
-  // Hooks //
-
-  const dispatch = useDispatch()
-  const { t } = useTranslation()
-  const loading = t('app:logging out')
-
-  useEffect(() => {
-    AuthService.logout(dispatch)
-  })
-
-  // Rendering //
-
-  return (
-    <div className='app-loading'>
-      <div className='box'>
-        {loading}
-      </div>
-    </div>
-  )
-}
-
-
 // ---------------------------------------------------
 // Create Component AppNavbar
 // ---------------------------------------------------
@@ -144,9 +90,9 @@ const AppNavbar = () => {
 
   // Hooks //
 
-  const { t } = useTranslation()
-  const appTitle = t('app:title')
-  const logoutTooltip = t('app:actions.logout.title')
+  const { t } = useTranslation(['app'])
+  const appTitle = t('title')
+  const logoutTooltip = t('actions.logout.title')
 
   // Rendering //
 
@@ -181,12 +127,12 @@ const AppMenu = () => {
 
   const [expanded, setExpanded] = useState(true)
 
-  const { t } = useTranslation()
-  const menuHome = t('app:home.link.title')
-  const menuAccount = t('app:account.link.title')
-  const menuSocial = t('app:social.link.title')
-  const menuMessages = t('app:messages.link.title')
-  const menuSupport = t('app:support.link.title')
+  const { t } = useTranslation(['app'])
+  const menuHome = t('home.link.title')
+  const menuAccount = t('account.link.title')
+  const menuSocial = t('social.link.title')
+  const menuMessages = t('messages.link.title')
+  const menuSupport = t('support.link.title')
 
   const onToggleExpanded = () => {
     setExpanded(!expanded)
@@ -206,7 +152,7 @@ const AppMenu = () => {
       </button>
 
       <AppMenuLink
-        to={AppRoutes.HOME}
+        to={AppRoutes.BASE}
         icon={faHome}
         text={menuHome}
       />

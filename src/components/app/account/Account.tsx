@@ -31,6 +31,7 @@ import { CONFIG } from '../../../config'
 import './Account.css'
 import { useUser } from '../../../store'
 import { UsersService } from '../../../services/rest/UsersService'
+import { User } from 'alpha-auth-common/build/services/auth/auth.model'
 
 // ---------------------------------------------------
 // Create Component
@@ -57,22 +58,17 @@ export const Account = () => {
   const infoSubmitTooltip = t('app:account.info.submit.tooltip')
   const accountTitle = t('app:account.manage.title')
 
-  const {
-    token,
-    userId
-  } = useSelector(AuthSelectors.logonData)
+  const user: User = useSelector(AuthSelectors.logonData)
 
-  const user: any = useUser(userId)
-
-  const [name, setName] = useState(user.data.name)
-  const [description, setDescription] = useState(user.data.description)
+  const [name, setName] = useState(user.name)
+  const [description, setDescription] = useState(user.description)
 
   const onNameChange = (event) => {
     setName(event.target.value)
   }
 
   const onAvatarChange = (file) => {
-    UsersService.postUserAvatar(dispatch, userId, file)
+    UsersService.postUserAvatar(dispatch, user.id, file)
   }
 
   const onDescriptionChange = (event) => {
@@ -85,7 +81,7 @@ export const Account = () => {
       name,
       description
     }
-    UsersService.patchUser(dispatch, userId, userData)
+    UsersService.patchUser(dispatch, user.id, userData)
   }
 
   // Rendering //
@@ -107,7 +103,7 @@ export const Account = () => {
               <div className='form-control form-avatar'>
                 <ImageUploader
                   name=''
-                  src={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.data.avatar}`}
+                  src={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.avatar}`}
                   onChange={onAvatarChange}
                 />
               </div>
@@ -150,7 +146,7 @@ export const Account = () => {
               <button
                 className='form-submit'
                 type='submit'
-                disabled={name === user.data.name && description === user.data.description}
+                disabled={name === user.name && description === user.description}
                 title={infoSubmitTooltip}
                 onClick={onUpdateInfo}
               >

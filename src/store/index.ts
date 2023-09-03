@@ -19,14 +19,13 @@ const useStoreData = (
 ) => {
   const dispatch = useDispatch()
 
-  const { token } = useSelector(AuthSelectors.logonData)
   const data = useSelector(selectorData(...args))
   const status: IDataState = useSelector(selectorStatus(...args))
   const error = useSelector(selectorError(...args))
 
   useEffect(() => {
     if (!status.loaded && !status.loading) {
-      apiCall(dispatch, token, ...args)
+      apiCall(dispatch, ...args)
     }
   })
 

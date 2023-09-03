@@ -74,7 +74,7 @@ export const Recover = () => {
 
       <Link
         className='form-link'
-        to={ AppRoutes.LOGIN}
+        to={AppRoutes.BASE}
       >
         {linkLogin}
       </Link>

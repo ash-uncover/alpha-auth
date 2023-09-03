@@ -1,10 +1,10 @@
 type LocalStorageItem =
-  'ALPHA_AUTH_LOGON_DATA'
+  'ALPHA_AUTH_LOGON_TOKEN'
 
 export const LocalStorageItem: {
-  ALPHA_AUTH_LOGON_DATA: LocalStorageItem
+  ALPHA_AUTH_LOGON_TOKEN: LocalStorageItem
 } = {
-  ALPHA_AUTH_LOGON_DATA: 'ALPHA_AUTH_LOGON_DATA'
+  ALPHA_AUTH_LOGON_TOKEN: 'ALPHA_AUTH_LOGON_TOKEN'
 }
 
 export const LocalStorage = {

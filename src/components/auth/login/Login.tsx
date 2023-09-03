@@ -43,7 +43,8 @@ export const Login = () => {
   const title = t('login.title')
   const usernamePlaceholder = t('login.username.placeholder')
   const passwordPlaceholder = t('login.password.placeholder')
-  const errorMessage = t('login.error.message')
+  const errorCredentialsMessage = t('login.error.credentials')
+  const errorServerMessage = t('login.error.server')
   const submitTitle = t('login.submit.title')
   const submitTooltip = t('login.submit.tooltip')
 
@@ -51,6 +52,7 @@ export const Login = () => {
   const linkRegister = t('login.links.register')
 
   const disabled = !username
+  const errorMessage = error === 'Failed to fetch' ? errorServerMessage : errorCredentialsMessage
 
   // Callbacks //
 

@@ -192,7 +192,7 @@ export const RegisterAsk = ({
 
       <Link
         className='form-link'
-        to={ AppRoutes.LOGIN }
+        to={AppRoutes.BASE}
       >
         {linkLogin}
       </Link>
@@ -348,7 +348,7 @@ export const RegisterCompleted = () => {
 
       <Link
         className='form-link'
-        to={ AppRoutes.LOGIN }
+        to={AppRoutes.BASE}
       >
         {linkLogin}
       </Link>

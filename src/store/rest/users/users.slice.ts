@@ -22,7 +22,7 @@ const getInitialState = (): UsersState => ({
   error: null
 })
 
-const getInitialUserState = (): UserState => ({
+export const getInitialUserState = (): UserState => ({
   data: null,
   status: DataStates.NEVER,
   error: null,

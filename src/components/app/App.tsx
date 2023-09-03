@@ -70,54 +70,16 @@ export const App = ({
 
   // Hooks //
 
-  const {
-    token,
-    userId
-  } = useSelector(AuthSelectors.logonData)
-
-  console.log('here')
-
   //const user = useUser(userId)
 
   // Rendering //
 
   return (
-    <div>{children}</div>
-  )
-
-  if (!token) {
-    return (
-      <AppLoading />
-    )
-  }
-
-  return (
-    <div>{children}</div>
-  )
-  //   <Routes>
-  //     <Route path='/' element={<AppMain />}>
-  //       <Route path={AppRoutes.HOME} element={<Home />} />
-  //       <Route path={AppRoutes.ACCOUNT} element={<Account />} />
-  //       <Route path={AppRoutes.SUPPORT} element={<Support />} />
-  //       <Route path={AppRoutes.LOGOUT} element={<AppLogout />} />
-  //     </Route>
-
-  //     <Route path='*' element={<Navigate to='/' />} />
-  //   </Routes>
-  // )
-}
-
-
-// ---------------------------------------------------
-// Create Component AppMain
-// ---------------------------------------------------
-
-const AppMain = () => {
-  return (
     <div className='alpha-auth app'>
       <AppNavbar />
       <AppMenu />
       <Outlet />
+      {children}
     </div>
   )
 }

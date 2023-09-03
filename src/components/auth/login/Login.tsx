@@ -54,15 +54,15 @@ export const Login = () => {
 
   // Callbacks //
 
-  const onUsernameChanged = (event) => {
-    setUsername(event.target.value)
+  const onUsernameChanged = (event: React.FormEvent<HTMLInputElement>) => {
+    setUsername(event.currentTarget.value)
   }
 
-  const onPasswordChanged = (event) => {
-    setPassword(event.target.value)
+  const onPasswordChanged = (event: React.FormEvent<HTMLInputElement>) => {
+    setPassword(event.currentTarget.value)
   }
 
-  const onLogin = (event) => {
+  const onLogin = (event: React.FormEvent<HTMLButtonElement>) => {
     event.preventDefault()
     AuthService.logon(dispatch, {
       username,

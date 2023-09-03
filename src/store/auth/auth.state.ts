@@ -8,8 +8,8 @@ export interface AuthState {
     token: string
     userId: string
   }
-  logonError: any
+  logonError: string
 
   logoutState: IDataState
-  logoutError: any
+  logoutError: string
 }

@@ -32,7 +32,7 @@ export const DataStates: {
   },
   FETCHING: {
     id: 'FETCHING',
-    loaded: true,
+    loaded: false,
     loading: true,
     latest: false,
     error: false

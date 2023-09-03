@@ -1,13 +1,14 @@
 import React from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { App } from '../../components/app/App'
+import { Outlet } from 'react-router-dom'
 
 export const RouteHome = () => {
 
   // Rendering //
 
   return (
-    <div>
-      RouteAlphaAccount
-    </div>
+    <App>
+      <Outlet />
+    </App>
   )
 }

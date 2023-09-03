@@ -4,28 +4,6 @@
   --menu-width-collapse: 3rem;
 }
 
-.app-loading {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  .box {
-    background: var(--alpha-main-background);
-    color: var(--alpha-main-color);
-    width: 12rem;
-    height: 8rem;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
 .alpha-auth.app {
   position: absolute;
   top: 0;

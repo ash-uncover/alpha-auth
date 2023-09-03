@@ -68,7 +68,7 @@ export const logonSuccess: CaseReducer<AuthState, PayloadAction<LogonSuccessPayl
   state.logonError = null
 }
 interface LogonFailurePayload {
-  error: any
+  error: string
 }
 export const logonFailure: CaseReducer<AuthState, PayloadAction<LogonFailurePayload>> = (state, action) => {
   const { error } = action.payload
@@ -91,7 +91,7 @@ export const logoutSuccess: CaseReducer<AuthState, PayloadAction<void>> = (state
   state.logoutError = null
 }
 interface LogoutFailurePayload {
-  error: any
+  error: string
 }
 export const logoutFailure: CaseReducer<AuthState, PayloadAction<LogoutFailurePayload>> = (state, action) => {
   const { error } = action.payload

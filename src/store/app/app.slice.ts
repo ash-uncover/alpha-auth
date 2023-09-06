@@ -16,8 +16,8 @@ const initialState: AppState = {
 
 // REDUCERS //
 
-export const setStarted: CaseReducer<AppState, PayloadAction<boolean>> = (state, action) => {
-  state.started = action.payload
+export const start: CaseReducer<AppState, PayloadAction<void>> = (state, action) => {
+  state.started = true
 }
 
 // SLICE //
@@ -27,6 +27,6 @@ export const AppSlice = createSlice({
   initialState,
 
   reducers: {
-    setStarted,
+    start,
   },
 })

@@ -135,6 +135,28 @@ export const patchUserFailure: CaseReducer<UsersState, PayloadAction<PatchUserFa
   userState.status = DataStates.FAILURE
 }
 
+// Check session (external)
+
+const authCheckSessionSuccessAction = createAction('auth/checkSessionSuccess')
+const authCheckSessionSuccess = (state: UsersState, action) => {
+  const { user } = action.payload
+  const userState = getUserState(state, user.id)
+  userState.data = user
+  userState.error = null
+  userState.status = DataStates.SUCCESS
+}
+
+// Logon (external)
+
+const authLogonSuccessAction = createAction('auth/logonSuccess')
+const authLogonSuccess = (state: UsersState, action) => {
+  const { user } = action.payload.data
+  const userState = getUserState(state, user.id)
+  userState.data = user
+  userState.error = null
+  userState.status = DataStates.SUCCESS
+}
+
 // Logout (external)
 
 const authLogoutSuccessAction = createAction('auth/logoutSuccess')
@@ -163,6 +185,8 @@ export const UsersSlice = createSlice({
   },
 
   extraReducers: (builder) => {
+    builder.addCase(authCheckSessionSuccessAction, authCheckSessionSuccess)
+    builder.addCase(authLogonSuccessAction, authLogonSuccess)
     builder.addCase(authLogoutSuccessAction, authLogoutSuccess)
   }
 })

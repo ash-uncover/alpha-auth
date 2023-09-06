@@ -29,7 +29,7 @@ export const App = ({
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(AppSlice.actions.setStarted(true))
+    dispatch(AppSlice.actions.start())
   }, [])
 
   // Rendering //

@@ -1,6 +1,5 @@
 import {
   CaseReducer,
-  createAction,
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit'
@@ -89,11 +88,11 @@ export const logonFailure: CaseReducer<AuthState, PayloadAction<LogonFailurePayl
 
 export const logoutFetch: CaseReducer<AuthState, PayloadAction<void>> = (state) => {
   state.logoutState = DataStates.FETCHING
+  state.logonToken = null
+  state.logonData = null
 }
 export const logoutSuccess: CaseReducer<AuthState, PayloadAction<void>> = (state) => {
   state.logonState = DataStates.NEVER
-  state.logonToken = null
-  state.logonData = null
   state.logoutState = DataStates.NEVER
   state.logoutError = null
 }
@@ -103,8 +102,6 @@ interface LogoutFailurePayload {
 export const logoutFailure: CaseReducer<AuthState, PayloadAction<LogoutFailurePayload>> = (state, action) => {
   const { error } = action.payload
   state.logonState = DataStates.NEVER
-  state.logonToken = null
-  state.logonData = null
   state.logoutState = DataStates.FAILURE
   state.logoutError = error
 }

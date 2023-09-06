@@ -11,15 +11,6 @@ import {
   AppSlice,
 } from '../store/app/app.slice'
 
-import {
-  LocalStorage,
-  LocalStorageItem
-} from '../lib/LocalStorage'
-
-import {
-  AuthService
-} from '../services/rest/AuthService'
-
 import './App.css'
 
 // ---------------------------------------------------
@@ -38,15 +29,7 @@ export const App = ({
   const dispatch = useDispatch()
 
   useEffect(() => {
-    const token = LocalStorage.get(LocalStorageItem.ALPHA_AUTH_LOGON_TOKEN)
-    if (token) {
-      AuthService.checkSession(dispatch, { token })
-        .then(() => {
-          dispatch(AppSlice.actions.setStarted(true))
-        })
-    } else {
-      dispatch(AppSlice.actions.setStarted(true))
-    }
+    dispatch(AppSlice.actions.setStarted(true))
   }, [])
 
   // Rendering //

@@ -24,6 +24,12 @@ import { RouteRoot } from './routes'
 import { CONFIG } from './config'
 import { App } from './components/App'
 
+// Plugin management
+import {
+  WardProvider,
+  WardDevTools
+} from '@uncover/ward-react'
+
 // Import main css
 import './index.css'
 
@@ -37,10 +43,13 @@ const root = createRoot(containerRoot)
 
 root.render(
   <Provider store={store}>
-    <App>
-      <Router>
-        <RouteRoot />
-      </Router>
-    </App>
+    <WardProvider plugin={CONFIG.ALPHA_AUTH_PLUGIN}>
+      <App>
+        <Router>
+          <RouteRoot />
+        </Router>
+      </App>
+      {CONFIG.ALPHA_AUTH_ENVIRONMENT === 'local' ? <WardDevTools /> : null}
+    </WardProvider>
   </Provider>
 )

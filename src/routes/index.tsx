@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
+import { AppSelectors } from '../store/app/app.selectors'
 import { AuthSelectors } from '../store/auth/auth.selectors'
+import { DataStates } from '../lib/constants'
+import { AuthService } from '../services/rest/AuthService'
 
 import { RouteHome } from './home'
 import { RouteAuth } from './auth'
 
-import { Auth } from '../components/auth/Auth'
-import { AppLoader } from '../components/app/AppLoader'
 
 // ---------------------------------------------------
 // Create Component RouteRoot
@@ -17,22 +19,18 @@ export const RouteRoot = () => {
 
   // Hooks //
 
-  const token = useSelector(AuthSelectors.logonToken)
-  const logonState = useSelector(AuthSelectors.logonState)
+  const started = useSelector(AppSelectors.started)
+  const state = useSelector(AuthSelectors.logonState)
+
+  if (!started) {
+    return null
+  }
 
   // Rendering //
 
-  if (!token) {
-    return (<RouteAuth />)
+  if (state !== DataStates.SUCCESS) {
+    return <RouteAuth />
   }
 
-  if (token && !logonState.loaded) {
-    return (
-      <Auth>
-        <AppLoader />
-      </Auth>
-    )
-  }
-
-  return (<RouteHome />)
+  return <RouteHome />
 }

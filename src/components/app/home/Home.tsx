@@ -8,7 +8,7 @@ import {
   AppContent,
   AppArea,
   AppSection
-} from '../App'
+} from '../../commons/shell/Shell'
 
 import './Home.css'
 

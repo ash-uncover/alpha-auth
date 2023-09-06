@@ -25,9 +25,9 @@ export const RouteAuth = () => {
   return (
     <Auth>
       <Routes>
-        <Route path='/' element={<Login />} />
-        <Route path={`${AppRoutes.REGISTER}`} element={<Register />} />
-        <Route path={`${AppRoutes.RECOVER}`} element={<Recover />} />
+        <Route path={`${AppRoutes.BASE}`} element={<Login />} />
+        <Route path={`/${AppRoutes.REGISTER}`} element={<Register />} />
+        <Route path={`/${AppRoutes.RECOVER}`} element={<Recover />} />
         <Route path='*' element={<Navigate replace to='/' />} />
       </Routes>
     </Auth>

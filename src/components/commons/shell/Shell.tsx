@@ -29,52 +29,50 @@ import {
   useState,
   useSelector,
   useTranslation
-} from '../../lib/hooks'
+} from '../../../lib/hooks'
 
 import {
   AppRoutes
-} from '../../lib/constants'
+} from '../../../lib/constants'
 
 import {
   AuthSelectors
-} from '../../store/auth/auth.selectors'
+} from '../../../store/auth/auth.selectors'
 
 import {
   useUser
-} from '../../store'
+} from '../../../store'
 
 import {
   AuthService
-} from '../../services/rest/AuthService'
+} from '../../../services/rest/AuthService'
 
-import { Home } from './home/Home'
-import { Account } from './account/Account'
-import { Support } from './support/Support'
+import { Home } from '../../app/home/Home'
+import { Account } from '../../app/account/Account'
+import { Support } from '../../app/support/Support'
 
-import './App.css'
+import './Shell.css'
+import { ShellNavbar } from './ShellNavbar'
 
 
 // ---------------------------------------------------
-// Create Component App
+// Create Component Shell
 // ---------------------------------------------------
 
-interface AppProperties {
+interface ShellProperties {
   children: ReactNode
 }
-export const App = ({
+export const Shell = ({
   children
-}: AppProperties) => {
+}: ShellProperties) => {
 
   // Hooks //
-
-  const userAuth = useSelector(AuthSelectors.logonData);
-  const user = useUser(userAuth.id)
 
   // Rendering //
 
   return (
-    <div className='alpha-auth app'>
-      <AppNavbar />
+    <div className='shell'>
+      <ShellNavbar />
       <AppMenu />
       <Outlet />
       {children}
@@ -82,40 +80,6 @@ export const App = ({
   )
 }
 
-// ---------------------------------------------------
-// Create Component AppNavbar
-// ---------------------------------------------------
-
-const AppNavbar = () => {
-
-  // Hooks //
-
-  const { t } = useTranslation(['app'])
-  const appTitle = t('title')
-  const logoutTooltip = t('actions.logout.title')
-
-  // Rendering //
-
-  return (
-    <div className='app-navbar'>
-      <div className='left'>
-        <span className='title'>
-          {appTitle}
-        </span>
-      </div>
-
-      <div className='right'>
-        <Link
-          className='action'
-          title={logoutTooltip}
-          to={AppRoutes.LOGOUT}
-        >
-          <FontAwesomeIcon icon={faPowerOff} />
-        </Link>
-      </div>
-    </div>
-  )
-}
 
 // ---------------------------------------------------
 // Create Component AppMenu

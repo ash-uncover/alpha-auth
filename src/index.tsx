@@ -22,6 +22,7 @@ import store from './store'
 // Import components
 import { RouteRoot } from './routes'
 import { CONFIG } from './config'
+import { App } from './components/App'
 
 // Import main css
 import './index.css'
@@ -36,8 +37,10 @@ const root = createRoot(containerRoot)
 
 root.render(
   <Provider store={store}>
-    <Router>
-      <RouteRoot />
-    </Router>
+    <App>
+      <Router>
+        <RouteRoot />
+      </Router>
+    </App>
   </Provider>
 )

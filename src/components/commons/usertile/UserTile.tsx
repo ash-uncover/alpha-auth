@@ -2,7 +2,7 @@ import React from 'react'
 
 import {
   useTranslation
-} from '../../lib/hooks'
+} from '../../../lib/hooks'
 
 import {
   FontAwesomeIcon

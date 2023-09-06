@@ -1,1 +1,1 @@
-export { UserTile } from './UserTile'
+export { UserTile } from './usertile/UserTile'

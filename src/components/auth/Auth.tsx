@@ -18,7 +18,7 @@ export const Auth = ({
   // Rendering //
 
   return (
-    <div className='alpha-auth auth'>
+    <div className='auth'>
       <div className='auth-box'>
         {children}
       </div>

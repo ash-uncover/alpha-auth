@@ -23,7 +23,7 @@ import {
   AppContent,
   AppArea,
   AppSection
-} from '../App'
+} from '../../commons/shell/Shell'
 
 import ImageUploader from '../../../lib/components/ImageUploader'
 import { CONFIG } from '../../../config'

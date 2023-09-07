@@ -1,0 +1,92 @@
+.auth {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .auth-box {
+    width: 25rem;
+    height: 30rem;
+    background: var(--alpha-main-background);
+
+    .form {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .form-title {
+        color: var(--alpha-main-color);
+        margin-top: 2rem;
+        margin-bottom: 3rem;
+      }
+
+      .form-control {
+        height: 2rem;
+
+        +.form-control,
+        +.form-link {
+          margin-top: 1rem;
+        }
+        +.form-submit {
+          margin-top: 1.5rem;
+        }
+
+        &.btn,
+        &.input,
+        &.label {
+          width: 15rem;
+        }
+
+        &.input {
+          .input-control {
+            border-color: var(--alpha-main-inactive);
+            .input-show {
+              color: var(--alpha-main-color);
+            }
+          }
+          .input-mask {
+            background: var(--alpha-main-inactive);
+            button {
+              border: 2px solid var(--alpha-main-inactive);
+              background: none;
+            }
+          }
+
+          &.active.focus {
+            .input-control {
+              border-color: var(--alpha-main-color);
+            }
+          }
+        }
+      }
+      .form-link+.form-link {
+        margin-top: 0.5rem;
+      }
+      .error {
+        font-size: 0.8rem;
+        background: #ff9292;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .form-submit {
+        height: 2.5rem;
+        font-weight: bold;
+        color: var(--alpha-main-background);
+        background: var(--alpha-main-color);
+        border: 0;
+        &:disabled {
+          cursor: not-allowed;
+          background: var(--alpha-main-inactive);
+        }
+      }
+    }
+  }
+}

@@ -1,63 +1,63 @@
 /* eslint-disable */
 
-const webpack = require('webpack')
 const path = require('path')
 
-const dir_build = path.resolve(__dirname, 'dist')
-const dir_src = path.resolve(__dirname, 'src')
-const node_modules = path.resolve(__dirname, 'node_modules')
-const pathToReact = path.resolve(node_modules, 'react/dist/react.min.js')
+const DIR_SRC = path.resolve(__dirname, 'src')
+const DIR_NODE_MODULES = path.resolve(__dirname, 'node_modules')
 
-const HtmlWebpackPlugin = require('html-webpack-plugin')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
-
-  entry: path.resolve(dir_src, 'index.js'),
-
-  plugins: [
-    new CleanWebpackPlugin(),
-    new HtmlWebpackPlugin({
-      template: 'src/index.html',
-      title: 'Manage your Alpha Account',
-    }),
-    new webpack.EnvironmentPlugin({
-      ALPHA_AUTH_REST_URL: 'http://localhost:8090'
-    }),
-    new CopyPlugin({
-      patterns: [
-        { from: path.resolve(__dirname, '_redirects'), },
-      ],
-    }),
-  ],
-
-  output: {
-    path: dir_build,
-    filename: '[name].bundle.js',
-    publicPath: '/',
-  },
+  entry: path.resolve(DIR_SRC, 'index.tsx'),
 
   resolve: {
-    modules: ['node_modules', './src'],
-    extensions: ['.js', '.jsx'],
+    modules: ['node_modules', 'src'],
+    extensions: ['.js', '.jsx', '.ts', '.tsx'],
   },
+
+  plugins: [
+    new CopyPlugin({
+      patterns: [{
+        from: path.resolve(__dirname, '_redirects'),
+        to: '.',
+      }],
+    }),
+  ],
 
   module: {
     rules: [
       {
         test: /.(jsx|js)$/,
-        include: dir_src,
+        include: DIR_SRC,
+        exclude: DIR_NODE_MODULES,
         use: [
           { loader: 'babel-loader' },
         ],
       },
       {
-        test: /\.(scss|css)$/,
+        test: /\.tsx?$/,
+        include: DIR_SRC,
+        exclude: DIR_NODE_MODULES,
+        use: [
+          { loader: 'ts-loader' },
+        ],
+      },
+      {
+        test: /\.css$/i,
         use: [
           { loader: 'style-loader' },
-          { loader: 'css-loader' },
-          { loader: 'sass-loader' },
+          { loader: 'css-loader', options: {
+            url: {
+              filter: (url, resourcePath) => {
+                // Don't handle `images` urls
+                if (url.includes('images/')) {
+                  return false;
+                }
+                return true;
+              },
+            },
+          } },
+          { loader: 'postcss-loader' },
         ],
       },
       {
@@ -72,6 +72,5 @@ module.exports = {
         type: 'asset/resource',
       },
     ],
-    noParse: [pathToReact],
   },
 }

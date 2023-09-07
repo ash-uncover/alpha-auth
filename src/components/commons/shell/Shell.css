@@ -1,0 +1,116 @@
+:root {
+  --navbar-height: 3rem;
+  --menu-width: 12rem;
+  --menu-width-collapse: 3rem;
+}
+
+.shell {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background: var(--alpha-main-background-alpha);
+
+  .app-menu {
+    position: absolute;
+    top: var(--navbar-height);
+    bottom: 0;
+    left: 0;
+    width: var(--menu-width-collapse);
+
+    background: lightgoldenrodyellow;
+
+    &.expanded {
+      width: var(--menu-width);
+      .app-menu-item {
+        &.action {
+          text-align: right;
+          padding-right: 1rem;
+        }
+        &.link .text {
+          display: inline;
+        }
+      }
+    }
+
+    .app-menu-item {
+      &:hover {
+        background: white;
+      }
+      &.action {
+        width: 100%;
+        border: 0;
+        background: none;
+        outline: none;
+        height: 1.5rem;
+        &:hover {
+          background: white;
+        }
+      }
+      &.link {
+        display: flex;
+        align-items: center;
+        padding: 0.5rem;
+        box-sizing: border-box;
+        text-decoration: unset;
+        height: 2.5rem;
+        color: var(--alpha-main-color);
+        .text {
+          display: none;
+        }
+        &.active {
+          font-weight: bold;
+        }
+        .svg-inline--fa {
+          padding: 0.5rem;
+        }
+      }
+    }
+  }
+
+  .app-menu.expanded + .app-content {
+    left: var(--menu-width);
+  }
+  .app-content {
+    position: absolute;
+    top: var(--navbar-height);
+    left: var(--menu-width-collapse);
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    background: var(--alpha-main-background);
+    display: flex;
+    >* {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .app-area {
+      flex-grow: 1;
+      background: white;
+      padding: 0 2rem;
+      .app-area-section {
+        >.title {
+          color: var(--alpha-main-color);
+          border-bottom: 1px solid var(--alpha-main-inactive);
+        }
+        >.content {
+          padding: 1rem;
+          border: 1px solid var(--alpha-main-inactive);
+          border-radius: 0.25rem;
+        }
+        +.app-area-section  {
+          margin-top: 2rem;
+        }
+      }
+    }
+    .app-panel {
+      flex-grow: 0;
+      width: var(--menu-width);
+
+      background: lightyellow;
+    }
+  }
+}

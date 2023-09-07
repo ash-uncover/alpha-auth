@@ -1,17 +1,19 @@
 module.exports = {
   modulePaths: [
-    'src',
-    'test'
+    '<rootDir>/src',
+    '<rootDir>/test'
   ],
+  transform: {
+    '^.+\\.tsx?$': 'ts-jest'
+  },
   moduleNameMapper: {
     '^.+\\.(css|less|scss)$': 'babel-jest'
   },
   collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
+    'src/**/*.{js,jsx,ts,tsx}',
     '!**/node_modules/**',
     '!**/vendor/**',
-    '!**/index.js',
-    '!**/index.jsx'
+    '!**/index.*'
   ],
   coverageDirectory: '__coverage__',
   coverageThreshold: {

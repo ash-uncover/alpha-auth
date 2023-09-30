@@ -1,5 +1,9 @@
-import Logger from '@uncover/js-utils-logger'
-const LOGGER = new Logger('CONFIG')
+import {
+  LogLevels,
+  Logger
+} from '@uncover/js-utils-logger'
+
+const LOGGER = new Logger('CONFIG', LogLevels.DEBUG);
 
 // Default hard-coded values
 export const CONFIG: {
@@ -16,7 +20,7 @@ export const CONFIG: {
 
 // Load config from local file
 try {
-  const CONFIG_LOCAL = require('./config.json')
+  const CONFIG_LOCAL = require('./configuration.json')
   Object.keys(CONFIG).forEach((key) => {
     if (CONFIG_LOCAL[key]) {
       CONFIG[key] = CONFIG_LOCAL[key]

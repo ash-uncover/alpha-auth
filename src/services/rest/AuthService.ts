@@ -50,7 +50,6 @@ export const logon = async (dispatch: Dispatch<AnyAction>, { username, password 
 }
 
 export const logout = async (dispatch: Dispatch<AnyAction>) => {
-  AuthConfig._csrfToken = null
   LocalStorage.remove(LocalStorageItem.ALPHA_AUTH_LOGON_TOKEN)
   dispatch(AuthSlice.actions.logoutFetch())
   return Auth.api.auth.delete()
@@ -59,6 +58,9 @@ export const logout = async (dispatch: Dispatch<AnyAction>) => {
     })
     .catch((error: Error) => {
       dispatch(AuthSlice.actions.logoutFailure({ error: error.message }))
+    })
+    .finally(() => {
+      AuthConfig._csrfToken = null
     })
 }
 

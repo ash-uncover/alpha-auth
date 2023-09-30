@@ -12,7 +12,6 @@ const DIR_PUBLIC = path.resolve(__dirname, 'public')
 const CopyPlugin = require('copy-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
-
 function transformPlugin (buffer) {
   const plugin = JSON.parse(buffer.toString())
   plugin.url = 'https://ash-uncover.github.io/alpha-auth'
@@ -47,7 +46,7 @@ module.exports = merge(common, {
       }],
     }),
     new webpack.EnvironmentPlugin({
-      ALPHA_AUTH_REST_URL: 'http://localhost:8090',
+      ALPHA_AUTH_REST_URL: "https://alpha-auth-api.onrender.com",
       ALPHA_AUTH_PLUGIN: 'https://ash-uncover.github.io/alpha-auth/plugin.json',
       ALPHA_AUTH_PUBLIC: '/alpha-auth',
       ALPHA_AUTH_ENVIRONMENT: 'github',

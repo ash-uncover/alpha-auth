@@ -1,7 +1,7 @@
 
 :root {
-  --alpha-main-color: #3D348B;
-  --alpha-main-inactive: #C9CAF8 ;
+  --alpha-main-color: #0094FF;
+  --alpha-main-inactive: #84B9CE ;
   --alpha-main-highlight: #F7B801;
   --alpha-main-background: white;
   --alpha-main-background-alpha: rgba(255,255,225,0.5);
@@ -38,6 +38,11 @@ textarea {
   font-family: 'Roboto', sans-serif;
 }
 
+*:focus {
+  outline: 1px solid var(--alpha-main-color);
+  border-radius: 0.5rem;
+}
+
 #react-root {
   position: absolute;
   top: 0;
@@ -51,4 +56,49 @@ textarea {
   background-image: url('/images/background.jpg');
   background-size: cover;
   background-position: center;
+}
+
+.ap-button {
+  border: none;
+  border-radius: 0.75rem;
+  &:hover:not(:disabled) {
+    box-shadow: 0 0 5px grey;
+  }
+}
+
+.ap-dialog {
+  box-shadow: 0 0 1rem #000;
+}
+
+.ap-input {
+  border: none;
+  box-shadow: 0 0 5px grey;
+  border-radius: 0.75rem;
+  padding: 0 0.75rem;
+  height: 2.25rem;
+  outline: none;
+  background: #F3F3F3;
+  &:hover {
+    background: #EAEAEA;
+  }
+  &:focus,
+  &:focus-visible {
+    background: #FFF;
+    border: none;
+    box-shadow: 0 0 5px var(--alpha-main-color);
+  }
+  &::placeholder {
+    font-style: italic;
+  }
+}
+
+.ap-link {
+  line-height: 1.5rem;
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+  color: #777;
+  text-decoration: none;
+  &:hover {
+    color: #000;
+  }
 }

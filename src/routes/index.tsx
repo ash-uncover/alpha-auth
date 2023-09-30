@@ -23,7 +23,7 @@ export const RouteRoot = () => {
   const state = useSelector(AuthSelectors.logonState)
 
   if (!started) {
-    return null
+    return <div>LOADING</div>
   }
 
   // Rendering //

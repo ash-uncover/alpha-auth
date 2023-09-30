@@ -62,7 +62,7 @@ export const Auth = ({
 
   return (
     <div className='auth'>
-      <div className='auth-box'>
+      <div className='auth-box ap-dialog'>
         {children}
       </div>
     </div>

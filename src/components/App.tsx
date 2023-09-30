@@ -8,8 +8,8 @@ import {
 } from '../lib/hooks'
 
 import {
-  AppSlice,
-} from '../store/app/app.slice'
+  AppService
+} from '../services/rest/AppService'
 
 import './App.css'
 
@@ -29,7 +29,15 @@ export const App = ({
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(AppSlice.actions.start())
+    AppService.checkHealth(dispatch)
+
+    const healthInterval = setInterval(() => {
+      AppService.checkHealth(dispatch)
+    }, 10 * 60 * 1000) // Prevent render to go idle after 15min of inactivity
+
+    return () => {
+      clearInterval(healthInterval)
+    }
   }, [])
 
   // Rendering //

@@ -76,14 +76,22 @@ export const Login = () => {
   // Rendering //
 
   return (
-    <form className='form'>
+    <form
+      className='form'
+      style={{
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column'
+      }}
+    >
 
       <h2 className='form-title'>
         {title}
       </h2>
 
       <input
-        className='form-control'
+        className='form-control ap-input'
+        style={{ width:'250px' }}
         name='alpha-username'
         placeholder={usernamePlaceholder}
         required
@@ -91,7 +99,8 @@ export const Login = () => {
         onChange={onUsernameChanged}
       />
       <input
-        className='form-control'
+        className='form-control ap-input'
+        style={{ width:'250px' }}
         name='alpha-password'
         type='password'
         placeholder={passwordPlaceholder}
@@ -100,7 +109,8 @@ export const Login = () => {
       />
 
       <button
-        className='form-control form-submit'
+        className='form-control form-submit ap-button'
+        style={{ width:'250px' }}
         type='submit'
         disabled={disabled}
         title={submitTooltip}
@@ -109,19 +119,30 @@ export const Login = () => {
         {submitTitle}
       </button>
 
-      <p className={`form-control label ${error ? 'error' : ''}`}>
+      <p
+        className={`form-control label ${error ? 'error' : ''}`}
+        style={{
+          flexGrow: 1
+        }}
+      >
         {error ? errorMessage : ''}
       </p>
 
       <Link
-        className='form-link'
+        className='form-link ap-link'
+        style={{ width:'250px', textAlign: 'center' }}
         to={AppRoutes.RECOVER}
       >
         {linkRecover}
       </Link>
 
       <Link
-        className='form-link'
+        className='form-link ap-link'
+        style={{
+          marginBottom: '1rem',
+          textAlign: 'center',
+          width:'250px'
+        }}
         to={AppRoutes.REGISTER}
       >
         {linkRegister}

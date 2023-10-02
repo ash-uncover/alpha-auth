@@ -123,6 +123,6 @@ export const AuthSlice = createSlice({
 
     logoutFetch,
     logoutSuccess,
-    logoutFailure
+    logoutFailure,
   }
 })

@@ -54,15 +54,24 @@ export const getAccountFailure: CaseReducer<AccountsState, PayloadAction<GetAcco
 // POST /accounts/register
 
 interface PostRegisterFetchPayload {
+  username: string
 }
 export const postRegisterFetch: CaseReducer<AccountsState, PayloadAction<PostRegisterFetchPayload>> = (state, action) => {
-  const {} = action.payload
+  const { username } = action.payload
+  state.data = {
+    action: 'REGISTER',
+    username,
+  }
   state.status = DataStates.FETCHING
 }
 interface PostRegisterSuccessPayload {
 }
 export const postRegisterSuccess: CaseReducer<AccountsState, PayloadAction<PostRegisterSuccessPayload>> = (state, action) => {
   const {} = action.payload
+  state.data = {
+    ...state.data,
+    action: 'REGISTER_VALIDATE',
+  }
   state.error = null
   state.status = DataStates.SUCCESS
 }
@@ -71,7 +80,6 @@ interface PostRegisterFailurePayload {
 }
 export const postRegisterFailure: CaseReducer<AccountsState, PayloadAction<PostRegisterFailurePayload>> = (state, action) => {
   const { error } = action.payload
-  state.data = null
   state.error = error
   state.status = DataStates.FAILURE
 }

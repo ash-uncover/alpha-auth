@@ -18,6 +18,9 @@ import {
   LocalStorage,
   LocalStorageItem
 } from '../../lib/LocalStorage'
+import {
+  AccountsSlice
+} from '../../store/rest/accounts/accounts.slice'
 
 export const checkSession = async (dispatch: Dispatch<AnyAction>, { token }) => {
   AuthConfig._csrfToken = token
@@ -64,8 +67,48 @@ export const logout = async (dispatch: Dispatch<AnyAction>) => {
     })
 }
 
+export const register = async (dispatch: Dispatch<AnyAction>, { username, password }) => {
+  dispatch(AccountsSlice.actions.postRegisterFetch({ username }))
+  return Auth.api.auth.register.post({ username, password })
+    .then((data: UserToken) => {
+      dispatch(AccountsSlice.actions.postRegisterSuccess({ data }))
+    })
+    .catch((error: Error) => {
+      dispatch(AccountsSlice.actions.postRegisterFailure({ error: error.message }))
+    })
+}
+
+export const registerValidate = async (dispatch: Dispatch<AnyAction>, { username, password }) => {
+}
+
+export const recover = async (dispatch: Dispatch<AnyAction>, { username, password }) => {
+}
+
+export const recoverValidate = async (dispatch: Dispatch<AnyAction>, { username, password }) => {
+}
+
+export const recoverUpdate = async (dispatch: Dispatch<AnyAction>, { username, password }) => {
+}
+
+export const changemail = async (dispatch: Dispatch<AnyAction>, { username, password }) => {
+}
+
+export const changemailValidate = async (dispatch: Dispatch<AnyAction>, { username, password }) => {
+}
+
 export const AuthService = {
   checkSession,
+
   logon,
   logout,
+
+  register,
+  registerValidate,
+
+  recover,
+  recoverValidate,
+  recoverUpdate,
+
+  changemail,
+  changemailValidate,
 }

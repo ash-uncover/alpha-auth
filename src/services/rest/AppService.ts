@@ -16,8 +16,6 @@ export const checkHealth = async (dispatch: Dispatch<AnyAction>) => {
     dispatch(AppSlice.actions.checkHealthSuccess())
 
   } catch (error) {
-    console.log('Health error')
-    console.log(error)
     dispatch(AppSlice.actions.checkHealthFailure())
   }
 }

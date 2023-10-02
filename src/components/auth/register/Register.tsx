@@ -5,6 +5,7 @@ import {
 } from 'react-router-dom'
 
 import {
+  useDispatch,
   useState,
   useTranslation
 } from '../../../lib/hooks'
@@ -12,7 +13,9 @@ import {
 import {
   AppRoutes
 } from '../../../lib/constants'
-import { AuthService } from 'src/services/rest/AuthService'
+import {
+  AuthService
+} from '../../../services/rest/AuthService'
 
 export const REGISTER_STATE = {
   ASK: 'ASK',
@@ -88,6 +91,8 @@ export const RegisterAsk = ({
 
   // Hooks //
 
+  const dispatch = useDispatch()
+
   const { t, i18n } = useTranslation()
   const title = t('auth:register.ask.title')
   const text = t('auth:register.ask.text')
@@ -122,20 +127,10 @@ export const RegisterAsk = ({
 
   const onRegister = async (event) => {
     event.preventDefault()
-    try {
-      // await AuthService. .api.accounts.register.post({
-      //   username,
-      //   password
-      // })
-      onConfirm(username, password)
-    } catch (error) {
-      const errorKey = `err:${error.message}`
-      if (i18n.exists(errorKey)) {
-        setError(t(errorKey))
-      } else {
-        setError(errorMessage)
-      }
-    }
+    AuthService.register(dispatch, {
+      username,
+      password
+    })
   }
 
   // Rendering //
@@ -152,7 +147,7 @@ export const RegisterAsk = ({
       </p>
 
       <input
-        className='form-control'
+        className='form-control ap-input'
         name='alpha-username'
         placeholder={usernamePlaceholder}
         required
@@ -160,7 +155,7 @@ export const RegisterAsk = ({
         onChange={onUsernameChanged}
       />
       <input
-        className='form-control'
+        className='form-control ap-input'
         name='alpha-password'
         type='password'
         placeholder={passwordPlaceholder}
@@ -168,7 +163,7 @@ export const RegisterAsk = ({
         onChange={onPasswordChanged}
       />
       <input
-        className='form-control'
+        className='form-control ap-input'
         name='alpha-repeat'
         type='password'
         placeholder={repeatPlaceholder}

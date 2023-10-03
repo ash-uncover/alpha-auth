@@ -10,12 +10,15 @@
   justify-content: center;
 
   .auth-box {
-    width: 25rem;
+    width: calc(100% - 2rem);
+    max-width: 25rem;
+    margin: 1rem;
+
     height: 30rem;
     background: var(--alpha-main-background);
 
     .form {
-      width: 25rem;
+      width: 100%;
       height: 30rem;
       margin: 0;
       display: flex;
@@ -92,8 +95,9 @@
 @media (min-width: 65rem) {
   .auth {
     .auth-box {
-      display: flex;
       width: 60rem;
+      max-width: unset;
+      display: flex;
       &::after {
         content: ' ';
         width: 35rem;
@@ -103,6 +107,9 @@
         background-size: 25rem 25rem;
         background-position: center;
         background-repeat: no-repeat;
+      }
+      .form {
+        width: 25rem;
       }
     }
   }

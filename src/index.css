@@ -30,10 +30,6 @@ h2 {
   font-size: 1.2rem;
 }
 
-button {
-  cursor: pointer;
-}
-
 textarea {
   font-family: 'Roboto', sans-serif;
 }
@@ -61,6 +57,8 @@ textarea {
 .ap-button {
   border: none;
   border-radius: 0.75rem;
+  box-sizing: border-box;
+  cursor: pointer;
   &:hover:not(:disabled) {
     box-shadow: 0 0 5px grey;
   }
@@ -74,6 +72,7 @@ textarea {
   border: none;
   box-shadow: 0 0 5px grey;
   border-radius: 0.75rem;
+  box-sizing: border-box;
   padding: 0 0.75rem;
   height: 2.25rem;
   outline: none;
@@ -96,6 +95,7 @@ textarea {
   line-height: 1.5rem;
   font-size: 0.85rem;
   padding: 0.25rem 0.5rem;
+  box-sizing: border-box;
   color: #777;
   text-decoration: none;
   &:hover {

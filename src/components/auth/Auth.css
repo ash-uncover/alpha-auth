@@ -103,7 +103,7 @@
         width: 35rem;
         height: 100%;
         background-color: var(--alpha-main-color);
-        background-image: url('/images/logo.png');
+        background-image: url('images/logo.png');
         background-size: 25rem 25rem;
         background-position: center;
         background-repeat: no-repeat;

@@ -9,12 +9,16 @@ import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../../lib/constants'
 
 import './ShellNavbar.css'
+import { AVATAR_SIZES, Avatar } from '../avatar/Avatar'
 
 // ---------------------------------------------------
 // Create Component ShellNavbar
 // ---------------------------------------------------
 
-export const ShellNavbar = () => {
+interface ShellNavbarProperties {
+}
+export const ShellNavbar = ({
+}: ShellNavbarProperties) => {
 
   // Hooks //
 
@@ -26,13 +30,17 @@ export const ShellNavbar = () => {
 
   return (
     <div className='shell-navbar'>
-      <div className='left'>
+      <div className='shell-navbar--left'>
         <span className='title'>
           {appTitle}
         </span>
       </div>
 
-      <div className='right'>
+      <div className='shell-navbar--right'>
+        <Avatar
+          size={AVATAR_SIZES.XS}
+        />
+
         <Link
           className='action'
           title={logoutTooltip}

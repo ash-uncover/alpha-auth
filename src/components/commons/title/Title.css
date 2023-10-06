@@ -1,0 +1,27 @@
+:root {
+  --ap-title--color: #000;
+  --ap-title--font-size: 1rem;
+}
+.ap-title {
+
+  font-size: var(--ap-title--font-size);
+
+  &.ap-title--h1 {
+    --ap-title--font-size: 1.5rem;
+  }
+  &.ap-title--h2 {
+    --ap-title--font-size: 1.3rem;
+  }
+  &.ap-title--h3 {
+    --ap-title--font-size: 1.15rem;
+  }
+  &.ap-title--h4 {
+    --ap-title--font-size: 1rem;
+  }
+  &.ap-title--h5 {
+    --ap-title--font-size: 1.85rem;
+  }
+  &.ap-title--h6 {
+    --ap-title--font-size: 0.75rem;
+  }
+}

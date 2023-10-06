@@ -2,7 +2,7 @@
   .social-relation {
     width: 10rem;
     height: 8rem;
-    border: 1px solid var(--alpha-main-effect);
+    border: 1px solid var(--ap-main-effect);
     border-radius: 0.15rem;
     display: inline-flex;
     flex-direction: column;

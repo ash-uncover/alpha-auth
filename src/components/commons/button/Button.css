@@ -1,0 +1,69 @@
+:root {
+  --ap-button--size: 2rem;
+  --ap-button--color: var(--ap-main-background);
+  --ap-button--background: var(--ap-main-color);
+  --ap-button--border-radius: var(--ap-border-radius-m);
+  --ap-button--padding-h: var(--ap-padding-s);
+  --ap-button--padding-v: var(--ap-padding-xs);
+}
+.ap-button {
+
+  height: var(--ap-button--size);
+  border-radius: var(--ap-button--border-radius);
+  padding: var(--ap-button--padding-v) var(--ap-button--padding-h);
+  color: var(--ap-button--color);
+  background: var(--ap-button--background);
+
+  border: none;
+  box-sizing: border-box;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.25rem;
+  overflow: hidden;
+
+  &:disabled {
+    cursor: not-allowed;
+    filter: brightness(135%);
+  }
+
+  &:hover:not(:disabled) {
+    filter: brightness(110%);
+  }
+
+  &.ap-button--icon-only {
+    width: var(--ap-button--size);
+  }
+
+  &.ap-button--positive {
+    --ap-button--color: var(--ap-positive-color);
+    --ap-button--background: var(--ap-positive-background);
+  }
+  &.ap-button--negative {
+    --ap-button--color: var(--ap-negative-color);
+    --ap-button--background: var(--ap-negative-background);
+  }
+  &.ap-button--warning {
+    --ap-button--color: var(--ap-warning-color);
+    --ap-button--background: var(--ap-warning-background);
+  }
+  &.ap-button--attention {
+    --ap-button--color: var(--ap-attention-color);
+    --ap-button--background: var(--ap-attention-background);
+  }
+  &.ap-button--principal {
+    --ap-button--color: var(--ap-principal-color);
+    --ap-button--background: var(--ap-principal-background);
+  }
+  &.ap-button--transparent {
+    --ap-button--color: var(--ap-transparent-color);
+    --ap-button--background: var(--ap-transparent-background);
+  }
+  &.ap-button--default {
+    --ap-button--color: var(--ap-default-color);
+    --ap-button--background: var(--ap-default-background);
+  }
+}

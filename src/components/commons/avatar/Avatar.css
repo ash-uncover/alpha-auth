@@ -1,0 +1,129 @@
+:root {
+  --ap-avatar--color: #FFF;
+  --ap-avatar--background: #000;
+  --ap-avatar--border-radius: 50%;
+  --ap-avatar--font-size: 1rem;
+  --ap-avatar--font-weight: bold;
+  --ap-avatar--size: 2rem;
+}
+.ap-avatar {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--ap-avatar--size);
+  height: var(--ap-avatar--size);
+  overflow: hidden;
+
+  background: var(--ap-avatar--background);
+  color: var(--ap-avatar--color);
+
+  border-radius: var(--ap-avatar--border-radius);
+
+  font-size: var(--ap-avatar--font-size);
+  font-weight: var(--ap-avatar--font-weight);
+
+  &.ap-avatar--interactive {
+    cursor: pointer;
+    &::hover {
+      border: 1px solid rgb(128, 128, 128);
+    }
+  }
+
+  & .ap-avatar__content {
+    width: var(--ap-avatar--size);
+    text-align: center;
+  }
+
+  &.ap-avatar--image {
+    & .ap-avatar__content {
+      background-size: cover;
+      height: var(--ap-avatar--size);
+    }
+  }
+
+  &.ap-avatar--color1 {
+   --ap-avatar--background: var(--alpha-nuance1--background);
+    --ap-avatar--color: var(--alpha-nuance1--color);
+  }
+  &.ap-avatar--color2 {
+    --ap-avatar--background: var(--alpha-nuance2--background);
+    --ap-avatar--color: var(--alpha-nuance2--color);
+  }
+  &.ap-avatar--color3 {
+    --ap-avatar--background: var(--alpha-nuance3--background);
+    --ap-avatar--color: var(--alpha-nuance3--color);
+  }
+  &.ap-avatar--color4 {
+    --ap-avatar--background: var(--alpha-nuance4--background);
+    --ap-avatar--color: var(--alpha-nuance4--color);
+  }
+  &.ap-avatar--color5 {
+    --ap-avatar--background: var(--alpha-nuance5--background);
+    --ap-avatar--color: var(--alpha-nuance5--color);
+  }
+  &.ap-avatar--color6 {
+    --ap-avatar--background: var(--alpha-nuance6--background);
+    --ap-avatar--color: var(--alpha-nuance6--color);
+  }
+  &.ap-avatar--color7 {
+    --ap-avatar--background: var(--alpha-nuance7--background);
+    --ap-avatar--color: var(--alpha-nuance7--color);
+  }
+  &.ap-avatar--color8 {
+    --ap-avatar--background: var(--alpha-nuance8--background);
+    --ap-avatar--color: var(--alpha-nuance8--color);
+  }
+  &.ap-avatar--color9 {
+    --ap-avatar--background: var(--alpha-nuance9--background);
+    --ap-avatar--color: var(--alpha-nuance9--color);
+  }
+  &.ap-avatar--color10 {
+    --ap-avatar--background: var(--alpha-nuance10--background);
+    --ap-avatar--color: var(--alpha-nuance10--color);
+  }
+
+  &.ap-avatar--xs {
+    --ap-avatar--size: 1.5rem;
+    &.ap-avatar--icon {
+      --ap-avatar--font-size: 0.75rem;
+    }
+    &.ap-avatar--initials {
+      --ap-avatar--font-size: 0.65rem;
+    }
+  }
+  &.ap-avatar--s {
+    --ap-avatar--size: 2rem;
+    &.ap-avatar--icon {
+      --ap-avatar--font-size: 1rem;
+    }
+    &.ap-avatar--initials {
+      --ap-avatar--font-size: 0.85rem;
+    }
+  }
+  &.ap-avatar--m {
+    --ap-avatar--size: 2.5rem;
+    &.ap-avatar--icon {
+      --ap-avatar--font-size: 1.15rem;
+    }
+  }
+  &.ap-avatar--l {
+    --ap-avatar--size: 3rem;
+    &.ap-avatar--icon {
+      --ap-avatar--font-size: 1.75rem;
+    }
+    &.ap-avatar--initials {
+      --ap-avatar--font-size: 1.35rem;
+    }
+  }
+  &.ap-avatar--xl {
+    --ap-avatar--size: 4rem;
+    &.ap-avatar--icon {
+      --ap-avatar--font-size: 2.5rem;
+    }
+    &.ap-avatar--initials {
+      --ap-avatar--font-size: 1.75rem;
+    }
+  }
+}

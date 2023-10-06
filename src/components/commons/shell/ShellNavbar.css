@@ -5,19 +5,22 @@
   padding: 0 1rem;
   box-sizing: border-box;
 
-  background: var(--alpha-main-background);
-  border-bottom: 1px solid var(--alpha-main-effect);
+  background: var(--ap-main-background);
+  border-bottom: 1px solid var(--ap-main-effect);
 
-  .left {
+  .shell-navbar--left {
     flex-grow: 1;
   }
-  .right {
+  .shell-navbar--right {
     flex-grow: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
   }
 
   .title {
     font-weight: bold;
-    color: var(--alpha-main-color);
+    color: var(--ap-main-color);
   }
   .action {
     border: 0;
@@ -26,12 +29,12 @@
     height: 2rem;
 
     font-size: 1rem;
-    color: var(--alpha-main-color);
+    color: var(--ap-main-color);
 
     &:focus {
       outline: none;
       border-radius: 0.25rem;
-      border: 1px dashed var(--alpha-main-color);
+      border: 1px dashed var(--ap-main-color);
     }
   }
 }

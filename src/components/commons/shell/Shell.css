@@ -11,7 +11,7 @@
   left: 0;
   right: 0;
 
-  background: var(--alpha-main-background-alpha);
+  background: var(--ap-main-background-alpha);
 
   .app-menu {
     position: absolute;
@@ -56,7 +56,7 @@
         box-sizing: border-box;
         text-decoration: unset;
         height: 2.5rem;
-        color: var(--alpha-main-color);
+        color: var(--ap-main-color);
         .text {
           display: none;
         }
@@ -80,7 +80,7 @@
     right: 0;
     bottom: 0;
     box-sizing: border-box;
-    background: var(--alpha-main-background);
+    background: var(--ap-main-background);
     display: flex;
     >* {
       height: 100%;
@@ -93,12 +93,12 @@
       padding: 0 2rem;
       .app-area-section {
         >.title {
-          color: var(--alpha-main-color);
-          border-bottom: 1px solid var(--alpha-main-inactive);
+          color: var(--ap-main-color);
+          border-bottom: 1px solid var(--ap-main-inactive);
         }
         >.content {
           padding: 1rem;
-          border: 1px solid var(--alpha-main-inactive);
+          border: 1px solid var(--ap-main-inactive);
           border-radius: 0.25rem;
         }
         +.app-area-section  {

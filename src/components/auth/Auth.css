@@ -15,11 +15,11 @@
     margin: 1rem;
 
     height: 30rem;
-    background: var(--alpha-main-background);
+    background: var(--ap-main-background);
 
-    .form {
+    .ap-auth__form {
       width: 100%;
-      height: 30rem;
+      height: 100%;
       margin: 0;
       display: flex;
       flex-direction: column;
@@ -27,12 +27,17 @@
       justify-content: center;
 
       .form-title {
-        color: var(--alpha-main-color);
+        color: var(--ap-main-color);
         margin-top: 2rem;
         margin-bottom: 3rem;
       }
 
       .form-control {
+        width: 15rem;
+
+        &.form-link {
+          text-align: center;
+        }
 
         +.form-control,
         +.form-link {
@@ -41,52 +46,14 @@
         +.form-submit {
           margin-top: 1.5rem;
         }
-
-        &.btn,
-        &.input,
-        &.label {
-          width: 15rem;
-        }
-
-        &.input {
-          .input-control {
-            border-color: var(--alpha-main-inactive);
-            .input-show {
-              color: var(--alpha-main-color);
-            }
-          }
-          .input-mask {
-            background: var(--alpha-main-inactive);
-            button {
-              border: 2px solid var(--alpha-main-inactive);
-              background: none;
-            }
-          }
-
-          &.active.focus {
-            .input-control {
-              border-color: var(--alpha-main-color);
-            }
-          }
-        }
       }
+
       .error {
         font-size: 0.8rem;
         background: #ff9292;
         display: flex;
         align-items: center;
         justify-content: center;
-      }
-      .form-submit {
-        height: 2.5rem;
-        font-weight: bold;
-        color: var(--alpha-main-background);
-        background: var(--alpha-main-color);
-        border: 0;
-        &:disabled {
-          cursor: not-allowed;
-          background: var(--alpha-main-inactive);
-        }
       }
     }
   }
@@ -102,7 +69,7 @@
         content: ' ';
         width: 35rem;
         height: 100%;
-        background-color: var(--alpha-main-color);
+        background-color: var(--ap-main-color);
         background-image: url('images/logo.png');
         background-size: 25rem 25rem;
         background-position: center;

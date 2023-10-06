@@ -13,6 +13,12 @@ import {
   AppRoutes
 } from '../../../lib/constants'
 
+import {
+  Button,
+  Input,
+  Title,
+} from '../../commons'
+
 // ---------------------------------------------------
 // Create Component Recover
 // ---------------------------------------------------
@@ -21,12 +27,12 @@ export const Recover = () => {
 
   // Hooks //
 
-  const { t } = useTranslation()
-  const recoverTitle = t('auth:recover.title')
-  const usernamePlaceholder = t('auth:recover.username.placeholder')
-  const submitTitle = t('auth:recover.submit.title')
-  const submitTooltip = t('auth:recover.submit.tooltip')
-  const linkLogin = t('auth:recover.links.login')
+  const { t } = useTranslation(['auth'])
+  const recoverTitle = t('recover.title')
+  const usernamePlaceholder = t('recover.username.placeholder')
+  const submitTitle = t('recover.submit.title')
+  const submitTooltip = t('recover.submit.tooltip')
+  const linkLogin = t('recover.links.login')
 
   const [username, setUsername] = useState('')
 
@@ -45,13 +51,17 @@ export const Recover = () => {
   // Rendering //
 
   return (
-    <form className='form'>
+    <form
+      className='ap-auth__form'
+    >
 
-      <h2 className='form-title'>
-        {recoverTitle}
-      </h2>
+      <Title
+        className='form-title'
+        level='H2'
+        text={recoverTitle}
+      />
 
-      <input
+      <Input
         className='form-control'
         name='alpha-username'
         placeholder={usernamePlaceholder}
@@ -60,7 +70,7 @@ export const Recover = () => {
         onChange={onUsernameChanged}
       />
 
-      <button
+      <Button
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
@@ -68,12 +78,12 @@ export const Recover = () => {
         onClick={onRecover}
       >
         {submitTitle}
-      </button>
+      </Button>
 
       <p className='form-control label' />
 
       <Link
-        className='form-link'
+        className='form-link ap-link'
         to={AppRoutes.BASE}
       >
         {linkLogin}

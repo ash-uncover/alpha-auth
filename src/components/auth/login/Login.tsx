@@ -23,6 +23,11 @@ import {
   AuthService
 } from '../../../services/rest/AuthService'
 
+import {
+  Button,
+  Input,
+  Title,
+} from '../../commons'
 
 // ---------------------------------------------------
 // Create Component Login
@@ -51,17 +56,17 @@ export const Login = () => {
   const linkRecover = t('login.links.recover')
   const linkRegister = t('login.links.register')
 
-  const disabled = !username
+  const disabled = !username || !password
   const errorMessage = error === 'Failed to fetch' ? errorServerMessage : errorCredentialsMessage
 
   // Callbacks //
 
-  const onUsernameChanged = (event: React.FormEvent<HTMLInputElement>) => {
-    setUsername(event.currentTarget.value)
+  const onUsernameChanged = (event) => {
+    setUsername(event.value)
   }
 
-  const onPasswordChanged = (event: React.FormEvent<HTMLInputElement>) => {
-    setPassword(event.currentTarget.value)
+  const onPasswordChanged = (event) => {
+    setPassword(event.value)
   }
 
   const onLogin = (event: React.FormEvent<HTMLButtonElement>) => {
@@ -77,47 +82,42 @@ export const Login = () => {
 
   return (
     <form
-      className='form'
-      style={{
-        height: '100%',
-        display: 'flex',
-        flexDirection: 'column'
-      }}
+      className='ap-auth__form'
     >
 
-      <h2 className='form-title'>
-        {title}
-      </h2>
+      <Title
+        className='form-title'
+        level='H2'
+        text={title}
+      />
 
-      <input
-        className='form-control ap-input'
-        style={{ width:'250px' }}
+      <Input
+        className='form-control'
         name='alpha-username'
         placeholder={usernamePlaceholder}
         required
         value={username}
         onChange={onUsernameChanged}
       />
-      <input
-        className='form-control ap-input'
-        style={{ width:'250px' }}
+      <Input
+        className='form-control'
         name='alpha-password'
-        type='password'
         placeholder={passwordPlaceholder}
+        showPasswordIcon
+        type='password'
         value={password}
         onChange={onPasswordChanged}
       />
 
-      <button
-        className='form-control form-submit ap-button'
-        style={{ width:'250px' }}
+      <Button
+        className='form-control form-submit'
         type='submit'
         disabled={disabled}
         title={submitTooltip}
         onClick={onLogin}
       >
         {submitTitle}
-      </button>
+      </Button>
 
       <p
         className={`form-control label ${error ? 'error' : ''}`}
@@ -130,7 +130,6 @@ export const Login = () => {
 
       <Link
         className='form-link ap-link'
-        style={{ width:'250px', textAlign: 'center' }}
         to={AppRoutes.RECOVER}
       >
         {linkRecover}
@@ -138,11 +137,6 @@ export const Login = () => {
 
       <Link
         className='form-link ap-link'
-        style={{
-          marginBottom: '1rem',
-          textAlign: 'center',
-          width:'250px'
-        }}
         to={AppRoutes.REGISTER}
       >
         {linkRegister}

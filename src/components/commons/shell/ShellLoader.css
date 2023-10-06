@@ -10,8 +10,8 @@
   justify-content: center;
 
   & .box {
-    background: var(--alpha-main-background);
-    color: var(--alpha-main-color);
+    background: var(--ap-main-background);
+    color: var(--ap-main-color);
     width: 12rem;
     height: 8rem;
 

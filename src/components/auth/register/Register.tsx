@@ -13,6 +13,7 @@ import {
 import {
   AppRoutes
 } from '../../../lib/constants'
+
 import {
   AuthService
 } from '../../../services/rest/AuthService'
@@ -23,6 +24,12 @@ export const REGISTER_STATE = {
   COMPLETED: 'COMPLETED'
 }
 
+import {
+  Button,
+  Input,
+  Title,
+} from '../../commons'
+
 // ---------------------------------------------------
 // Create Component Register
 // ---------------------------------------------------
@@ -30,6 +37,8 @@ export const REGISTER_STATE = {
 export const Register = () => {
 
   // Hooks //
+
+  useTranslation(['auth'])
 
   const [state, setState] = useState(REGISTER_STATE.ASK)
   const [username, setUsername] = useState('')
@@ -136,34 +145,38 @@ export const RegisterAsk = ({
   // Rendering //
 
   return (
-    <form className='form'>
+    <form
+      className='ap-auth__form'
+    >
 
-      <h2 className='form-title'>
-        {title}
-      </h2>
+      <Title
+        className='form-title'
+        level='H2'
+        text={title}
+      />
 
       <p className='form-text'>
         {text}
       </p>
 
-      <input
-        className='form-control ap-input'
+      <Input
+        className='form-control'
         name='alpha-username'
         placeholder={usernamePlaceholder}
         required
         value={username}
         onChange={onUsernameChanged}
       />
-      <input
-        className='form-control ap-input'
+      <Input
+        className='form-control'
         name='alpha-password'
         type='password'
         placeholder={passwordPlaceholder}
         value={password}
         onChange={onPasswordChanged}
       />
-      <input
-        className='form-control ap-input'
+      <Input
+        className='form-control'
         name='alpha-repeat'
         type='password'
         placeholder={repeatPlaceholder}
@@ -171,7 +184,7 @@ export const RegisterAsk = ({
         onChange={onRepeatChanged}
       />
 
-      <button
+      <Button
         className='form-control form-submit'
         type='submit'
         disabled={disabled}
@@ -179,14 +192,14 @@ export const RegisterAsk = ({
         onClick={onRegister}
       >
         {submitTitle}
-      </button>
+      </Button>
 
       <p className={`form-control label ${error ? 'error' : ''}`}>
         {error}
       </p>
 
       <Link
-        className='form-link'
+        className='form-link ap-link'
         to={AppRoutes.BASE}
       >
         {linkLogin}

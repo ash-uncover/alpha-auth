@@ -1,0 +1,52 @@
+.ap-input {
+  border: none;
+  box-shadow: 0 0 5px grey;
+  border-radius: 0.75rem;
+  box-sizing: border-box;
+  padding: 0 0.75rem;
+  height: 2.25rem;
+  outline: none;
+  background: #F3F3F3;
+
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    filter: brightness(110%);
+  }
+
+  &:active,
+  &:focus-within,
+  &:focus,
+  &:focus-visible {
+    background: #FFF;
+    border: none;
+    box-shadow: 0 0 5px var(--ap-main-color);
+  }
+
+  & .ap-input__input {
+    border: none;
+    height: 100%;
+    flex-grow: 1;
+    background: transparent;
+    outline: none;
+
+    &::placeholder {
+      font-style: italic;
+    }
+  }
+
+  & .ap-input__action {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0.25rem;
+    box-sizing: border-box !important;
+    border-radius: 0.25rem;
+    font-size: 1rem;
+    cursor: pointer;
+    color: rgb(80, 80, 80);
+    &:hover {
+      filter: brightness(20%);
+    }
+  }
+}

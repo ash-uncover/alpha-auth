@@ -60,11 +60,10 @@ export const Avatar = ({
 
   // Rendering //
 
-  const classes = new ClassBuilder('ap-avatar')
-
-  classes.add(className)
+  const classes = new ClassBuilder(['ap-avatar', className])
 
   classes.add(`ap-avatar--${size.toLowerCase()}`)
+
   if (onClick) {
     classes.add(`ap-avatar--interactive`)
   }

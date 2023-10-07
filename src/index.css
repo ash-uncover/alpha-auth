@@ -52,11 +52,23 @@
   --ap-border-radius-l: 1rem;
   --ap-border-radius-xl: 1.25rem;
 
-  --ap-padding-xs: 0.25rem;
-  --ap-padding-s: 0.5rem;
-  --ap-padding-m: 0.75rem;
-  --ap-padding-l: 1rem;
-  --ap-padding-xl: 1.25rem;
+  --ap-gaps-xs: 0.25rem;
+  --ap-gaps-s: 0.5rem;
+  --ap-gaps-m: 0.75rem;
+  --ap-gaps-l: 1rem;
+  --ap-gaps-xl: 1.25rem;
+
+  --ap-padding-xs: var(--ap-gaps-xs);
+  --ap-padding-s: var(--ap-gaps-s);
+  --ap-padding-m: var(--ap-gaps-m);
+  --ap-padding-l: var(--ap-gaps-l);
+  --ap-padding-xl: var(--ap-gaps-xl);
+
+  --ap-margin-xs: 0.25rem;
+  --ap-margin-s: var(--ap-gaps-s);
+  --ap-margin-m: var(--ap-gaps-m);
+  --ap-margin-l: var(--ap-gaps-l);
+  --ap-margin-xl: var(--ap-gaps-xl);
 }
 
 html, body {

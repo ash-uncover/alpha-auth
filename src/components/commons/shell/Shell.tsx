@@ -35,25 +35,11 @@ import {
   AppRoutes
 } from '../../../lib/constants'
 
-import {
-  AuthSelectors
-} from '../../../store/auth/auth.selectors'
-
-import {
-  useUser
-} from '../../../store'
-
-import {
-  AuthService
-} from '../../../services/rest/AuthService'
-
-import { Home } from '../../app/home/Home'
-import { Account } from '../../app/account/Account'
-import { Support } from '../../app/support/Support'
+import { ShellNavbar } from './ShellNavbar'
+import { ShellMenuItem } from './ShellMenuItem'
+import { ShellMenu } from './ShellMenu'
 
 import './Shell.css'
-import { ShellNavbar } from './ShellNavbar'
-
 
 // ---------------------------------------------------
 // Create Component Shell
@@ -68,114 +54,52 @@ export const Shell = ({
 
   // Hooks //
 
-  // Rendering //
-
-  return (
-    <div className='shell'>
-      <ShellNavbar />
-      <AppMenu />
-      <Outlet />
-      {children}
-    </div>
-  )
-}
-
-
-// ---------------------------------------------------
-// Create Component AppMenu
-// ---------------------------------------------------
-
-const AppMenu = () => {
-
-  // Hooks //
-
-  const [expanded, setExpanded] = useState(true)
-
   const { t } = useTranslation(['app'])
   const menuHome = t('home.link.title')
   const menuAccount = t('account.link.title')
-  const menuSocial = t('social.link.title')
-  const menuMessages = t('messages.link.title')
   const menuSupport = t('support.link.title')
 
-  const onToggleExpanded = () => {
-    setExpanded(!expanded)
-  }
-
   // Rendering //
 
   return (
-    <div className={`app-menu ${expanded ? 'expanded' : ''}`}>
-      <button
-        className='app-menu-item action'
-        onClick={onToggleExpanded}
+    <div className='ap-shell'>
+
+      <ShellNavbar
+        className='ap-shell__area'
+      />
+
+      <div
+        className='ap-shell__content'
       >
-        <FontAwesomeIcon
-          icon={expanded ? faAngleDoubleLeft : faAngleDoubleRight}
-        />
-      </button>
+        <ShellMenu className='ap-shell__area'>
+          <ShellMenuItem
+            to={AppRoutes.BASE}
+            icon={faHome}
+            text={menuHome}
+          />
 
-      <AppMenuLink
-        to={AppRoutes.BASE}
-        icon={faHome}
-        text={menuHome}
-      />
+          <ShellMenuItem
+            to={AppRoutes.ACCOUNT}
+            icon={faUserCircle}
+            text={menuAccount}
+          />
 
-      <AppMenuLink
-        to={AppRoutes.ACCOUNT}
-        icon={faUserCircle}
-        text={menuAccount}
-      />
+          <ShellMenuItem
+            to={AppRoutes.SUPPORT}
+            icon={faQuestionCircle}
+            text={menuSupport}
+          />
+        </ShellMenu>
 
-      <AppMenuLink
-        to={AppRoutes.SOCIAL}
-        icon={faUsers}
-        text={menuSocial}
-      />
+        <div
+          className='ap-shell__area ap-shell__main'
+        >
+          <Outlet />
+          {children}
+        </div>
 
-      <AppMenuLink
-        to={AppRoutes.MESSAGES}
-        icon={faEnvelope}
-        text={menuMessages}
-      />
-
-      <AppMenuLink
-        to={AppRoutes.SUPPORT}
-        icon={faQuestionCircle}
-        text={menuSupport}
-      />
-
+      </div>
     </div>
-  )
-}
-
-// ---------------------------------------------------
-// Create Component AppMenuLink
-// ---------------------------------------------------
-
-const AppMenuLink = ({
-  to,
-  icon,
-  text
-}) => {
-
-  // Hooks //
-
-  // Rendering //
-
-  return (
-    <NavLink
-      className='app-menu-item link'
-      to={to}
-    >
-      <FontAwesomeIcon
-        icon={icon}
-        size='xs'
-      />
-      <span className='text'>
-        {text}
-      </span>
-    </NavLink>
   )
 }
 

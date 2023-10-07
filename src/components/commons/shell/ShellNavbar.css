@@ -1,17 +1,21 @@
-.shell-navbar {
-  height: var(--navbar-height);
+:root {
+  --ap-shell-navbar--height: 3rem;
+}
+
+.ap-shell-navbar {
+  height: var(--ap-shell-navbar--height);
+
   display: flex;
   align-items: center;
   padding: 0 1rem;
   box-sizing: border-box;
 
   background: var(--ap-main-background);
-  border-bottom: 1px solid var(--ap-main-effect);
 
-  .shell-navbar--left {
+  .ap-shell-navbar--left {
     flex-grow: 1;
   }
-  .shell-navbar--right {
+  .ap-shell-navbar--right {
     flex-grow: 0;
     display: flex;
     align-items: center;

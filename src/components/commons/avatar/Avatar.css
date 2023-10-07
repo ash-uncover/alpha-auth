@@ -6,8 +6,8 @@
   --ap-avatar--font-weight: bold;
   --ap-avatar--size: 2rem;
 }
-.ap-avatar {
 
+.ap-avatar {
   display: flex;
   align-items: center;
   justify-content: center;

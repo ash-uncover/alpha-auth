@@ -71,9 +71,7 @@ export const Button = ({
 
   // Rendering //
 
-  const classes = new ClassBuilder('ap-button')
-
-  classes.add(className)
+  const classes = new ClassBuilder(['ap-button', className])
 
   classes.add(`ap-button--${semantic.toLowerCase()}`)
 

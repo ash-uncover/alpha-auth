@@ -10,14 +10,19 @@ import { AppRoutes } from '../../../lib/constants'
 
 import './ShellNavbar.css'
 import { AVATAR_SIZES, Avatar } from '../avatar/Avatar'
+import { ClassBuilder } from '../ComponentUtil'
 
 // ---------------------------------------------------
 // Create Component ShellNavbar
 // ---------------------------------------------------
 
 interface ShellNavbarProperties {
+  className?: string
+  style?: React.CSSProperties
 }
 export const ShellNavbar = ({
+  className,
+  style,
 }: ShellNavbarProperties) => {
 
   // Hooks //
@@ -28,15 +33,20 @@ export const ShellNavbar = ({
 
   // Rendering //
 
+  const classes = new ClassBuilder(['ap-shell-navbar', className])
+
   return (
-    <div className='shell-navbar'>
-      <div className='shell-navbar--left'>
+    <div
+      className={classes.className}
+      style={style}
+    >
+      <div className='ap-shell-navbar--left'>
         <span className='title'>
           {appTitle}
         </span>
       </div>
 
-      <div className='shell-navbar--right'>
+      <div className='ap-shell-navbar--right'>
         <Avatar
           size={AVATAR_SIZES.XS}
         />

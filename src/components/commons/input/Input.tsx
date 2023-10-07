@@ -88,9 +88,8 @@ export const Input = ({
 
   // Rendering //
 
-  const classes = new ClassBuilder('ap-input')
+  const classes = new ClassBuilder(['ap-input', className])
 
-  classes.add(className)
   if (showPassword) {
     classes.add('ap-input--show-password')
   }

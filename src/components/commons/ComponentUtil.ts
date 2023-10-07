@@ -1,4 +1,13 @@
 
+function transform(arg: string | string[]): string[] {
+  if (Array.isArray(arg)) {
+    return arg.reduce((acc, s) => {
+      acc.push(...transform(s))
+      return acc
+    }, [])
+  }
+  return (arg || '').split(' ').filter(s => s)
+}
 
 export class ClassBuilder {
 
@@ -8,8 +17,8 @@ export class ClassBuilder {
 
   // Constructor //
 
-  constructor(classBase: string) {
-    (classBase || '').split(' ').filter(s => s).forEach(c => {
+  constructor(classBase: string | string[]) {
+    transform(classBase).forEach(c => {
       this.#classArray[c] = true
     })
   }
@@ -22,19 +31,19 @@ export class ClassBuilder {
 
   // Methods //
 
-  add(className: string) {
-    (className || '').split(' ').filter(s => s).forEach(c => {
+  add(className: string | string[]) {
+    transform(className).forEach(c => {
       this.#classArray[c] = true
     })
   }
-  remove(className: string) {
-    (className || '').split(' ').filter(s => s).forEach(c => {
+  remove(className: string | string[]) {
+    transform(className).forEach(c => {
       delete this.#classArray[c]
     })
   }
-  toggle(className: string) {
-    (className || '').split(' ').filter(s => s).forEach(c => {
-      if(this.#classArray[c]) {
+  toggle(className: string | string[]) {
+    transform(className).forEach(c => {
+      if (this.#classArray[c]) {
         this.remove(c)
       } else {
         this.add(c)

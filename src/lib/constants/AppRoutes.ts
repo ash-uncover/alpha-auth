@@ -4,8 +4,6 @@ type AppRoute =
   'register' |
   'recover' |
   'account' |
-  'social' |
-  'messages' |
   'support'
 
 export const AppRoutes: {
@@ -14,8 +12,6 @@ export const AppRoutes: {
   REGISTER: AppRoute
   RECOVER: AppRoute
   ACCOUNT: AppRoute
-  SOCIAL: AppRoute
-  MESSAGES: AppRoute
   SUPPORT: AppRoute
 } = {
   BASE: '/',
@@ -23,7 +19,5 @@ export const AppRoutes: {
   REGISTER: 'register',
   RECOVER: 'recover',
   ACCOUNT: 'account',
-  SOCIAL: 'social',
-  MESSAGES: 'messages',
   SUPPORT: 'support'
 }

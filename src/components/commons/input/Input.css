@@ -1,12 +1,22 @@
+:root {
+  --ap-input--height: 2.25rem;
+  --ap-input--background: var(--ap-main-background-subtle);
+  --ap-input--box-shadow: 0 0 5px grey;
+  --ap-input--border-radius: 0.75rem;
+  --ap-input--padding-h: var(--ap-padding-m);
+  --ap-input--padding-v: 0;
+}
+
 .ap-input {
   border: none;
-  box-shadow: 0 0 5px grey;
-  border-radius: 0.75rem;
-  box-sizing: border-box;
-  padding: 0 0.75rem;
-  height: 2.25rem;
   outline: none;
-  background: #F3F3F3;
+  box-sizing: border-box;
+
+  box-shadow: var(--ap-input--box-shadow);
+  border-radius: var(--ap-input--border-radius);
+  background: var(--ap-input--background);
+  padding: var(--ap-input--padding-v) var(--ap-input--padding-h);
+  height: var(--ap-input--height);
 
   display: flex;
   align-items: center;
@@ -19,9 +29,9 @@
   &:focus-within,
   &:focus,
   &:focus-visible {
-    background: #FFF;
     border: none;
-    box-shadow: 0 0 5px var(--ap-main-color);
+    --ap-input--background: var(--ap-main-background);
+    --ap-input--box-shadow: 0 0 5px var(--ap-main-color);
   }
 
   & .ap-input__input {
@@ -47,6 +57,13 @@
     color: rgb(80, 80, 80);
     &:hover {
       filter: brightness(20%);
+    }
+  }
+
+  &.ap-input--show-password {
+    & .ap-input__action-password {
+      color: var(--ap-main-color);
+      filter: brightness(80%);
     }
   }
 }

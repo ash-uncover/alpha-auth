@@ -1,9 +1,11 @@
 
 :root {
+  --ap-main-text-color: rgb(34, 34, 34);
   --ap-main-color: rgb(0, 148, 255);
   --ap-main-inactive: rgb(132, 185, 206) ;
   --ap-main-highlight: rgb(247, 184, 1);
   --ap-main-background: rgb(255, 255, 255);
+  --ap-main-background-subtle: rgb(243, 243, 243);
   --ap-main-background-alpha: rgba(255,255,225,0.5);
 
   --ap-positive-color: rgb(255, 255, 255);
@@ -21,8 +23,26 @@
   --ap-default-color: #333;
   --ap-default-background: #888;
 
-  --ap-main-nuance1-color: #3D348B;
-  --ap-main-nuance1-background: white;
+  --ap-main-nuance1-color: var(--ap-main-text-color);
+  --ap-main-nuance1-background: #06B8A6;
+  --ap-main-nuance2-color: var(--ap-main-text-color);
+  --ap-main-nuance2-background: #FFC4BF;
+  --ap-main-nuance3-color: var(--ap-main-text-color);
+  --ap-main-nuance3-background: #80E8FF;
+  --ap-main-nuance4-color: var(--ap-main-text-color);
+  --ap-main-nuance4-background: #34A853;
+  --ap-main-nuance5-color: var(--ap-main-text-color);
+  --ap-main-nuance5-background: #DC493A;
+  --ap-main-nuance6-color: var(--ap-main-text-color);
+  --ap-main-nuance6-background: #FFF49B;
+  --ap-main-nuance7-color: var(--ap-main-text-color);
+  --ap-main-nuance7-background: #D7B2FF;
+  --ap-main-nuance8-color: var(--ap-main-text-color);
+  --ap-main-nuance8-background: #B7FFBE;
+  --ap-main-nuance9-color: var(--ap-main-text-color);
+  --ap-main-nuance9-background: #F0BC8C;
+  --ap-main-nuance10-color: var(--ap-main-text-color);
+  --ap-main-nuance10-background: #4392F1;
 
   --ap-main-effect: #F7D4C0;
 
@@ -49,23 +69,6 @@ html, body {
   font-family: 'Roboto', sans-serif;
 }
 
-h1 {
-  font-size: 1.5rem;
-}
-
-h2 {
-  font-size: 1.2rem;
-}
-
-textarea {
-  font-family: 'Roboto', sans-serif;
-}
-
-*:focus {
-  outline: 1px solid var(--ap-main-color);
-  border-radius: 0.5rem;
-}
-
 #react-root {
   position: absolute;
   top: 0;
@@ -79,6 +82,15 @@ textarea {
   background-image: url('images/background.jpg');
   background-size: cover;
   background-position: center;
+}
+
+textarea {
+  font-family: 'Roboto', sans-serif;
+}
+
+*:focus {
+  outline: 1px solid var(--ap-main-color);
+  border-radius: 0.5rem;
 }
 
 .ap-dialog {

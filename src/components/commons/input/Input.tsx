@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faRemove } from '@fortawesome/free-solid-svg-icons'
@@ -21,6 +21,7 @@ interface InputProperties {
   className?: string
   style?: React.CSSProperties
 
+  autoFocus?: boolean
   disabled?: boolean
   icon?: IconProp
   name?: string
@@ -37,6 +38,7 @@ export const Input = ({
   className,
   style,
 
+  autoFocus,
   disabled,
   name,
   placeholder,
@@ -51,9 +53,19 @@ export const Input = ({
 
   // Hooks //
 
-  const [finalType, setFinalType] = useState(type)
+  const input = useRef<HTMLInputElement>()
+  const [focused, setFocused] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
 
   // Events //
+
+  function handleFocus() {
+    setFocused(true)
+    input.current && input.current.focus()
+  }
+  function handleBlur() {
+    setFocused(false)
+  }
 
   function handleInputChange(event) {
     onChange({
@@ -62,10 +74,10 @@ export const Input = ({
   }
 
   function handleToggleShowPassword() {
-    setFinalType(finalType === 'password' ? '' : 'password')
+    setShowPassword(!showPassword)
   }
   function handleResetShowPassword() {
-    setFinalType('password')
+    setShowPassword(false)
   }
 
   function handleResetValue() {
@@ -79,29 +91,36 @@ export const Input = ({
   const classes = new ClassBuilder('ap-input')
 
   classes.add(className)
+  if (showPassword) {
+    classes.add('ap-input--show-password')
+  }
 
   return (
     <div
       className={classes.className}
       style={style}
-      tabIndex={0}
+      tabIndex={focused ? -1 : 0}
+      onFocus={handleFocus}
     >
       <input
+        ref={input}
         className='ap-input__input'
 
+        autoFocus={autoFocus}
         disabled={disabled}
         name={name}
         placeholder={placeholder}
         required={required}
         tabIndex={-1}
-        type={finalType}
+        type={(type === 'password' && showPassword) ? '' : type}
         value={value}
 
+        onBlur={handleBlur}
         onChange={handleInputChange}
       />
-      {showPasswordIcon && type === 'password' ? (
+      {showPasswordIcon && type === 'password' && value?.length ? (
         <FontAwesomeIcon
-          className='ap-input__action'
+          className='ap-input__action ap-input__action-password'
           icon={faEye}
           onMouseDown={handleToggleShowPassword}
           onMouseLeave={handleResetShowPassword}

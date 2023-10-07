@@ -123,15 +123,15 @@ export const RegisterAsk = ({
   // Callbacks //
 
   const onUsernameChanged = (event) => {
-    setUsername(event.target.value)
+    setUsername(event.value)
   }
 
   const onPasswordChanged = (event) => {
-    setPassword(event.target.value)
+    setPassword(event.value)
   }
 
   const onRepeatChanged = (event) => {
-    setRepeat(event.target.value)
+    setRepeat(event.value)
   }
 
   const onRegister = async (event) => {
@@ -161,6 +161,7 @@ export const RegisterAsk = ({
 
       <Input
         className='form-control'
+        autoFocus
         name='alpha-username'
         placeholder={usernamePlaceholder}
         required

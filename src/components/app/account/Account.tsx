@@ -25,7 +25,7 @@ import {
   AppSection
 } from '../../commons/shell/Shell'
 
-import ImageUploader from '../../../lib/components/ImageUploader'
+import ImageUploader from '../../commons/imageuploader/ImageUploader'
 import { CONFIG } from '../../../config'
 
 import './Account.css'

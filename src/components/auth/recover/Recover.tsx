@@ -63,6 +63,7 @@ export const Recover = () => {
 
       <Input
         className='form-control'
+        autoFocus
         name='alpha-username'
         placeholder={usernamePlaceholder}
         required

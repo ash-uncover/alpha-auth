@@ -28,6 +28,8 @@ module.exports = merge(common, {
     publicPath: '/',
   },
 
+  devtool: false,
+
   plugins: [
     new HtmlWebpackPlugin({
       favicon: './public/logo_48.png',

@@ -59,12 +59,12 @@ export const Title = ({
 
   classes.add(`ap-title--${level.toLowerCase()}`)
 
-  switch (level) {
-    case TITLE_LEVELS.H2: return <h2 className={classes.className} style={style}>{children || text}</h2>
-    case TITLE_LEVELS.H3: return <h3 className={classes.className} style={style}>{children || text}</h3>
-    case TITLE_LEVELS.H4: return <h4 className={classes.className} style={style}>{children || text}</h4>
-    case TITLE_LEVELS.H5: return <h5 className={classes.className} style={style}>{children || text}</h5>
-    case TITLE_LEVELS.H6: return <h6 className={classes.className} style={style}>{children || text}</h6>
-    default: return <h1 className={classes.className} style={style}>{children || text}</h1>
-  }
+  return React.createElement(
+    level.toLowerCase(),
+    {
+      className: classes.className,
+      style
+    },
+    children || text
+  )
 }

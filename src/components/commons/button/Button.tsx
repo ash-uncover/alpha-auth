@@ -11,15 +11,15 @@ import './Button.css'
 // Constants
 // ---------------------------------------------------
 
-type BUTTON_SEMANTIC = 'POSITIVE' | 'NEGATIVE' | 'WARNING' | 'ATTENTION' | 'PRINCIPAL' | 'TRANSPARENT' | 'DEFAULT'
-export const BUTTON_SEMANTICS: {
-  POSITIVE: BUTTON_SEMANTIC
-  NEGATIVE: BUTTON_SEMANTIC
-  WARNING: BUTTON_SEMANTIC
-  ATTENTION: BUTTON_SEMANTIC
-  PRINCIPAL: BUTTON_SEMANTIC
-  TRANSPARENT: BUTTON_SEMANTIC
-  DEFAULT: BUTTON_SEMANTIC
+type ButtonSemantic = 'POSITIVE' | 'NEGATIVE' | 'WARNING' | 'ATTENTION' | 'PRINCIPAL' | 'TRANSPARENT' | 'DEFAULT'
+export const ButtonSemantics: {
+  POSITIVE: ButtonSemantic
+  NEGATIVE: ButtonSemantic
+  WARNING: ButtonSemantic
+  ATTENTION: ButtonSemantic
+  PRINCIPAL: ButtonSemantic
+  TRANSPARENT: ButtonSemantic
+  DEFAULT: ButtonSemantic
 } = {
   POSITIVE: 'POSITIVE',
   NEGATIVE: 'NEGATIVE',
@@ -41,7 +41,7 @@ interface ButtonProperties {
   disabled?: boolean
   icon?: IconProp
   iconEnd?: IconProp
-  semantic?: BUTTON_SEMANTIC
+  semantic?: ButtonSemantic
   text?: string
   title?: string
   type?: 'button' | 'submit'
@@ -56,7 +56,7 @@ export const Button = ({
   disabled,
   icon,
   iconEnd,
-  semantic = BUTTON_SEMANTICS.DEFAULT,
+  semantic = ButtonSemantics.DEFAULT,
   text,
   title,
   type,

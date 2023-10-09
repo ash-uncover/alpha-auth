@@ -1,5 +1,6 @@
 :root {
   --ap-shell-menu-item--height: 2rem;
+  --ap-shell-menu-item--color: 2rem;
   --ap-shell-menu-item--background: transparent;
   --ap-shell-menu-item--margin: 0 calc(var(--ap-shell-menu--padding) * -1);
   --ap-shell-menu-item--padding: var(--ap-padding-xs) var(--ap-shell-menu--padding);

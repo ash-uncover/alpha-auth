@@ -5,10 +5,9 @@ import {
 } from '../../../lib/hooks'
 
 import {
-  AppContent,
-  AppArea,
-  AppSection
-} from '../../commons/shell/Shell'
+  ShellMainArea,
+  Panel,
+} from '../../commons'
 
 import './Support.css'
 
@@ -19,20 +18,23 @@ import './Support.css'
 export const Support = () => {
 
   // Hooks //
-  const { t } = useTranslation()
-  const title = t('app:support.title')
+  const { t } = useTranslation('app')
+  const title = t('support.title')
 
-  const contactTitle = t('app:support.contact.title')
+  const contactTitle = t('support.contact.title')
 
   // Rendering //
 
   return (
-    <AppContent className='support'>
-      <AppArea title={title}>
-        <AppSection title={contactTitle}>
-          ...
-        </AppSection>
-      </AppArea>
-    </AppContent>
+    <ShellMainArea
+      className='ap-auth-home'
+      title={title}
+    >
+      <Panel
+        title={contactTitle}
+      >
+        <p>...</p>
+      </Panel>
+    </ShellMainArea>
   )
 }

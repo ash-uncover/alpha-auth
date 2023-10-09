@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 import { AppRoutes } from '../../../lib/constants'
 
 import './ShellNavbar.css'
-import { AVATAR_SIZES, Avatar } from '../avatar/Avatar'
+import { AvatarSizes, Avatar } from '../avatar/Avatar'
 import { ClassBuilder } from '../ComponentUtil'
 
 // ---------------------------------------------------
@@ -48,7 +48,7 @@ export const ShellNavbar = ({
 
       <div className='ap-shell-navbar--right'>
         <Avatar
-          size={AVATAR_SIZES.XS}
+          size={AvatarSizes.XS}
         />
 
         <Link

@@ -2,7 +2,7 @@
   --ap-shell--background: var(--ap-main-background-subtle);
 
   --ap-shell-area--background: var(--ap-main-background);
-  --ap-shell-area--box-shadow: 0 2px 5px grey;
+  --ap-shell-area--box-shadow: var(--ap-main-box-shadow);
   --ap-shell-area--border-radius: 0.5rem;
 }
 

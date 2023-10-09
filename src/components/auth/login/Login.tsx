@@ -97,11 +97,13 @@ export const Login = () => {
         name='alpha-username'
         placeholder={usernamePlaceholder}
         required
+        showClearIcon
         value={username}
         onChange={onUsernameChanged}
       />
       <Input
         className='form-control'
+        autoSelect
         name='alpha-password'
         placeholder={passwordPlaceholder}
         showPasswordIcon

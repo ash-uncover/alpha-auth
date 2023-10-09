@@ -5,10 +5,9 @@ import {
 } from '../../../lib/hooks'
 
 import {
-  AppContent,
-  AppArea,
-  AppSection
-} from '../../commons/shell/Shell'
+  ShellMainArea,
+  Panel,
+} from '../../commons'
 
 import './Home.css'
 
@@ -16,23 +15,31 @@ import './Home.css'
 // Create Component Home
 // ---------------------------------------------------
 
-export const Home = () => {
+interface HomeProperties {
+
+}
+export const Home = ({
+
+}: HomeProperties) => {
 
   // Hooks //
 
-  const { t } = useTranslation()
-  const title = t('app:home.title')
-  const infoTitle = t('app:home.info.title')
+  const { t } = useTranslation('app')
+  const title = t('home.title')
+  const infoTitle = t('home.info.title')
 
   // Rendering //
 
   return (
-    <AppContent className='home'>
-      <AppArea title={title}>
-        <AppSection title={infoTitle}>
-          ...
-        </AppSection>
-      </AppArea>
-    </AppContent>
+    <ShellMainArea
+      className='ap-auth-home'
+      title={title}
+    >
+      <Panel
+        title={infoTitle}
+      >
+        <p>...</p>
+      </Panel>
+    </ShellMainArea>
   )
 }

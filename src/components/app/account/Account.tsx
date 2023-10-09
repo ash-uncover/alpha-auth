@@ -11,27 +11,27 @@ import {
   AuthSelectors
 } from '../../../store/auth/auth.selectors'
 
-import {
-  FontAwesomeIcon
-} from '@fortawesome/react-fontawesome'
-
-import {
-  faInfoCircle
-} from '@fortawesome/free-solid-svg-icons'
-
-import {
-  AppContent,
-  AppArea,
-  AppSection
-} from '../../commons/shell/Shell'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
 import ImageUploader from '../../commons/imageuploader/ImageUploader'
 import { CONFIG } from '../../../config'
 
-import './Account.css'
-import { useUser } from '../../../store'
 import { UsersService } from '../../../services/rest/UsersService'
 import { User } from 'alpha-auth-common/build/services/auth/auth.model'
+
+import {
+  Button,
+  ButtonSemantics,
+  Input,
+  Label,
+  Panel,
+  PanelFooter,
+  ShellMainArea,
+  TextArea,
+} from '../../commons'
+
+import './Account.css'
 
 // ---------------------------------------------------
 // Create Component
@@ -64,7 +64,7 @@ export const Account = () => {
   const [description, setDescription] = useState(user.description)
 
   const onNameChange = (event) => {
-    setName(event.target.value)
+    setName(event.value)
   }
 
   const onAvatarChange = (file) => {
@@ -72,7 +72,7 @@ export const Account = () => {
   }
 
   const onDescriptionChange = (event) => {
-    setDescription(event.target.value)
+    setDescription(event.value)
   }
 
   const onUpdateInfo = (event) => {
@@ -87,79 +87,81 @@ export const Account = () => {
   // Rendering //
 
   return (
-    <AppContent className='account'>
-      <AppArea title={title}>
-        <AppSection title={infoTitle}>
-          <form>
-            <div className='form-group'>
-              <label className='form-label'>
-                {infoAvatarTitle}
-                <FontAwesomeIcon
-                  icon={faInfoCircle}
-                  size='sm'
-                  title={infoAvatarTooltip}
-                />
-              </label>
-              <div className='form-control form-avatar'>
-                <ImageUploader
-                  name=''
-                  src={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.avatar}`}
-                  onChange={onAvatarChange}
-                />
-              </div>
-            </div>
-            <div className='form-group'>
-              <label className='form-label'>
-                {infoNameTitle}
-                <FontAwesomeIcon
-                  icon={faInfoCircle}
-                  size='sm'
-                  title={infoNameTooltip}
-                />
-              </label>
-              <input
-                className='form-control'
-                placeholder={infoNamePlaceholder}
-                value={name || ''}
-                onChange={onNameChange}
+    <ShellMainArea
+      className='ap-auth-account'
+      title={title}
+    >
+      <Panel title={infoTitle} expandable>
+        <form>
+          <div className='form-group'>
+            <Label className='form-label'>
+              {infoAvatarTitle}
+              <FontAwesomeIcon
+                icon={faInfoCircle}
+                size='sm'
+                title={infoAvatarTooltip}
+              />
+            </Label>
+            <div className='form-control form-avatar'>
+              <ImageUploader
+                name=''
+                src={`${CONFIG.ALPHA_AUTH_REST_URL}/${user.avatar}`}
+                onChange={onAvatarChange}
               />
             </div>
-            <div className='form-group'>
-              <label className='form-label'>
-                {infoDescTitle}
-                <FontAwesomeIcon
-                  icon={faInfoCircle}
-                  size='sm'
-                  title={infoDescTooltip}
-                />
-              </label>
-              <textarea
-                className='form-control'
-                style={{ resize: 'none' }}
-                rows={5}
-                placeholder={infoDescPlaceholder}
-                value={description}
-                onChange={onDescriptionChange}
+          </div>
+          <div className='form-group'>
+            <Label className='form-label'>
+              {infoNameTitle}
+              <FontAwesomeIcon
+                icon={faInfoCircle}
+                size='sm'
+                title={infoNameTooltip}
               />
-            </div>
-            <div className='form-group actions'>
-              <button
-                className='form-submit'
-                type='submit'
-                disabled={name === user.name && description === user.description}
-                title={infoSubmitTooltip}
-                onClick={onUpdateInfo}
-              >
-                {infoSubmitTitle}
-              </button>
-            </div>
-          </form>
-        </AppSection>
+            </Label>
+            <Input
+              className='form-control'
+              placeholder={infoNamePlaceholder}
+              value={name || ''}
+              onChange={onNameChange}
+            />
+          </div>
+          <div className='form-group'>
+            <Label className='form-label'>
+              {infoDescTitle}
+              <FontAwesomeIcon
+                icon={faInfoCircle}
+                size='sm'
+                title={infoDescTooltip}
+              />
+            </Label>
+            <TextArea
+              className='form-control'
+              style={{ resize: 'none' }}
+              rows={5}
+              placeholder={infoDescPlaceholder}
+              value={description}
+              onChange={onDescriptionChange}
+            />
+          </div>
 
-        <AppSection title={accountTitle}>
-          ...
-        </AppSection>
-      </AppArea>
-    </AppContent>
+          <PanelFooter className='form-group actions'>
+            <Button
+              disabled={name === user.name && description === user.description}
+              semantic={ButtonSemantics.PRINCIPAL}
+              title={infoSubmitTooltip}
+              type='submit'
+              onClick={onUpdateInfo}
+            >
+              {infoSubmitTitle}
+            </Button>
+          </PanelFooter>
+        </form>
+      </Panel>
+
+      <Panel title={accountTitle}>
+        ...
+      </Panel>
+    </ShellMainArea>
   )
 }

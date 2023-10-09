@@ -1,0 +1,8 @@
+:root {
+ --ap-shell-main-area--padding-v: 1rem;
+ --ap-shell-main-area--padding-h: 2rem;
+}
+
+.ap-shell-main-area {
+  padding: var(--ap-shell-main-area--padding-v) var(--ap-shell-main-area--padding-h);
+}

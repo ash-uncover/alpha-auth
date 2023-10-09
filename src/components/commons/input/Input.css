@@ -1,22 +1,20 @@
 :root {
-  --ap-input--height: 2.25rem;
   --ap-input--background: var(--ap-main-background-subtle);
-  --ap-input--box-shadow: 0 0 5px grey;
+  --ap-input--box-shadow: var(--ap-main-box-shadow);
   --ap-input--border-radius: 0.75rem;
   --ap-input--padding-h: var(--ap-padding-m);
-  --ap-input--padding-v: 0;
+  --ap-input--padding-v: var(--ap-padding-s);
 }
 
 .ap-input {
-  border: none;
-  outline: none;
-  box-sizing: border-box;
-
   box-shadow: var(--ap-input--box-shadow);
   border-radius: var(--ap-input--border-radius);
   background: var(--ap-input--background);
   padding: var(--ap-input--padding-v) var(--ap-input--padding-h);
-  height: var(--ap-input--height);
+
+  border: none;
+  outline: none;
+  box-sizing: border-box;
 
   display: flex;
   align-items: center;
@@ -47,9 +45,8 @@
   }
 
   & .ap-input__action {
-    width: 1.5rem;
-    height: 1.5rem;
-    padding: 0.25rem;
+    width: 1rem;
+    height: 1rem;
     box-sizing: border-box !important;
     border-radius: 0.25rem;
     font-size: 1rem;

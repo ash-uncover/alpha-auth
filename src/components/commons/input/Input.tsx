@@ -22,6 +22,7 @@ interface InputProperties {
   style?: React.CSSProperties
 
   autoFocus?: boolean
+  autoSelect?: boolean
   disabled?: boolean
   icon?: IconProp
   name?: string
@@ -39,6 +40,7 @@ export const Input = ({
   style,
 
   autoFocus,
+  autoSelect,
   disabled,
   name,
   placeholder,
@@ -61,16 +63,21 @@ export const Input = ({
 
   function handleFocus() {
     setFocused(true)
-    input.current && input.current.focus()
+    if (input.current) {
+      if (autoSelect) {
+        input.current.select()
+      } else if (autoFocus) {
+        input.current.focus()
+      }
+    }
+
   }
   function handleBlur() {
     setFocused(false)
   }
 
-  function handleInputChange(event) {
-    onChange({
-      value: event.target.value
-    })
+  function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
+    onChange({ value: event.target.value })
   }
 
   function handleToggleShowPassword() {
@@ -81,9 +88,7 @@ export const Input = ({
   }
 
   function handleResetValue() {
-    onChange({
-      value: ''
-    })
+    onChange({ value: '' })
   }
 
   // Rendering //

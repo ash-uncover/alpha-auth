@@ -8,14 +8,14 @@ import './Title.css'
 // Constants
 // ---------------------------------------------------
 
-type TITLE_LEVEL = 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6'
-export const TITLE_LEVELS: {
-  H1: TITLE_LEVEL
-  H2: TITLE_LEVEL
-  H3: TITLE_LEVEL
-  H4: TITLE_LEVEL
-  H5: TITLE_LEVEL
-  H6: TITLE_LEVEL
+export type TitleLevel = 'H1' | 'H2' | 'H3' | 'H4' | 'H5' | 'H6'
+export const TitleLevels: {
+  H1: TitleLevel
+  H2: TitleLevel
+  H3: TitleLevel
+  H4: TitleLevel
+  H5: TitleLevel
+  H6: TitleLevel
 } = {
   H1: 'H1',
   H2: 'H2',
@@ -32,7 +32,7 @@ interface TitleProperties {
   className?: string
   style?: React.CSSProperties
 
-  level?: TITLE_LEVEL
+  level?: TitleLevel
   text?: string
 
   children?: ReactNode
@@ -41,7 +41,7 @@ export const Title = ({
   className,
   style,
 
-  level = TITLE_LEVELS.H1,
+  level = TitleLevels.H1,
   text,
 
   children,

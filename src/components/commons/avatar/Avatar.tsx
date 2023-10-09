@@ -12,13 +12,13 @@ import './Avatar.css'
 // Constants
 // ---------------------------------------------------
 
-type AVATAR_SIZE = 'XS' | 'S' | 'M' | 'L' | 'XL'
-export const AVATAR_SIZES: {
-  XS: AVATAR_SIZE
-  S: AVATAR_SIZE
-  M: AVATAR_SIZE
-  L: AVATAR_SIZE
-  XL: AVATAR_SIZE
+type AvatarSize = 'XS' | 'S' | 'M' | 'L' | 'XL'
+export const AvatarSizes: {
+  XS: AvatarSize
+  S: AvatarSize
+  M: AvatarSize
+  L: AvatarSize
+  XL: AvatarSize
 } = {
   XS: 'XS',
   S: 'S',
@@ -38,7 +38,7 @@ interface AvatarProperties {
   icon?: IconProp
   image?: string
   initials?: string
-  size?: AVATAR_SIZE
+  size?: AvatarSize
   title?: string
   onClick?: (event: React.FormEvent<HTMLDivElement>) => void
 }
@@ -49,7 +49,7 @@ export const Avatar = ({
   icon,
   image,
   initials,
-  size = AVATAR_SIZES.S,
+  size = AvatarSizes.S,
   title,
   onClick
 }: AvatarProperties) => {

@@ -3,6 +3,7 @@
   --ap-button--color: var(--ap-main-background);
   --ap-button--background: var(--ap-main-color);
   --ap-button--border-radius: var(--ap-border-radius-m);
+  --ap-button--box-shadow: none;
   --ap-button--padding-h: var(--ap-padding-s);
   --ap-button--padding-v: var(--ap-padding-xs);
 }
@@ -16,7 +17,7 @@
 
   border: none;
   box-sizing: border-box;
-
+  box-shadow: var(--ap-button--box-shadow);
   cursor: pointer;
 
   display: flex;
@@ -61,6 +62,10 @@
   &.ap-button--transparent {
     --ap-button--color: var(--ap-transparent-color);
     --ap-button--background: var(--ap-transparent-background);
+    --ap-button--border-box: var(--ap-transparent-background);
+    &:hover {
+      --ap-button--box-shadow: var(--ap-main-box-shadow--smaller);
+    }
   }
   &.ap-button--default {
     --ap-button--color: var(--ap-default-color);

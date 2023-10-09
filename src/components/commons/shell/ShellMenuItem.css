@@ -1,7 +1,8 @@
 :root {
-  --ap-shell-menu-item--height: 2rem;
-  --ap-shell-menu-item--color: 2rem;
+  --ap-shell-menu-item--height: 2.5rem;
+  --ap-shell-menu-item--color: var(--ap-main-color);
   --ap-shell-menu-item--background: transparent;
+  --ap-shell-menu-item--font-weight: normal;
   --ap-shell-menu-item--margin: 0 calc(var(--ap-shell-menu--padding) * -1);
   --ap-shell-menu-item--padding: var(--ap-padding-xs) var(--ap-shell-menu--padding);
 }
@@ -9,6 +10,8 @@
 
   height: var(--ap-shell-menu-item--height);
   background: var(--ap-shell-menu-item--background);
+  color: var(--ap-shell-menu-item--color);
+  font-weight: var(--ap-shell-menu-item--font-weight);
   margin: var(--ap-shell-menu-item--margin);
   padding: var(--ap-shell-menu-item--padding);
 
@@ -16,9 +19,40 @@
   align-items: center;
   gap: var(--ap-gaps-s);
 
+  text-decoration: none;
+  transition: background-color 0.1s ease-in, color 0.1s ease-in;
+
   &:hover {
     --ap-shell-menu-item--background: var(--ap-main-background-subtle);
   }
+
+  &:focus {
+    outline: none;
+    border-radius: 0;
+    --ap-shell-menu-item--color: var(--ap-main-background-subtle);
+    --ap-shell-menu-item--background: var(--ap-main-focus-color);
+  }
+  &:active {
+    --ap-shell-menu-item--color: var(--ap-main-background-subtle);
+    --ap-shell-menu-item--background: var(--ap-main-active-color);
+  }
+  &.ap-shell-menu-item--selected {
+    --ap-shell-menu-item--font-weight: 500;
+    --ap-shell-menu-item--color: var(--ap-main-background);
+    --ap-shell-menu-item--background: var(--ap-main-color);
+  }
+
+  &.ap-shell-menu-item--expanded {
+    & .ap-shell-menu-item__text {
+      display: initial;
+    }
+  }
+  &.ap-shell-menu-item--collapsed {
+    & .ap-shell-menu-item__text {
+      display: none;
+    }
+  }
+
 
   & .ap-shell-menu-item__icon {
     flex-shrink: 0;

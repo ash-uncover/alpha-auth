@@ -3,6 +3,7 @@ type AppRoute =
   'logout' |
   'register' |
   'recover' |
+  'home' |
   'account' |
   'support'
 
@@ -11,6 +12,7 @@ export const AppRoutes: {
   LOGOUT: AppRoute
   REGISTER: AppRoute
   RECOVER: AppRoute
+  HOME: AppRoute
   ACCOUNT: AppRoute
   SUPPORT: AppRoute
 } = {
@@ -18,6 +20,7 @@ export const AppRoutes: {
   LOGOUT: 'logout',
   REGISTER: 'register',
   RECOVER: 'recover',
+  HOME: 'home',
   ACCOUNT: 'account',
   SUPPORT: 'support'
 }

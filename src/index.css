@@ -2,6 +2,8 @@
 :root {
   --ap-main-text-color: rgb(34, 34, 34);
   --ap-main-color: rgb(0, 148, 255);
+  --ap-main-focus-color: rgb(116, 195, 252);
+  --ap-main-active-color: rgb(67, 175, 252);
   --ap-main-inactive: rgb(132, 185, 206) ;
   --ap-main-highlight: rgb(247, 184, 1);
   --ap-main-background: rgb(255, 255, 255);
@@ -9,6 +11,7 @@
   --ap-main-background-alpha: rgba(255,255,225,0.5);
   --ap-main-box-shadow: 1px 2px 5px rgb(128, 128, 128);
   --ap-main-box-shadow--smaller: 1px 2px 3px rgb(150, 150, 150);
+  --ap-main-box-shadow--element: 0 0 3px rgb(150, 150, 150);
 
   --ap-positive-color: rgb(255, 255, 255);
   --ap-positive-background: rgb(9, 161, 68);

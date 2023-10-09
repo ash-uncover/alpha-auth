@@ -22,6 +22,7 @@ interface ShellMenuItemProperties {
 
   expanded?: boolean
   icon?: IconProp
+  selected?: boolean
   text: string
   to: string
 }
@@ -31,6 +32,7 @@ export const ShellMenuItem = ({
 
   expanded,
   icon,
+  selected,
   text,
   to,
 }: ShellMenuItemProperties) => {
@@ -42,6 +44,15 @@ export const ShellMenuItem = ({
   // Rendering //
 
   const classes = new ClassBuilder(['ap-shell-menu-item', className])
+
+  if (expanded) {
+    classes.add('ap-shell-menu-item--expanded')
+  } else {
+    classes.add('ap-shell-menu-item--collapsed')
+  }
+  if (selected) {
+    classes.add('ap-shell-menu-item--selected')
+  }
 
   return (
     <NavLink

@@ -25,11 +25,11 @@ export const RouteHome = () => {
   return (
     <Shell>
       <Routes>
-        <Route path={`${AppRoutes.BASE}`} element={<Home />} />
+        <Route path={`/${AppRoutes.HOME}`} element={<Home />} />
         <Route path={`/${AppRoutes.ACCOUNT}`} element={<Account />} />
         <Route path={`/${AppRoutes.SUPPORT}`} element={<Support />} />
         <Route path={`/${AppRoutes.LOGOUT}`} element={<Logout />} />
-        <Route path='*' element={<Navigate replace to='/' />} />
+        <Route path='*' element={<Navigate replace to={`/${AppRoutes.HOME}`} />} />
       </Routes>
     </Shell>
   )

@@ -1,5 +1,5 @@
 :root {
-  --ap-shell-menu--width: 3rem;
+  --ap-shell-menu--width: 2rem;
   --ap-shell-menu--background: var(--ap-main-background);
   --ap-shell-menu--padding: var(--ap-padding-m);
 }
@@ -17,5 +17,14 @@
 
   &.ap-shell-menu--expanded {
     --ap-shell-menu--width: 12rem;
+  }
+
+  & .ap-shell-menu__expander {
+    width: 1.5rem;
+    height: 1.5rem;
+    margin-bottom: 0.5rem;
+    margin-right: 0.25rem;
+    align-self: flex-end;
+    --ap-button--border-radius: 0.25rem;
   }
 }

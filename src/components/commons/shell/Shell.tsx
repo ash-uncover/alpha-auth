@@ -23,6 +23,7 @@ import {
 } from '..'
 
 import './Shell.css'
+import { useLocation, useNavigate, useNavigation } from 'react-router-dom'
 
 // ---------------------------------------------------
 // Create Component Shell
@@ -37,6 +38,7 @@ export const Shell = ({
 
   // Hooks //
 
+  const location = useLocation()
   const { t } = useTranslation(['app'])
   const menuHome = t('home.link.title')
   const menuAccount = t('account.link.title')
@@ -56,20 +58,23 @@ export const Shell = ({
       >
         <ShellMenu className='ap-shell__area'>
           <ShellMenuItem
-            to={AppRoutes.BASE}
+            to={AppRoutes.HOME}
             icon={faHome}
+            selected={location.pathname.indexOf(AppRoutes.HOME) !== -1}
             text={menuHome}
           />
 
           <ShellMenuItem
             to={AppRoutes.ACCOUNT}
             icon={faUserCircle}
+            selected={location.pathname.indexOf(AppRoutes.ACCOUNT) !== -1}
             text={menuAccount}
           />
 
           <ShellMenuItem
             to={AppRoutes.SUPPORT}
             icon={faQuestionCircle}
+            selected={location.pathname.indexOf(AppRoutes.SUPPORT) !== -1}
             text={menuSupport}
           />
         </ShellMenu>

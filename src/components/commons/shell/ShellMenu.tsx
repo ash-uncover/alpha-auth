@@ -1,11 +1,17 @@
 import React, { ReactNode, useState } from 'react'
 
-import { ClassBuilder } from '../ComponentUtil'
-
-import './ShellMenu.css'
-import { Title } from '../title/Title'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAngleDoubleLeft, faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+
+import { ClassBuilder } from '../ComponentUtil'
+
+import {
+  Button,
+  ButtonSemantics,
+  Title,
+} from '..'
+
+import './ShellMenu.css'
 
 // ---------------------------------------------------
 // Constants
@@ -52,25 +58,38 @@ export const ShellMenu = ({
     classes.add('ap-shell-menu--expanded')
   }
 
+  const items = React.Children.map(children, child => {
+    if (React.isValidElement(child)) {
+      return React.cloneElement(
+        child, {
+          ...child.props,
+          expanded: expandedState
+        });
+    }
+    return child
+  })
+
   return (
     <div
       className={classes.className}
       style={style}
     >
-      <button
-        className='app-menu-item__expander'
+      <Button
+        className='ap-shell-menu__expander'
+        semantic={ButtonSemantics.TRANSPARENT}
         onClick={handleToggleExpanded}
       >
         <FontAwesomeIcon
-          icon={expanded ? faAngleDoubleLeft : faAngleDoubleRight}
+          icon={expandedState ? faAngleDoubleLeft : faAngleDoubleRight}
         />
-      </button>
+      </Button>
+
       {title ? (
         <Title level='H4'>
           {title}
         </Title>
       ) : null}
-      {children}
+      {items}
     </div>
   )
 }

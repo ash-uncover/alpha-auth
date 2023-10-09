@@ -1,5 +1,5 @@
 :root {
-  --ap-panel--background: lightgray;
+  --ap-panel--background: var(--ap-main-background-subtle);
   --ap-panel--border-radius: 0.5rem;
   --ap-panel--margin-h: 0;
   --ap-panel--margin-v: 1rem;

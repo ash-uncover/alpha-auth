@@ -31,6 +31,7 @@ module.exports = {
         include: DIR_SRC,
         exclude: DIR_NODE_MODULES,
         use: [
+          { loader: 'source-map-loader' },
           { loader: 'babel-loader' },
         ],
       },
@@ -39,6 +40,7 @@ module.exports = {
         include: DIR_SRC,
         exclude: DIR_NODE_MODULES,
         use: [
+          { loader: 'source-map-loader' },
           { loader: 'ts-loader' },
         ],
       },

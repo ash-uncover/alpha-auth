@@ -42,7 +42,7 @@ module.exports = merge(common, {
     }),
   ],
 
-  devtool: 'eval-source-map',
+  devtool: 'inline-source-map',
 
   devServer: {
     client: {

@@ -22,7 +22,6 @@
     "dist",
     "node_modules",
     "test",
-    "src-old",
     ".vscode"
   ]
 }

@@ -28,7 +28,7 @@ import {
   Button,
   Input,
   Title,
-} from '../../commons'
+} from '@uncover/react-commons'
 
 // ---------------------------------------------------
 // Create Component Register

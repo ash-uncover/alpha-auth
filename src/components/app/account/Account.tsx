@@ -7,29 +7,27 @@ import {
   useTranslation
 } from '../../../lib/hooks'
 
-import {
-  AuthSelectors
-} from '../../../store/auth/auth.selectors'
+import { AuthSelectors } from '../../../store/auth/auth.selectors'
+import { UsersService } from '../../../services/rest/UsersService'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons'
 
-import ImageUploader from '../../commons/imageuploader/ImageUploader'
 import { CONFIG } from '../../../config'
 
-import { UsersService } from '../../../services/rest/UsersService'
 import { User } from 'alpha-auth-common/build/services/auth/auth.model'
 
 import {
   Button,
   ButtonSemantics,
+  ImageUploader,
   Input,
   Label,
   Panel,
   PanelFooter,
   ShellMainArea,
   TextArea,
-} from '../../commons'
+} from '@uncover/react-commons'
 
 import './Account.css'
 

@@ -7,7 +7,7 @@ import {
 import {
   ShellMainArea,
   Panel,
-} from '../../commons'
+} from '@uncover/react-commons'
 
 import './Support.css'
 

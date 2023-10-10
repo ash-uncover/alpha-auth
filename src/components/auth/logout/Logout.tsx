@@ -4,7 +4,6 @@ import { useDispatch } from 'react-redux'
 
 import { AuthService } from '../../../services/rest/AuthService'
 
-
 // ---------------------------------------------------
 // Create Component Logout
 // ---------------------------------------------------

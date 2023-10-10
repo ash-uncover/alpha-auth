@@ -12,7 +12,7 @@ import { Home } from '../../components/app/home/Home'
 import { Account } from '../../components/app/account/Account'
 import { Support } from '../../components/app/support/Support'
 import { Logout } from '../../components/auth/logout/Logout'
-import { Shell } from '../../components/commons/shell/Shell'
+import { AppShell } from '../../components/app/AppShell'
 
 // ---------------------------------------------------
 // Create Component RouteHome
@@ -23,7 +23,7 @@ export const RouteHome = () => {
   // Rendering //
 
   return (
-    <Shell>
+    <AppShell>
       <Routes>
         <Route path={`/${AppRoutes.HOME}`} element={<Home />} />
         <Route path={`/${AppRoutes.ACCOUNT}`} element={<Account />} />
@@ -31,6 +31,6 @@ export const RouteHome = () => {
         <Route path={`/${AppRoutes.LOGOUT}`} element={<Logout />} />
         <Route path='*' element={<Navigate replace to={`/${AppRoutes.HOME}`} />} />
       </Routes>
-    </Shell>
+    </AppShell>
   )
 }
